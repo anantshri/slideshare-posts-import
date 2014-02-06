@@ -3,15 +3,13 @@
  * Fired when the plugin is uninstalled.
  *
  * @package   Slideshare_Posts_Import
- * @author    Your Name <email@example.com>
+ * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
- * @link      http://example.com
- * @copyright 2014 Your Name or Company Name
+ * @link      https://github.com/Spoon4/slideshare-posts-import
+ * @copyright 2014 Spoon
  */
 
 // If uninstall not called from WordPress, then exit
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
-
-// @TODO: Define uninstall functionality here

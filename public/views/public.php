@@ -6,10 +6,10 @@
  * frontend of the theme when the plugin is activated.
  *
  * @package   Slideshare_Posts_Import
- * @author    Your Name <email@example.com>
+ * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
- * @link      http://example.com
- * @copyright 2014 Your Name or Company Name
+ * @link      https://github.com/Spoon4/slideshare-posts-import
+ * @copyright 2014 Spoon
  */
 ?>
 

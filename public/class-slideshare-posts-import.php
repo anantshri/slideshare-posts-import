@@ -17,7 +17,7 @@
  * functionality, then refer to `class-slideshare-posts-import-admin.php`
  *
  * @package Slideshare_Posts_Import
- * @author  Your Name <email@example.com>
+ * @author  Spoon <spoon4@gmail.com>
  */
 class Slideshare_Posts_Import {
 
