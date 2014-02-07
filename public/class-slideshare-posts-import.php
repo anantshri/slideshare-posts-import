@@ -1,8 +1,8 @@
 <?php
 /**
- * Slideshare Posts Import.
+ * SlideShare Posts Import.
  *
- * @package   Slideshare_Posts_Import
+ * @package   SlideShare_Posts_Import
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
  * @link      https://github.com/Spoon4/slideshare-posts-import
@@ -16,10 +16,10 @@
  * If you're interested in introducing administrative or dashboard
  * functionality, then refer to `class-slideshare-posts-import-admin.php`
  *
- * @package Slideshare_Posts_Import
+ * @package SlideShare_Posts_Import
  * @author  Spoon <spoon4@gmail.com>
  */
-class Slideshare_Posts_Import {
+class SlideShare_Posts_Import {
 
 	/**
 	 * Plugin version, used for cache-busting of style and script file references.

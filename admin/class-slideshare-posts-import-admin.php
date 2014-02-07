@@ -1,8 +1,8 @@
 <?php
 /**
- * Slideshare Posts Import.
+ * SlideShare Posts Import.
  *
- * @package   Slideshare_Posts_Import_Admin
+ * @package   SlideShare_Posts_Import_Admin
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
  * @link      https://github.com/Spoon4/slideshare-posts-import
@@ -16,10 +16,10 @@
  * If you're interested in introducing public-facing
  * functionality, then refer to `class-slideshare-posts-import.php`
  *
- * @package Slideshare_Posts_Import_Admin
+ * @package SlideShare_Posts_Import_Admin
  * @author  Spoon <spoon4@gmail.com>
  */
-class Slideshare_Posts_Import_Admin {
+class SlideShare_Posts_Import_Admin {
 
 	/**
 	 * Instance of this class.
@@ -59,7 +59,7 @@ class Slideshare_Posts_Import_Admin {
 		/*
 		 * Call $plugin_slug from public plugin class.
 		 */
-		$plugin = Slideshare_Posts_Import::get_instance();
+		$plugin = SlideShare_Posts_Import::get_instance();
 		$this->plugin_slug = $plugin->get_plugin_slug();
 
 		// Load admin style sheet and JavaScript.
@@ -125,7 +125,7 @@ class Slideshare_Posts_Import_Admin {
 
 		$screen = get_current_screen();
 		if ( $this->plugin_screen_hook_suffix == $screen->id ) {
-			wp_enqueue_style( $this->plugin_slug .'-admin-styles', plugins_url( 'assets/css/admin.css', __FILE__ ), array(), Slideshare_Posts_Import::VERSION );
+			wp_enqueue_style( $this->plugin_slug .'-admin-styles', plugins_url( 'assets/css/admin.css', __FILE__ ), array(), SlideShare_Posts_Import::VERSION );
 		}
 
 	}
@@ -145,7 +145,7 @@ class Slideshare_Posts_Import_Admin {
 
 		$screen = get_current_screen();
 		if ( $this->plugin_screen_hook_suffix == $screen->id ) {
-			wp_enqueue_script( $this->plugin_slug . '-admin-script', plugins_url( 'assets/js/admin.js', __FILE__ ), array( 'jquery' ), Slideshare_Posts_Import::VERSION );
+			wp_enqueue_script( $this->plugin_slug . '-admin-script', plugins_url( 'assets/js/admin.js', __FILE__ ), array( 'jquery' ), SlideShare_Posts_Import::VERSION );
 		}
 
 	}
@@ -171,14 +171,14 @@ class Slideshare_Posts_Import_Admin {
 		 */
 		if(function_exists('add_menu_page')) {
 			$settings_slug = $this->plugin_slug.'-settings';
-			add_menu_page(__( 'Slideshare Posts Import Settings', $this->plugin_slug ), __( 'Slideshare Posts', $this->plugin_slug ), 10, $settings_slug, array( $this, 'display_plugin_admin_page' ));
+			add_menu_page(__( 'SlideShare Posts Import Settings', $this->plugin_slug ), __( 'SlideShare Posts', $this->plugin_slug ), 10, $settings_slug, array( $this, 'display_plugin_admin_page' ));
 			add_submenu_page($settings_slug, __( 'Global settings', $this->plugin_slug ), __( 'Global settings', $this->plugin_slug ), 10, $settings_slug, array( $this, 'display_plugin_admin_page' ));
 			add_submenu_page($settings_slug, __( 'Import', $this->plugin_slug ), __( 'Import', $this->plugin_slug ), 10, $this->plugin_slug.'-import', array( $this, 'display_plugin_import_page' ));
 		}
 	/*	
 		$this->plugin_screen_hook_suffix = add_options_page(
-			__( 'Slideshare Posts Import Settings', $this->plugin_slug ),
-			__( 'Slideshare Posts', $this->plugin_slug ),
+			__( 'SlideShare Posts Import Settings', $this->plugin_slug ),
+			__( 'SlideShare Posts', $this->plugin_slug ),
 			'manage_options',
 			$this->plugin_slug,
 			array( $this, 'display_plugin_admin_page' )
