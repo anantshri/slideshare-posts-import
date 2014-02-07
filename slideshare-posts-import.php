@@ -39,9 +39,13 @@ require_once( plugin_dir_path( __FILE__ ) . 'public/class-slideshare-posts-impor
 
 require_once( plugin_dir_path( __FILE__ ) . 'includes/functions.php' );
 
-require_once( plugin_dir_path( __FILE__ ) . 'includes/api/class-slideshare-model.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/api/model/class-user-model.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/api/model/class-slideshow-model.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/api/model/class-tag-model.php' );
+
 require_once( plugin_dir_path( __FILE__ ) . 'includes/api/http/class-slideshare-api-request.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/api/http/class-slideshare-api-response.php' );
+
 require_once( plugin_dir_path( __FILE__ ) . 'includes/api/rest/class-slideshare-credentials.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/api/rest/class-slideshare-api-user.php' );
 

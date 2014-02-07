@@ -27,7 +27,7 @@ class SlideShareAPIUser
 		$this->credentials = new SlideShareCredentials($apiKey, $sharedSecret);
 	}
 	
-	public function getSlideShows($slideshare_user, $username = null, $password = null, $optional = array()) 
+	public function getSlideshows($slideshare_user, $username = null, $password = null, $optional = array()) 
 	{
 		$this->credentials->setUserCredentials($username, $password);
 		
