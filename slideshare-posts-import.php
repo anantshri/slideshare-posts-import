@@ -28,7 +28,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! defined( 'SLIDESHARE_API_URL' ) ) {
-	define('SLIDESHARE_API_URL', 'https://www.slideshare.net/api/2');
+	define('SLIDESHARE_API_URL', 'https://www.slideshare.net/api/2/');
 }
 
 /*----------------------------------------------------------------------------*
@@ -36,6 +36,14 @@ if ( ! defined( 'SLIDESHARE_API_URL' ) ) {
  *----------------------------------------------------------------------------*/
 
 require_once( plugin_dir_path( __FILE__ ) . 'public/class-slideshare-posts-import.php' );
+
+require_once( plugin_dir_path( __FILE__ ) . 'includes/functions.php' );
+
+require_once( plugin_dir_path( __FILE__ ) . 'includes/api/class-slideshare-model.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/api/http/class-slideshare-api-request.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/api/http/class-slideshare-api-response.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/api/rest/class-slideshare-credentials.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/api/rest/class-slideshare-api-user.php' );
 
 /*
  * Register hooks that are fired when the plugin is activated or deactivated.
