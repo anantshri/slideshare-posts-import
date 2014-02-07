@@ -48,28 +48,30 @@ class SlideShareAPIRequest
 		add_filter('https_ssl_verify', '__return_false');
 		
 		if('post' == strtolower($method)) {
-			$response = wp_remote_post($api_url, array(
+			$params = array(
 				'method'      => 'POST',
-				'httpversion' => '1.1',
-				'blocking'    => true,
+//				'httpversion' => '1.1',
+// 				'blocking'    => true,
 				'headers'     => $headers,
-				'body'        => $data
-			));
+				'content'     => $data
+			);
 		} elseif('get' == strtolower($method)) {		
-			$response = wp_remote_get($api_url, array(
+			$params = array(
+				'method'      => 'GET',
 				'headers'     => $headers,
-				'body'        => $data,
-			));
+			);
 		} else {
 			return null;
 		}
 		
-		
-		if(is_wp_error($response))
-			return $response;
-		else
-//			return json_decode(wp_remote_retrieve_body($response));
-			return wp_remote_retrieve_body($response);
+		try {
+			$context = stream_context_create(array('http' => $params));
+			$response = file_get_contents($this->getServiceURL(), false, $context);
+			
+			return new SlideShareAPIResponse($response);
+		} catch (Exception $e) {
+			return new SlideShareAPIResponse($e);
+		}
 	}
 	
 	/**
