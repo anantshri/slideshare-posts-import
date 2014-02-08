@@ -13,7 +13,7 @@
  */
 ?>
 
-<div class="wrap">
+<div id="slideshare-import-container" class="wrap">
 
 	<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
 	
@@ -28,6 +28,8 @@
 	<?php endif; ?>
 	
 	<p><?php _e('You will be notified when your import has finished. DO NOT LEAVE THIS PAGE UNTIL YOU HAVE RECEIVED NOTIFICATION.')?></p>
+	
+	<?php include('activity-indicator.php');?>
 	
 	<p class="submit">
 		<input type="submit" id="slideshare_import" name="submit" class="button-primary" value="<?php _e('Import shares')?>" />

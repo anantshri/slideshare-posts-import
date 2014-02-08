@@ -37,7 +37,7 @@ class SlideShare_Posts_Import_Admin
 	 *
 	 * @var      string
 	 */
-	protected $plugin_screen_hook_suffix = null;
+	protected $plugin_screen_hook_suffix = array();
 
 	/**
 	 * Initialize the plugin by loading admin scripts & styles and adding a
@@ -124,7 +124,7 @@ class SlideShare_Posts_Import_Admin
 		}
 
 		$screen = get_current_screen();
-		if ( $this->plugin_screen_hook_suffix == $screen->id ) {
+		if ( in_array($screen->id, $this->plugin_screen_hook_suffix) ) {
 			wp_enqueue_style( $this->plugin_slug .'-admin-styles', plugins_url( 'assets/css/admin.css', __FILE__ ), array(), SlideShare_Posts_Import::VERSION );
 		}
 
@@ -144,8 +144,12 @@ class SlideShare_Posts_Import_Admin
 		}
 
 		$screen = get_current_screen();
-		if ( $this->plugin_screen_hook_suffix == $screen->id ) {
-			wp_enqueue_script( $this->plugin_slug . '-admin-script', plugins_url( 'assets/js/admin.js', __FILE__ ), array( 'jquery' ), SlideShare_Posts_Import::VERSION );
+		if ( in_array($screen->id, $this->plugin_screen_hook_suffix) ) {
+			wp_register_script($this->plugin_slug . '-admin-script', plugins_url('assets/js/admin.js', __FILE__), array('jquery'), SlideShare_Posts_Import::VERSION);
+			wp_localize_script($this->plugin_slug . '-admin-script', 'params', array( 
+	    		'submit_import_url'    => admin_url( 'admin-ajax.php' . '?action=import_slideshows' ),
+	    	));
+			wp_enqueue_script( $this->plugin_slug . '-admin-script' );
 		}
 
 	}
@@ -172,26 +176,28 @@ class SlideShare_Posts_Import_Admin
 		if(function_exists('add_menu_page')) {
 			$settings_slug = $this->plugin_slug.'-settings';
 			
-			$this->plugin_screen_hook_suffix = add_menu_page(
+			$this->plugin_screen_hook_suffix[] = add_menu_page(
 				__( 'SlideShare Posts Import Settings', $this->plugin_slug ), 
 				__( 'SlideShare Posts', $this->plugin_slug ), 
-				10, 
-				$settings_slug, 
+				10, $settings_slug, 
 				array( $this, 'display_plugin_admin_page' ),
 				plugins_url( '../assets/icon-slideshare.png', __FILE__ )
 			);
-			add_submenu_page($settings_slug, __( 'Global settings', $this->plugin_slug ), __( 'Global settings', $this->plugin_slug ), 10, $settings_slug, array( $this, 'display_plugin_admin_page' ));
-			add_submenu_page($settings_slug, __( 'Import', $this->plugin_slug ), __( 'Import', $this->plugin_slug ), 10, $this->plugin_slug.'-import', array( $this, 'display_plugin_import_page' ));
+			$this->plugin_screen_hook_suffix[] = add_submenu_page(
+				$settings_slug, 
+				__( 'Global settings', $this->plugin_slug ), 
+				__( 'Global settings', $this->plugin_slug ), 
+				10, $settings_slug, 
+				array( $this, 'display_plugin_admin_page' )
+			);
+			$this->plugin_screen_hook_suffix[] = add_submenu_page(
+				$settings_slug, 
+				__( 'Import', $this->plugin_slug ), 
+				__( 'Import', $this->plugin_slug ), 
+				10, $this->plugin_slug.'-import', 
+				array( $this, 'display_plugin_import_page' )
+			);
 		}
-	/*	
-		$this->plugin_screen_hook_suffix = add_options_page(
-			__( 'SlideShare Posts Import Settings', $this->plugin_slug ),
-			__( 'SlideShare Posts', $this->plugin_slug ),
-			'manage_options',
-			$this->plugin_slug,
-			array( $this, 'display_plugin_admin_page' )
-		);
-	*/
 	}
 
 	/**

@@ -1,9 +1,14 @@
 (function ( $ ) {
 	"use strict";
 
-	$(function () {
+	function displayActivityIndicator(selector, show) {
+		if(show)
+			$(selector).find('.activity-indicator').show();
+		else
+			$(selector).find('.activity-indicator').hide();
+	}
 
-		// Place your administration-specific JavaScript here
+	$(function () {
 
 	});
 
