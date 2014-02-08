@@ -191,9 +191,9 @@ class SlideShare_Posts_Import_Admin
 	 *
 	 * @since    1.0.0
 	 */
-		include_once( 'views/admin.php' );
 	public function display_plugin_admin_page() 
 	{
+		include_once( 'views/admin-settings.php' );
 	}
 
 	/**
@@ -201,9 +201,9 @@ class SlideShare_Posts_Import_Admin
 	 *
 	 * @since    1.0.0
 	 */
-		include_once( 'views/import.php' );
 	public function display_plugin_import_page() 
 	{
+		include_once( 'views/admin-import.php' );
 	}
 
 	/**
