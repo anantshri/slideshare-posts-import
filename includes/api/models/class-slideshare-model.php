@@ -9,7 +9,9 @@
  * @copyright 2014 Spoon
  *
  * @since    1.0.0
+ *
+ * @abstract
  */	
-class SlideShareModel
+abstract class SlideShareModel
 {
 }
