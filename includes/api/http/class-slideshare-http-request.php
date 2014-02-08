@@ -42,32 +42,36 @@ class SlideShareHttpRequest
 	 */
 	public function send($method, $data = null, $headers = array()) 
 	{
-		add_filter('https_ssl_verify', '__return_false');
-		
-		if('post' == strtolower($method)) {
-			$http = array(
-				'method'      => 'POST',
-//				'httpversion' => '1.1',
-// 				'blocking'    => true,
-				'headers'     => $headers,
-				'content'     => $data
-			);
-		} elseif('get' == strtolower($method)) {		
-			$http = array(
-				'method'      => 'GET',
-				'headers'     => $headers,
-			);
-		} else {
-			return null;
-		}
-		
 		try {
+			add_filter('https_ssl_verify', '__return_false');
+		
+			if('post' == strtolower($method)) {
+				$http = array(
+					'method'      => 'POST',
+	//				'httpversion' => '1.1',
+	// 				'blocking'    => true,
+					'headers'     => $headers,
+					'content'     => $data
+				);
+			} elseif('get' == strtolower($method)) {		
+				$http = array(
+					'method'      => 'GET',
+					'headers'     => $headers,
+				);
+			} else {
+				throw new SlideShareException(__('HTTP error'), __("The HTTP method '$method' is not allowed"));
+			}
+		
 			$context = stream_context_create(array('http' => $http));
 			$response = file_get_contents($this->getServiceURL(), false, $context);
 			
+			if(is_wp_error($response)) {
+				throw new SlideShareException($response->get_error_code(), $response->get_error_message());
+			}
+			
 			return new SlideShareHttpResponse($response);
-		} catch (Exception $e) {
-			return new SlideShareHttpResponse($e);
+		} catch (Exception $exception) {
+			return new SlideShareHttpResponse($exception);
 		}
 	}
 	

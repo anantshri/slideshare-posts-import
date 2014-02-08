@@ -13,8 +13,7 @@
  */
 class SlideShareHttpResponse
 {	
-	private $data = null;
-	private $error = null;
+	private $data;
 	
 	/**
 	 * Constructor
@@ -25,40 +24,39 @@ class SlideShareHttpResponse
 	 */
 	public function __construct($data) 
 	{
-		if($data) {
-			if(is_wp_error($data))
-				$this->setError($data->get_error_code(), $data->get_error_message());
-			else if($data instanceof Exception)
-				$this->setError($data->getCode(), $data->getMessage());
-			else
-				$this->setData(utf8_encode($data));
-		}
-	}
-	
-	public function parse()
-	{
-		if($this->data) {
-			$parser = new SlideShareXMLParser($this->data);
-			$result = $parser->parse();
-			
-			if($result instanceof SlideShareModel) {
-				return $result;
-			}
-		}
-		return false;
+		$this->data = utf8_encode($data);
 	}
 	
 	/**
-	 * Set response data
+	 * Parse XML response from SlideShare API
 	 *
-	 * @param mixed $data The service response data
+	 * @return SlideShareModel|false
+	 * @throws SlideShareException, SlideShareServiceException
  	 *
  	 * @since    1.0.0
 	 */
-	private function setData($data)
+	public function parse()
 	{
-		$this->error = null;
-		$this->data = $data;
+		if($this->data) {
+			if($this->data instanceof Exception) {
+				throw $this->data;
+			} else {
+				$parser = new SlideShareXMLParser($this->data);
+				
+				try {
+					$result = $parser->parse();
+					
+					if($result instanceof SlideShareModel) {
+						return $result;
+					}
+				} catch(SlideShareServiceException $exception) {
+					throw $exception;
+				} catch(SlideShareException $exception) {
+					throw $exception;
+				}
+			}
+		}
+		throw new SlideShareException(__("SlideShare HTTP error on received data"), $this->data);
 	}
 	
 	/**
@@ -71,45 +69,5 @@ class SlideShareHttpResponse
 	public function getData()
 	{
 		return $this->data;
-	}
-	
-	/**
-	 * Set error data
-	 *
-	 * @param string $code The error code
-	 * @param string $message The error message
- 	 *
- 	 * @since    1.0.0
-	 */
-	private function setError($code, $message)
-	{
-		$this->data = null;
-		$this->error = new stdClass();
-		$this->error->code = $code;
-		$this->error->message = $message;
-	}
-	
-	/**
-	 * Get error
-	 *
-	 * @return stdClass The service error
- 	 *
- 	 * @since    1.0.0
-	 */
-	public function getError()
-	{
-		return $this->error;
-	}
-	
-	/**
-	 * Check if response is in error
-	 *
-	 * @return boolean
- 	 *
- 	 * @since    1.0.0
-	 */
-	public function isError()
-	{
-		return !is_null($this->error);
 	}
 }

@@ -39,6 +39,9 @@ require_once( plugin_dir_path( __FILE__ ) . 'public/class-slideshare-posts-impor
 
 require_once( plugin_dir_path( __FILE__ ) . 'includes/functions.php' );
 
+require_once( plugin_dir_path( __FILE__ ) . 'includes/api/exceptions/class-slideshare-exception.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/api/exceptions/class-slideshare-service-exception.php' );
+
 require_once( plugin_dir_path( __FILE__ ) . 'includes/api/interface-xml-parser.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/api/class-slideshare-xml-parser.php' );
 
