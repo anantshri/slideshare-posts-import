@@ -46,7 +46,7 @@ class SlideShareXMLParser
 				$error = $this->xml->Message;
 				throw new SlideShareServiceException((string) $error, (int) $error['ID']);
 			default:
-				throw new SlideShareException('Unknown node name', 'SlideShare response XML parsing failed ! This node name is unknown.');
+				throw new SlideShareParserException('Unknown node name', 'SlideShare response XML parsing failed ! This node name is unknown.');
 		}
 	}
 }

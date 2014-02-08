@@ -33,7 +33,7 @@ class Tag extends SlideShareModel implements IXMLParser
 				case 'Count': $this->count = (int) $value; break;
 				case 'Owner': $this->owner = (string) $value; break;
 				default:
-					error_log("Unknown Tag's XML child '".$child->getName()."' !");
+					throw new SlideShareParserException('Unknown node name', "SlideShare response XML parsing failed ! Unknown Tag's XML child '".$child->getName()."'");
 			}
 		}
 		return $this;

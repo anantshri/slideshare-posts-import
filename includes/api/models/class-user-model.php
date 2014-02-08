@@ -35,7 +35,7 @@ class User extends SlideShareModel implements IXMLParser
 					$this->slideshows[] = $slideshow->loadFromXML($child);
 					break;
 				default:
-					error_log("Unknown User's XML child '".$child->getName()."' !");
+					throw new SlideShareParserException('Unknown node name', "SlideShare response XML parsing failed ! Unknown User's XML child '".$child->getName()."'");
 			}
 		}
 		return $this;

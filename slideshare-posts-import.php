@@ -40,6 +40,8 @@ require_once( plugin_dir_path( __FILE__ ) . 'public/class-slideshare-posts-impor
 require_once( plugin_dir_path( __FILE__ ) . 'includes/functions.php' );
 
 require_once( plugin_dir_path( __FILE__ ) . 'includes/api/exceptions/class-slideshare-exception.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/api/exceptions/class-slideshare-http-exception.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/api/exceptions/class-slideshare-parser-exception.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/api/exceptions/class-slideshare-service-exception.php' );
 
 require_once( plugin_dir_path( __FILE__ ) . 'includes/api/interface-xml-parser.php' );

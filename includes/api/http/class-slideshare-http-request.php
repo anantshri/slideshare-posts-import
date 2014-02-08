@@ -37,6 +37,8 @@ class SlideShareHttpRequest
 	 * @param string $method The request method GET|POST.
 	 * @param mixed $data Optional request parameters (used for POST method only).
 	 * @param array $headers HTTP request headers.
+	 *
+	 *@throws SlideShareHttpException
  	 *
  	 * @since    1.0.0
 	 */
@@ -48,8 +50,6 @@ class SlideShareHttpRequest
 			if('post' == strtolower($method)) {
 				$http = array(
 					'method'      => 'POST',
-	//				'httpversion' => '1.1',
-	// 				'blocking'    => true,
 					'headers'     => $headers,
 					'content'     => $data
 				);
@@ -59,14 +59,14 @@ class SlideShareHttpRequest
 					'headers'     => $headers,
 				);
 			} else {
-				throw new SlideShareException(__('HTTP error'), __("The HTTP method '$method' is not allowed"));
+				throw new SlideShareHttpException(__('HTTP error'), __("The HTTP method '$method' is not allowed"));
 			}
 		
 			$context = stream_context_create(array('http' => $http));
 			$response = file_get_contents($this->getServiceURL(), false, $context);
 			
 			if(is_wp_error($response)) {
-				throw new SlideShareException($response->get_error_code(), $response->get_error_message());
+				throw new SlideShareHttpException($response->get_error_code(), $response->get_error_message());
 			}
 			
 			return new SlideShareHttpResponse($response);

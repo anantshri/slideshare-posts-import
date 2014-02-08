@@ -112,7 +112,7 @@ class Slideshow extends SlideShareModel implements IXMLParser
 				case 'AllowEmbed':        $this->embeds_allowed = (bool) $child; break;
 				case 'ShareWithContacts': $this->contacts_allowed = (bool) $child; break;
 				default:
-					error_log("Unknown Slideshow's XML child '".$child->getName()."' !");
+					throw new SlideShareParserException('Unknown node name', "SlideShare response XML parsing failed ! Unknown Slideshow's XML child '".$child->getName()."'");
 			}
 		}
 		return $this;
