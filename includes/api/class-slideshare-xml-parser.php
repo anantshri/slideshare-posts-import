@@ -2,7 +2,7 @@
 /**
  * Response for REST API calls.
  *
- * @package   SlideShareXMLParser
+ * @package   api
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
  * @link      https://github.com/Spoon4/slideshare-api-import
@@ -20,7 +20,7 @@ class SlideShareXMLParser
 	 *   <Message ID="10">User Not Found</Message>
 	 * </SlideShareServiceError>
 	 */
-	private $error;
+	private $error = null;
 	
 	public function __construct($data)
 	{
@@ -30,11 +30,27 @@ class SlideShareXMLParser
 	public function parse()
 	{
 		if(!$this->checkError()) {
-			
-		} else {
 			$error = $this->xml->SlideShareServiceError[0]->Message;
 			$this->setError((string) $error['ID'], $error);
 			return $this->error;
+		} else {
+			$object;
+			
+			switch($this->xml->getName()) {
+				case 'User':
+					$object = new User();
+					break;
+				case 'Slideshow':
+					$object = new Slideshow();
+					break;
+				default:
+					$object = null;
+			}
+			
+			if(!is_null($object)) {
+				return $object->loadFromXML($this->xml);
+			}
+			return $object;
 		}
 	}
 	
@@ -42,10 +58,10 @@ class SlideShareXMLParser
 	{
 		foreach($this->xml->children() as $child) {
 			if('SlideShareServiceError' == $child->getName()) {
-				return true;
+				return false;
 			}
 		}
-		return false;
+		return true;
 	}
 	
 	/**

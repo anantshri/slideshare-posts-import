@@ -39,15 +39,21 @@ require_once( plugin_dir_path( __FILE__ ) . 'public/class-slideshare-posts-impor
 
 require_once( plugin_dir_path( __FILE__ ) . 'includes/functions.php' );
 
-require_once( plugin_dir_path( __FILE__ ) . 'includes/api/model/class-user-model.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'includes/api/model/class-slideshow-model.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'includes/api/model/class-tag-model.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/api/interface-xml-parser.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/api/class-slideshare-xml-parser.php' );
 
-require_once( plugin_dir_path( __FILE__ ) . 'includes/api/http/class-slideshare-api-request.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'includes/api/http/class-slideshare-api-response.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/api/models/class-slideshare-model.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/api/models/class-user-model.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/api/models/class-slideshow-model.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/api/models/class-tag-model.php' );
 
-require_once( plugin_dir_path( __FILE__ ) . 'includes/api/rest/class-slideshare-credentials.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'includes/api/rest/class-slideshare-api-user.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/api/http/class-slideshare-http-request.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/api/http/class-slideshare-http-response.php' );
+
+require_once( plugin_dir_path( __FILE__ ) . 'includes/api/services/class-slideshare-service.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/api/services/class-slideshare-credentials.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/api/services/class-slideshare-slideshow-service.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/api/services/class-slideshare-user-service.php' );
 
 /*
  * Register hooks that are fired when the plugin is activated or deactivated.

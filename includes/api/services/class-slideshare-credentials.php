@@ -1,4 +1,16 @@
 <?php
+/**
+ * Credentials for REST API calls.
+ *
+ * @package   api/services
+ * @author    Spoon <spoon4@gmail.com>
+ * @license   GPL-2.0+
+ * @link      https://github.com/Spoon4/slideshare-api-import
+ * @link      http://fr.slideshare.net/developers/documentation
+ * @copyright 2014 Spoon
+ *
+ * @since    1.0.0
+ */
 class SlideShareCredentials 
 {	
 	private $api_key;

@@ -2,7 +2,7 @@
 /**
  * Request for REST API calls.
  *
- * @package   SlideShareAPIRequest
+ * @package   api/http
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
  * @link      https://github.com/Spoon4/slideshare-api-import
@@ -11,7 +11,7 @@
  *
  * @since    1.0.0
  */
-class SlideShareAPIRequest 
+class SlideShareHttpRequest 
 {	
 	private $credentials;
 	private $service;
@@ -42,13 +42,10 @@ class SlideShareAPIRequest
 	 */
 	public function send($method, $data = null, $headers = array()) 
 	{
-		$response = null;
-		$api_url = $this->getServiceURL();
-
 		add_filter('https_ssl_verify', '__return_false');
 		
 		if('post' == strtolower($method)) {
-			$params = array(
+			$http = array(
 				'method'      => 'POST',
 //				'httpversion' => '1.1',
 // 				'blocking'    => true,
@@ -56,7 +53,7 @@ class SlideShareAPIRequest
 				'content'     => $data
 			);
 		} elseif('get' == strtolower($method)) {		
-			$params = array(
+			$http = array(
 				'method'      => 'GET',
 				'headers'     => $headers,
 			);
@@ -65,12 +62,12 @@ class SlideShareAPIRequest
 		}
 		
 		try {
-			$context = stream_context_create(array('http' => $params));
+			$context = stream_context_create(array('http' => $http));
 			$response = file_get_contents($this->getServiceURL(), false, $context);
 			
-			return new SlideShareAPIResponse($response);
+			return new SlideShareHttpResponse($response);
 		} catch (Exception $e) {
-			return new SlideShareAPIResponse($e);
+			return new SlideShareHttpResponse($e);
 		}
 	}
 	

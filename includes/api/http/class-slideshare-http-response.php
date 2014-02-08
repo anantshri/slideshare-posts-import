@@ -2,7 +2,7 @@
 /**
  * Response for REST API calls.
  *
- * @package   SlideShareAPIResponse
+ * @package   api/http
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
  * @link      https://github.com/Spoon4/slideshare-api-import
@@ -11,7 +11,7 @@
  *
  * @since    1.0.0
  */
-class SlideShareAPIResponse
+class SlideShareHttpResponse
 {	
 	private $data = null;
 	private $error = null;
@@ -35,9 +35,17 @@ class SlideShareAPIResponse
 		}
 	}
 	
-	private function parse()
+	public function parse()
 	{
-		
+		if($this->data) {
+			$parser = new SlideShareXMLParser($this->data);
+			$result = $parser->parse();
+			
+			if($result instanceof SlideShareModel) {
+				return $result;
+			}
+		}
+		return false;
 	}
 	
 	/**
