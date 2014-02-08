@@ -9,6 +9,13 @@
 		}
 	}
 	
+	if(typeof setErrorMessage != 'function') {
+		function setErrorMessage(title, message) {
+			jQuery('#notice-title').html(title);
+			jQuery('#notice-message').html(message);
+		}
+	}
+	
 </script>
 
 <div id="notice" class="error">
