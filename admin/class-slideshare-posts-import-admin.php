@@ -171,7 +171,15 @@ class SlideShare_Posts_Import_Admin
 		 */
 		if(function_exists('add_menu_page')) {
 			$settings_slug = $this->plugin_slug.'-settings';
-			add_menu_page(__( 'SlideShare Posts Import Settings', $this->plugin_slug ), __( 'SlideShare Posts', $this->plugin_slug ), 10, $settings_slug, array( $this, 'display_plugin_admin_page' ));
+			
+			$this->plugin_screen_hook_suffix = add_menu_page(
+				__( 'SlideShare Posts Import Settings', $this->plugin_slug ), 
+				__( 'SlideShare Posts', $this->plugin_slug ), 
+				10, 
+				$settings_slug, 
+				array( $this, 'display_plugin_admin_page' ),
+				plugins_url( '../assets/icon-slideshare.png', __FILE__ )
+			);
 			add_submenu_page($settings_slug, __( 'Global settings', $this->plugin_slug ), __( 'Global settings', $this->plugin_slug ), 10, $settings_slug, array( $this, 'display_plugin_admin_page' ));
 			add_submenu_page($settings_slug, __( 'Import', $this->plugin_slug ), __( 'Import', $this->plugin_slug ), 10, $this->plugin_slug.'-import', array( $this, 'display_plugin_import_page' ));
 		}
