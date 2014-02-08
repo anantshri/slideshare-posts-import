@@ -2,8 +2,10 @@
 
 .activity-indicator {
 	position: relative;
-	margin: 50px 10px;
+	margin: 50px 0;
 	text-align: center;
+	background-color: white;
+	padding: 5px 0 15px 0;
 	display: none;
 }
 

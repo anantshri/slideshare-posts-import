@@ -30,7 +30,7 @@
 	<?php include('activity-indicator.php');?>
 	
 	<p class="submit">
-		<input type="submit" id="slideshare_import" name="submit" class="button-primary" value="<?php _e('Import shares')?>" />
+		<input type="submit" id="slideshare-import" name="submit" class="button-primary" value="<?php _e('Import shares')?>" />
 		<input type="hidden" id="_wpnonce" name="_wpnonce" value="<?php echo wp_create_nonce('_wp_slideshare_nonce');?>" />
 	</p>
 	<h3 id="slideshare_total"></h3>
