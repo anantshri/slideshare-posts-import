@@ -23,9 +23,7 @@
 	}
 	?>
 	
-	<?php if(!empty($notice)): ?>
-	<div id="notice" class="error"><p><?php echo $notice ?></p></div>
-	<?php endif; ?>
+	<?php include('error-container.php');?>
 	
 	<p><?php _e('You will be notified when your import has finished. DO NOT LEAVE THIS PAGE UNTIL YOU HAVE RECEIVED NOTIFICATION.')?></p>
 	
