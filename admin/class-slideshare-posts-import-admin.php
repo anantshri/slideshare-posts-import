@@ -19,8 +19,8 @@
  * @package SlideShare_Posts_Import_Admin
  * @author  Spoon <spoon4@gmail.com>
  */
-class SlideShare_Posts_Import_Admin {
-
+class SlideShare_Posts_Import_Admin 
+{
 	/**
 	 * Instance of this class.
 	 *
@@ -45,8 +45,8 @@ class SlideShare_Posts_Import_Admin {
 	 *
 	 * @since     1.0.0
 	 */
-	private function __construct() {
-
+	private function __construct() 
+	{
 		/*
 		 * @TODO :
 		 *
@@ -91,8 +91,8 @@ class SlideShare_Posts_Import_Admin {
 	 *
 	 * @return    object    A single instance of this class.
 	 */
-	public static function get_instance() {
-
+	public static function get_instance() 
+	{
 		/*
 		 * @TODO :
 		 *
@@ -117,8 +117,8 @@ class SlideShare_Posts_Import_Admin {
 	 *
 	 * @return    null    Return early if no settings page is registered.
 	 */
-	public function enqueue_admin_styles() {
-
+	public function enqueue_admin_styles() 
+	{
 		if ( ! isset( $this->plugin_screen_hook_suffix ) ) {
 			return;
 		}
@@ -137,8 +137,8 @@ class SlideShare_Posts_Import_Admin {
 	 *
 	 * @return    null    Return early if no settings page is registered.
 	 */
-	public function enqueue_admin_scripts() {
-
+	public function enqueue_admin_scripts() 
+	{
 		if ( ! isset( $this->plugin_screen_hook_suffix ) ) {
 			return;
 		}
@@ -155,8 +155,8 @@ class SlideShare_Posts_Import_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function add_plugin_admin_menu() {
-
+	public function add_plugin_admin_menu() 
+	{
 		/*
 		 * Add a settings page for this plugin to the Settings menu.
 		 *
@@ -191,8 +191,9 @@ class SlideShare_Posts_Import_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function display_plugin_admin_page() {
 		include_once( 'views/admin.php' );
+	public function display_plugin_admin_page() 
+	{
 	}
 
 	/**
@@ -200,8 +201,9 @@ class SlideShare_Posts_Import_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function display_plugin_import_page() {
 		include_once( 'views/import.php' );
+	public function display_plugin_import_page() 
+	{
 	}
 
 	/**
@@ -209,8 +211,8 @@ class SlideShare_Posts_Import_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function add_action_links( $links ) {
-
+	public function add_action_links( $links ) 
+	{
 		return array_merge(
 			array(
 				'settings' => '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_slug ) . '">' . __( 'Settings', $this->plugin_slug ) . '</a>'
@@ -229,7 +231,8 @@ class SlideShare_Posts_Import_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function action_method_name() {
+	public function action_method_name() 
+	{
 		// @TODO: Define your action hook callback here
 	}
 
@@ -242,7 +245,8 @@ class SlideShare_Posts_Import_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function filter_method_name() {
+	public function filter_method_name() 
+	{
 		// @TODO: Define your filter hook callback here
 	}
 
