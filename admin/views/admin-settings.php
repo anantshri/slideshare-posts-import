@@ -38,14 +38,6 @@
 	
 	<form name="options" method="POST" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
 		<table class="form-table">
-			<tr valign="top">
-				<th scope="row"><label for="publish"><?php _e('Automatically publish posts:')?></label></th>
-				<td>
-					<input type="radio" name="publish" value="1" <?php if(get_option('SLIDESHARE_AUTOPUBLISH')):?> checked<?php endif;?> /> <?php _e('yes')?> 
-					<input type="radio" name="publish" value="0" <?php if(!get_option('SLIDESHARE_AUTOPUBLISH')):?> checked<?php endif;?> /> <?php _e('no')?><br />
-					<p><span class="setting-description"><?php _e('This option will make posts immediately viewable to the public.')?></span></p>
-				</td>
-			</tr>
 			<tr valign="row">
 				<th scope="row"><label for="api_key"><?php _e('API Key<span class="required"> (*)</span>:')?> </label></th>
 				<td><input type="text" name="api_key" value="<?php echo get_option( 'SLIDESHARE_API_KEY', '' ); ?>" size="70" class="regular-text"></td>
@@ -55,6 +47,10 @@
 				<td><input type="text" name="api_secret_key" value="<?php echo get_option( 'SLIDESHARE_API_SECRET_KEY', '' ); ?>" size="70" class="regular-text"></td>
 			</tr>
 			<tr valign="row">
+				<th scope="row"><label for="slideshare_name"><?php _e('Name:')?> </label></th>
+				<td><input type="text" name="slideshare_name" value="<?php echo get_option( 'SLIDESHARE_NAME', '' ); ?>" size="70" class="regular-text"></td>
+			</tr>
+			<tr valign="row">
 				<th scope="row"><label for="slideshare_username"><?php _e('Username:')?> </label></th>
 				<td><input type="text" name="slideshare_username" value="<?php echo get_option( 'SLIDESHARE_USERNAME', '' ); ?>" size="70" class="regular-text"></td>
 			</tr>
@@ -62,9 +58,13 @@
 				<th scope="row"><label for="slideshare_password"><?php _e('Password:')?> </label></th>
 				<td><input type="text" name="slideshare_password" value="<?php echo get_option( 'SLIDESHARE_PASSWORD', '' ); ?>" size="70" class="regular-text"></td>
 			</tr>
-			<tr valign="row">
-				<th scope="row"><label for="slideshare_name"><?php _e('Name:')?> </label></th>
-				<td><input type="text" name="slideshare_name" value="<?php echo get_option( 'SLIDESHARE_NAME', '' ); ?>" size="70" class="regular-text"></td>
+			<tr valign="top">
+				<th scope="row"><label for="publish"><?php _e('Automatically publish posts:')?></label></th>
+				<td>
+					<input type="radio" name="publish" value="1" <?php if(get_option('SLIDESHARE_AUTOPUBLISH')):?> checked<?php endif;?> /> <?php _e('yes')?> 
+					<input type="radio" name="publish" value="0" <?php if(!get_option('SLIDESHARE_AUTOPUBLISH')):?> checked<?php endif;?> /> <?php _e('no')?><br />
+					<p><span class="setting-description"><?php _e('This option will make posts immediately viewable to the public.')?></span></p>
+				</td>
 			</tr>
 		</table>
 		<p class="submit">
