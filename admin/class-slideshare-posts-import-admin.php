@@ -199,7 +199,7 @@ class SlideShare_Posts_Import_Admin
 				__( 'SlideShare Posts', $this->plugin_slug ), 
 				10, $settings_slug, 
 				array( $this, 'display_plugin_admin_page' ),
-				plugins_url( '../assets/icon-slideshare.png', __FILE__ )
+				plugins_url( 'assets/images/icon-slideshare.png', __FILE__ )
 			);
 			$this->plugin_screen_hook_suffix[] = add_submenu_page(
 				$settings_slug, 
