@@ -1,9 +1,11 @@
 <script type="text/javascript" charset="utf-8">
 
 	if(typeof displayErrorContainer != 'function') {
-		function displayErrorContainer(show) {
-			if(show)
-				jQuery('#notice').fadeIn();
+		function displayErrorContainer(show, blink) {
+			if(show && blink)
+				jQuery('#notice').fadeIn().fadeOut();
+			else if(show)
+				jQuery('#notice').fadeIn()
 			else
 				jQuery('#notice').fadeOut();
 		}
