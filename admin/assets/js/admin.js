@@ -29,7 +29,7 @@
 					displayActivityIndicator('#slideshare-import-container', false);
 					
 					if(!response) {
-						setErrorMessage('Error', 'Unknown error');
+						setNoticeMessage('Error', 'Unknown error', true);
 						return;
 					}
 					
@@ -40,13 +40,13 @@
 						$('#slideshare-count').html(response.data.length);
 			        } else {
 						console.log(response.data);
-						setErrorMessage(response.data.error_code, response.data.error_message);
+						setNoticeMessage(response.data.error_code, response.data.error_message, true);
 			        }
 			    },
 			    error: function(response, textStatus, errorThrown) {
 					displayActivityIndicator('#slideshare-import-container', false);
-					setErrorMessage(textStatus, errorThrown);
-					displayErrorContainer(true);
+					setNoticeMessage(textStatus, errorThrown, true);
+					displayNoticeContainer(true);
 			    }
 			});
 		});

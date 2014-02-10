@@ -23,7 +23,7 @@
 	}
 	?>
 	
-	<?php include('error-container.php');?>
+	<?php include('notice-container.php');?>
 	
 	<p><?php _e('You will be notified when your import has finished. DO NOT LEAVE THIS PAGE UNTIL YOU HAVE RECEIVED NOTIFICATION.')?></p>
 	
