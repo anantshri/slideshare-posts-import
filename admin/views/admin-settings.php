@@ -42,7 +42,7 @@
 	<?php if(!empty($notice)): ?>
 		<script type="text/javascript" charset="utf-8">
 			setNoticeMessage("<?php echo $notice['label']?>", "<?php echo $notice['message']?>");
-			displayNoticeContainer(true, true);
+			displayNoticeContainer(true, true, true);
 		</script>
 	<?php endif; ?>
 	
