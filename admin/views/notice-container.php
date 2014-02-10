@@ -1,16 +1,29 @@
 <script type="text/javascript" charset="utf-8">
 
 	if(typeof displayNoticeContainer != 'function') {
-		function displayNoticeContainer(show, blink) {
-			if(show) {
-				jQuery('#notice').fadeIn()
-				if(blink) {
-					setInterval(function() {
-						jQuery('#notice').fadeOut();
-					}, 1200);
+		function displayNoticeContainer(show, animate, blink) {
+			if(animate) {
+				if(show) {
+					jQuery('#notice').fadeIn();
+					if(blink) {
+						setInterval(function() {
+							jQuery('#notice').fadeOut();
+						}, 1200);
+					}
+				} else {
+					jQuery('#notice:visible').fadeOut();
 				}
 			} else {
-				jQuery('#notice').fadeOut();
+				if(show) {
+					jQuery('#notice').show();
+					if(blink) {
+						setInterval(function() {
+							jQuery('#notice').hide();
+						}, 1200);
+					}
+				} else {
+					jQuery('#notice').hide();
+				}
 			}
 		}
 	}
