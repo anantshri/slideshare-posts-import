@@ -2,12 +2,16 @@
 
 	if(typeof displayNoticeContainer != 'function') {
 		function displayNoticeContainer(show, blink) {
-			if(show && blink)
-				jQuery('#notice').fadeIn().fadeOut();
-			else if(show)
+			if(show) {
 				jQuery('#notice').fadeIn()
-			else
+				if(blink) {
+					setInterval(function() {
+						jQuery('#notice').fadeOut();
+					}, 1200);
+				}
+			} else {
 				jQuery('#notice').fadeOut();
+			}
 		}
 	}
 	
