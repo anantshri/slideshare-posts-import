@@ -38,19 +38,7 @@ class SlideShare_Posts_Import_Admin
 	 * @var      string
 	 */
 	protected $plugin_screen_hook_suffix = array();
-
-	/**
-	 * Map of AJAX actions.
-	 * action => method
-	 *
-	 * @since    1.0.0
-	 *
-	 * @var      array
-	 */
-	protected $plugin_ajax_actions_map = array(
-		'import_slideshows' => 'action_ajax_import',
-	);
-		
+	
 	/**
 	 * Initialize the plugin by loading admin scripts & styles and adding a
 	 * settings page and menu.
@@ -85,12 +73,6 @@ class SlideShare_Posts_Import_Admin
 		$plugin_basename = plugin_basename( plugin_dir_path( __DIR__ ) . $this->plugin_slug . '.php' );
 		add_filter( 'plugin_action_links_' . $plugin_basename, array( $this, 'add_action_links' ) );
 
-		// Add ajax actions.
-		foreach($this->plugin_ajax_actions_map as $action => $method){
-			add_action("wp_ajax_" . $action, array($this, $method));
-			add_action("wp_ajax_nopriv_" . $action, array($this, $method));
-		}
-		
 		/*
 		 * Define custom functionality.
 		 *
@@ -162,14 +144,13 @@ class SlideShare_Posts_Import_Admin
 
 		$screen = get_current_screen();
 		if ( in_array($screen->id, $this->plugin_screen_hook_suffix) ) {
-			wp_enqueue_script($this->plugin_slug . '-admin-script', plugins_url('assets/js/admin.js', __FILE__), array('jquery'), SlideShare_Posts_Import::VERSION);
-//			wp_register_script($this->plugin_slug . '-admin-script', plugins_url('assets/js/admin.js', __FILE__), array('jquery'), SlideShare_Posts_Import::VERSION);
+			wp_register_script($this->plugin_slug . '-admin-script', plugins_url('assets/js/admin.js', __FILE__), array('jquery'), SlideShare_Posts_Import::VERSION);
 			wp_localize_script($this->plugin_slug . '-admin-script', 'AjaxParams', array( 
-	    		'submit_import_url' => admin_url( 'admin-ajax.php' . '?action=import_slideshows' ),
+	    		'ajaxurl' => admin_url( 'admin-ajax.php' ),
+	    		'default_error_label' => __( 'Error !' ),
 	    	));
-//			wp_enqueue_script( $this->plugin_slug . '-admin-script' );
+			wp_enqueue_script( $this->plugin_slug . '-admin-script' );
 		}
-
 	}
 
 	/**
@@ -252,47 +233,6 @@ class SlideShare_Posts_Import_Admin
 			$links
 		);
 
-	}
-
-	/**
-	 * NOTE:     Actions are points in the execution of a page or process
-	 *           lifecycle that WordPress fires.
-	 *
-	 *           Actions:    http://codex.wordpress.org/Plugin_API#Actions
-	 *           Reference:  http://codex.wordpress.org/Plugin_API/Action_Reference
-	 *
-	 * @since    1.0.0
-	 */
-	public function action_ajax_import() 
-	{
-		error_log('action_ajax_import');
-		
-		$user = get_option('SLIDESHARE_NAME');
-		
-		if(!$user)
-			$result = new WP_Error(__('Bad user'), __('You should set a SlideShare user in the settings'));
-		else
-			$result = get_user_slideshares($user, array('limit' => 5));
-		
-		if(is_wp_error($result))
-			$this->send_ajax_response(false, $result);
-		else
-			$this->send_ajax_response(true, $result);
-	}
-	
-	/**
-	 * Display a JSON encoded structure on standard input for AJAX responses.
-	 *
-	 * @param boolean $success The status of the response.
-	 * @param object $data The data of the response.
-	 *
-	 * @since    1.0.0
-	 */
-	private function send_ajax_response($success, $data)
-	{
-		header('Content-Type: application/json');
-		echo json_encode(array('success' => $success, 'data' => $data));
-		exit;
 	}
 
 	/**
