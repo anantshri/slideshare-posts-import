@@ -29,11 +29,21 @@
 		update_option( 'SLIDESHARE_USERNAME', $_POST['slideshare_username'] );
 		update_option( 'SLIDESHARE_PASSWORD', $_POST['slideshare_password'] );
 		update_option( 'SLIDESHARE_NAME', $_POST['slideshare_name'] );
+		
+		$notice = array(
+			'label'   => __('Update succeed'),
+			'message' => __('SlideShare global settings was successfuly updated !'),
+		);
 	}
 	?>
 	
+	<?php include('notice-container.php');?>
+	
 	<?php if(!empty($notice)): ?>
-	<div id="notice" class="error"><p><?php echo $notice ?></p></div>
+		<script type="text/javascript" charset="utf-8">
+			setNoticeMessage("<?php echo $notice['label']?>", "<?php echo $notice['message']?>");
+			displayNoticeContainer(true, false);
+		</script>
 	<?php endif; ?>
 	
 	<form name="options" method="POST" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
