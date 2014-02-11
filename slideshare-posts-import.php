@@ -87,6 +87,7 @@ add_action( 'plugins_loaded', array( 'SlideShare_Posts_Import', 'get_instance' )
 if ( is_admin() ) {
 
 	require_once( plugin_dir_path( __FILE__ ) . 'admin/class-slideshare-posts-import-admin.php' );
+	require_once( plugin_dir_path( __FILE__ ) . 'admin/includes/class-slideshare-importer.php' );
 	
 	if( ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
 		add_action( 'plugins_loaded', array( 'SlideShare_Posts_Import_Admin', 'get_instance' ) );
