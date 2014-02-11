@@ -1,3 +1,9 @@
+
+String.prototype.nl2br = function()
+{
+    return this.replace(/\n/g, "<br />");
+};
+
 (function($) {
 	"use strict";
 
@@ -43,7 +49,7 @@
 			    },
 			    error: function(response, textStatus, errorThrown) {
 					displayActivityIndicator('#slideshare-import-container', false);
-					setNoticeMessage(textStatus, errorThrown.stack, true);
+					setNoticeMessage(textStatus, errorThrown.stack.nl2br(), true);
 					displayNoticeContainer(true, true);
 			    }
 			});
