@@ -22,7 +22,7 @@
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 	}
 	
-	if ( $_SERVER["REQUEST_METHOD"] == "POST" && wp_verify_nonce($_REQUEST['_wpnonce'], '_wp_slideshare_nonce')){
+	if ( $_SERVER["REQUEST_METHOD"] == "POST" && wp_verify_nonce($_REQUEST['_wpnonce'], '_wp_slideshare_settings_nonce')){
 		update_option( 'SLIDESHARE_API_KEY', $_POST['api_key'] );
 		update_option( 'SLIDESHARE_API_SECRET_KEY', $_POST['api_secret_key'] );
 		update_option( 'SLIDESHARE_AUTOPUBLISH', $_POST['publish'] );
@@ -80,7 +80,7 @@
 		<p class="submit">
 			<input type="submit" name="submit" id="submit" class="button button-primary" value="<?php _e('Save')?>">
 		</p>
-		<input type="hidden" id="_wpnonce" name="_wpnonce" value="<?php echo wp_create_nonce('_wp_slideshare_nonce');?>" />
+		<input type="hidden" id="_wpnonce" name="_wpnonce" value="<?php echo wp_create_nonce('_wp_slideshare_settings_nonce');?>" />
 		<input type="hidden" name="_wp_http_referer" value="<?php wp_get_referer(); ?>" />
 		<br/>
 		<small><?php _e('You can sign up for a API key <a href="http://fr.slideshare.net/developers/applyforapi" target="_blank">here</a>')?></small>
