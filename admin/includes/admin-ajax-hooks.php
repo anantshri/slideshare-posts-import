@@ -15,7 +15,7 @@ function action_ajax_import()
 	if(!$user)
 		$result = new WP_Error(__('Bad user'), __('You should set a SlideShare user in the settings'));
 	else
-		$result = get_user_slideshares($user, array('limit' => 5));
+		$result = get_user_slideshares($user, array());
 
 	if(is_wp_error($result))
 		send_ajax_response(false, $result);

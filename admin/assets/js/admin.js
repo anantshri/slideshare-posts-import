@@ -25,7 +25,10 @@ String.prototype.nl2br = function()
 			$.ajax({
  				type : "get",
 			    url : AjaxParams.ajaxurl,
-			    data : {action: 'import_slideshows'},
+			    data : {
+					action: 'import_slideshows',
+					nonce: AjaxParams.import_nonce
+				},
 			    dataType : "json",
 			    success: function(response) {
 					
@@ -37,8 +40,8 @@ String.prototype.nl2br = function()
 					}
 					
 			        if(response.success) {
-						$('#slideshare-list').html(response.data.slideshows);
-						$('#slideshare-total').html(response.data.count);
+						fillSlideshowsTable(response.data.slideshows);
+						$('#slideshare-list').show();
 			        } else {
 						for(var code in response.data.errors) {
 							var message = code + ' : ' + response.data.errors[code][0];

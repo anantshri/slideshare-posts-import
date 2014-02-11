@@ -12,3 +12,7 @@
 div#notice, div.error {
 	display: none;
 }
+
+#slideshare-list {
+	display: none;
+}

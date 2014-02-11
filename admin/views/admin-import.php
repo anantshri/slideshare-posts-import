@@ -16,7 +16,17 @@
 <div id="slideshare-import-container" class="wrap">
 
 	<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
+	<p>Below you can delete, publish or draft your video posts.</p>
 	
+	<p>Let's talk about this video list a little. This list displays all the videos that have been found in your YouTube channels and playlists. For each of these videos a WordPress post has been created. From this list you can manipulate the WordPress post by publishing, drafting or deleting it. When deleting a post you are simply moving it to the trash. Any of these actions taken does not affect the list of videos below PROVIDED THAT YOU NEVER PERMANENTLY DELETE THE POST CREATED. You cannot delete a video from the list below unless you reset the list below or manually delete a post from the trash. Publishing, deleting or drafting only affects the post associated with the YouTube video. Remember this list is simply a reference to the videos that this plugin has found in your YouTube channels and playlists. However, upon the permanent deletion of a post the import may republish the deleted video post automatically. If you wish to hide a video post from your blog, set the post to draft or move it to the trash.</p>
+	
+	<!-- <form method="post" action="">
+		<p>The following button will delete all videos from the list below and all WordPress posts associated with the videos below. THIS MAY TAKE SOME TIME.</p>
+		<input type="submit" value="Completely Refresh Videos" name="refresh" class="button-primary action" />
+		<input type="hidden" name="action" value="refresh" />
+		<input type="hidden" id="_wpnonce" name="_wpnonce" value="<?php //echo wp_create_nonce('_wp_slideshare_import_nonce');?>" />
+	</form> -->
+		
 	<?php
 	if ( !current_user_can( 'manage_options' ) )  {
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
@@ -33,6 +43,8 @@
 		<input type="submit" id="slideshare-import" name="submit" class="button-primary" value="<?php _e('Import shares')?>" />
 		<input type="hidden" id="_wpnonce" name="_wpnonce" value="<?php echo wp_create_nonce('_wp_slideshare_import_nonce');?>" />
 	</p>
-	<h3 id="slideshare-total"></h3>
-	<p id="slideshare-list"></p>
+	
+	<div id="slideshare-list">
+		<?php include('slideshow-list.php');?>
+	</div>
 </div>
