@@ -81,8 +81,8 @@ class Slideshow extends SlideShareModel implements IXMLParser
 				case 'ThumbnailSize':     $this->thumbnail_size = (string) $child; break;
 				case 'ThumbnailSmallURL': $this->thumbnail_smaller_url = (string) $child; break;
 				case 'Embed':             $this->embed_code = (string) $child; break;
-				case 'Created':           $this->date_created = (string) $child; break;
-				case 'Updated':           $this->date_last_update = (string) $child; break;
+				case 'Created':           $this->date_created = new DateTime((string) $child); break;
+				case 'Updated':           $this->date_last_update = new DateTime((string) $child); break;
 				case 'Language':          $this->language = (string) $child; break;
 				case 'Format':            $this->format = (string) $child; break;
 				case 'Download':          $this->available_for_download = (bool) $child; break;
