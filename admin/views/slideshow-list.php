@@ -66,7 +66,7 @@
 			
 			<input type="submit" value="<?php _e('Apply')?>" name="doaction" class="button-secondary action" />
 		*/ ?>	
-			<input type="submit" value="<?php _e('Import')?>" name="doaction" class="button-primary action" />
+			<input type="submit" value="<?php _e('Import')?>" name="do-import-action" class="button-primary action" />
 		</div>
 		<br class="clear" />
 	</div>
@@ -107,7 +107,7 @@
 			
 			<input type="submit" value="<?php _e('Apply')?>" name="doaction" class="button-secondary action" />
 		*/ ?>	
-			<input type="submit" value="<?php _e('Import')?>" name="doaction" class="button-primary action" />
+			<input type="submit" value="<?php _e('Import')?>" name="do-import-action" class="button-primary action" />
 		</div>
 		<br class="clear" />
 	</div>
