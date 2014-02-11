@@ -38,7 +38,7 @@ class SlideShare_Posts_Import_Admin
 	 * @var      string
 	 */
 	protected $plugin_screen_hook_suffix = array();
-	
+
 	/**
 	 * Initialize the plugin by loading admin scripts & styles and adding a
 	 * settings page and menu.
@@ -233,6 +233,26 @@ class SlideShare_Posts_Import_Admin
 			$links
 		);
 
+	}
+
+	/**
+	 * Add ajax action hooks.
+	 *
+	 * @since    1.0.0
+	 */
+	public static function add_ajax_actions()
+	{	
+		require_once( 'includes/admin-ajax-hooks.php' );
+		
+		$plugin_ajax_actions_map = array(
+			'import_slideshows' => 'action_ajax_import',
+		);
+	
+		// Add ajax actions.
+		foreach($plugin_ajax_actions_map as $action => $function){
+			add_action("wp_ajax_" . $action, $function);
+			add_action("wp_ajax_nopriv_" . $action, $function);
+		}
 	}
 
 	/**
