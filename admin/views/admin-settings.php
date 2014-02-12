@@ -68,6 +68,19 @@
 				<th scope="row"><label for="slideshare_password"><?php _e('Password:')?> </label></th>
 				<td><input type="text" name="slideshare_password" value="<?php echo get_option( 'SLIDESHARE_PASSWORD', '' ); ?>" size="70" class="regular-text"></td>
 			</tr>
+			<tr valign="row">
+				<th scope="row"><label for="slideshare_publisher"><?php _e('Publisher:')?> </label></th>
+				<td>
+					<?php $users = get_users(); ?>
+					
+					<select name="slideshare_publisher" value="<?php echo get_option( 'SLIDESHARE_PUBLISHER', '' ); ?>" class="">
+					<?php foreach($users as $user):?>
+						<?php $selected = get_option( 'SLIDESHARE_PUBLISHER') == $user->ID ? 'selected="selected"' : '';?>
+						<option value="<?php echo $user->ID?>" <?php echo $selected?>><?php echo $user->display_name?></option>
+					<?php endforeach;?>
+					</select>
+				</td>
+			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="publish"><?php _e('Automatically publish posts:')?></label></th>
 				<td>

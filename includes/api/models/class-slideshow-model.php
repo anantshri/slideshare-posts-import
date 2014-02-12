@@ -150,11 +150,6 @@ class Slideshow extends SlideShareModel implements IXMLParser
 		return $this;
 	}
 	
-	public function getUsername()
-	{
-		return $this->id;
-	}
-	
 	public function getId()
 	{
 		return $this->id;

@@ -47,7 +47,7 @@ class SlideShareImporter
 		  'post_title'     => $item->getTitle(), // The title of your post.
 		  'post_status'    => (bool) get_option('SLIDESHARE_AUTOPUBLISH') ? 'publish' : 'draft', // Default 'draft'.
 		  'post_type'      => 'post', // Default 'post'.
-		  'post_author'    => $item->getUsername(), // The user ID number of the author. Default is the current user ID.
+		  'post_author'    => get_option( 'SLIDESHARE_PUBLISHER'), // The user ID number of the author. Default is the current user ID.
 //		  'ping_status'    => [ 'closed' | 'open' ] // Pingbacks or trackbacks allowed. Default is the option 'default_ping_status'.
 //		  'post_parent'    => // Sets the parent of the new post, if any. Default 0.
 //		  'to_ping'        => // Space or carriage return-separated list of URLs to ping. Default empty string.
