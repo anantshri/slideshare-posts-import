@@ -199,6 +199,13 @@ class SlideShare_Posts_Import_Admin
 				10, $this->plugin_slug.'-import', 
 				array( $this, 'display_plugin_import_page' )
 			);
+			$this->plugin_screen_hook_suffix[] = add_submenu_page(
+				$settings_slug, 
+				__( 'Imported posts', $this->plugin_slug ), 
+				__( 'Imported posts', $this->plugin_slug ), 
+				10, $this->plugin_slug.'-posts', 
+				array( $this, 'display_plugin_posts_page' )
+			);
 		}
 	}
 
@@ -220,6 +227,16 @@ class SlideShare_Posts_Import_Admin
 	public function display_plugin_import_page() 
 	{
 		include_once( 'views/admin-import.php' );
+	}
+
+	/**
+	 * Render the imported posts page for this plugin.
+	 *
+	 * @since    1.0.0
+	 */
+	public function display_plugin_posts_page() 
+	{
+		include_once( 'views/admin-posts-list.php' );
 	}
 
 	/**
