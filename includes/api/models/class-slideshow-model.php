@@ -106,7 +106,7 @@ class Slideshow extends SlideShareModel implements IXMLParser
 				case 'ID':                $this->id = (string) $child; break;
 				case 'Title':             $this->title = (string) $child; break;
 				case 'Description':       $this->description = (string) $child; break;
-				case 'Status':            $this->conversion_state = (string) $child; break;
+				case 'Status':            $this->conversion_state = (int) $child; break;
 				case 'Username':          $this->username = (string) $child; break;
 				case 'URL':               $this->web_permalink = (string) $child; break;
 				case 'ThumbnailURL':      $this->thumbnail_url = (string) $child; break;
@@ -163,6 +163,16 @@ class Slideshow extends SlideShareModel implements IXMLParser
 	public function getDescription()
 	{
 		return $this->description;
+	}
+	
+	public function getUsername()
+	{
+		return $this->username;
+	}
+	
+	public function getConversionState()
+	{
+		return $this->conversion_state;
 	}
 	
 	public function getWebPermalink()
