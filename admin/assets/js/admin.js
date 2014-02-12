@@ -12,6 +12,14 @@ String.prototype.nl2br = function()
 		displayNoticeContainer(false);
 		setNoticeMessage('', '');
 	};
+	
+	function disableImportButton(disabled)
+	{
+		if(disabled)
+			$('#slideshare-import').attr('disabled', 'disabled');
+		else
+			$('#slideshare-import').removeAttr('disabled');
+	};
 
 	$(function() {
 		/*
@@ -20,6 +28,7 @@ String.prototype.nl2br = function()
 		$('#slideshare-import').on('click', function() {
 			
 			resetImportInputs();
+			disableImportButton(true);
 			displayActivityIndicator('#slideshare-import-container', true);
 			
 			$.ajax({
@@ -51,11 +60,13 @@ String.prototype.nl2br = function()
 						}
 			        }
 					displayNoticeContainer(true, true);
+					disableImportButton(false);
 			    },
 			    error: function(response, textStatus, errorThrown) {
 					displayActivityIndicator('#slideshare-import-container', false);
 					setNoticeMessage(textStatus, errorThrown.stack.nl2br(), true);
 					displayNoticeContainer(true, true);
+					disableImportButton(false);
 			    }
 			});
 		});
