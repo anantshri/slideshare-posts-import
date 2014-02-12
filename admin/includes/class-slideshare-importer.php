@@ -11,6 +11,7 @@
 class SlideShareImporter
 {
 	private $posts = array();
+	private $errors = null;
 	private $slideshows;
 	
 	public function __construct($slideshows)
@@ -36,6 +37,11 @@ class SlideShareImporter
 	public function getPosts()
 	{
 		return $this->posts;
+	}
+	
+	public function getErrors()
+	{
+		return $this->errors;
 	}
 	
 	private function createPost(Slideshow $item)
@@ -64,7 +70,7 @@ class SlideShareImporter
 //		  'tax_input'      => [ array( <taxonomy> => <array | string> ) ] // For custom taxonomies. Default empty.
 		);
 		
-		return wp_insert_post($post); 
+		return wp_insert_post($post, true); 
 	}
 	
 	private function createMetadata($post_id, Slideshow $item)

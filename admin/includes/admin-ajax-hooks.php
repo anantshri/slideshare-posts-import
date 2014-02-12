@@ -20,16 +20,19 @@ function action_ajax_import()
 	if(is_wp_error($result))
 		send_ajax_response(false, $result);
 	else {
-		$posts = create_wp_posts($result->getSlideshows());
-		send_ajax_response(true, $result);
+		$importer = new SlideShareImporter($result->getSlideshows());
+		$importer->import();
+	
+		if($importer->hasErrors()) {
+			send_ajax_response(false, $importer->getErrors());
+		} else {
+			send_ajax_response(true, array(
+				'slideshows_count' => $result->getCount(),
+				'slideshare_user' => $result->getName(),
+				'posts_count' => count($importer->getPosts()),
+			));
+		}
 	}
-}
-
-function create_wp_posts($slideshows)
-{
-	$importer = new SlideShareImporter($slideshows);
-	$importer->import();
-	return $importer->getPosts();
 }
 
 /**

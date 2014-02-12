@@ -49,8 +49,10 @@
 		<input type="submit" id="slideshare-import" name="submit" class="button-primary" value="<?php _e('Import shares')?>" />
 		<input type="hidden" id="_wpnonce" name="_wpnonce" value="<?php echo wp_create_nonce('_wp_slideshare_import_nonce');?>" />
 	</p>
-	
+
+<?php /*	
 	<div id="slideshare-list">
 		<?php include('slideshow-list.php');?>
 	</div>
+*/?>
 </div>

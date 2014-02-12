@@ -36,19 +36,21 @@ String.prototype.nl2br = function()
 					
 					if(!response) {
 						setNoticeMessage('Error', 'Unknown error', true);
-						return;
-					}
-					
-			        if(response.success) {
-						fillSlideshowsTable(response.data);
-						$('#slideshare-list').show();
+					} else if(response.success) {
+						var message = AjaxParams.import_success_message
+							.replace("{0}", response.data.slideshows_count)
+							.replace("{1}", response.data.slideshare_user)
+							.replace("{2}", response.data.posts_count);
+						setNoticeMessage(AjaxParams.import_success_label, message);
+						// fillSlideshowsTable(response.data);
+						// $('#slideshare-list').show();
 			        } else {
 						for(var code in response.data.errors) {
-							var message = code + ' : ' + response.data.errors[code][0];
+							var message = code + ' : ' + response.data.errors[code].join("<br/>");
 							setNoticeMessage(AjaxParams.default_error_label, message, true);
 						}
-						displayNoticeContainer(true, true);
 			        }
+					displayNoticeContainer(true, true);
 			    },
 			    error: function(response, textStatus, errorThrown) {
 					displayActivityIndicator('#slideshare-import-container', false);

@@ -75,8 +75,8 @@
 		<tr class="thead">
 			<th scope="col" id="cb" class="manage-column column-cb check-column"><input type="checkbox" /></th>
 			<th scope="col" id="image" class="manage-column column-img" style="width:150px;"><?php _e('Preview')?></th>
-			<th scope="col" id="video-id" class="manage-column column-id" style="width:20%;"><?php _e('Video I.D.')?></th>
-			<th scope="col" id="title" class="manage-column column-title" style="width:20%;"><?php _e('Video Title')?></th>
+			<th scope="col" id="video-id" class="manage-column column-id" style="width:20%;"><?php _e('SlideShare ID')?></th>
+			<th scope="col" id="title" class="manage-column column-title" style="width:20%;"><?php _e('Title')?></th>
 			<th scope="col" id="url" class="manage-column column-url"><?php _e('URL')?></th>
 		</tr>
 		</thead>
@@ -84,8 +84,8 @@
 		<tr class="thead">
 			<th scope="col" class="manage-column column-cb check-column"><input type="checkbox" /></th>
 			<th scope="col" class="manage-column column-img"><?php _e('Preview')?></th>
-			<th scope="col" class="manage-column column-id"><?php _e('Video I.D.')?></th>
-			<th scope="col" class="manage-column column-title"><?php _e('Video Title')?></th>
+			<th scope="col" class="manage-column column-id"><?php _e('SlideShare ID')?></th>
+			<th scope="col" class="manage-column column-title"><?php _e('Title')?></th>
 			<th scope="col" class="manage-column column-url"><?php _e('URL')?></th>
 		</tr>
 		</tfoot>
