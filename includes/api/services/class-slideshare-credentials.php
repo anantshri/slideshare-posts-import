@@ -33,7 +33,7 @@ class SlideShareCredentials
 		$query = "api_key=$this->api_key&hash=$hash&ts=$timestamp";
 		
 		if($this->username && $this->password)
-			$query .= "&username=$this->username&password=$password";
+			$query .= "&username=$this->username&password=$this->password";
 		
 		return $query;
 	}
