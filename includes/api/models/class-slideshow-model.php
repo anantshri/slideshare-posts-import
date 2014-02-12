@@ -11,7 +11,7 @@
  * @since    1.0.0
  */	
 class Slideshow extends SlideShareModel implements IXMLParser
-{
+{	
 	private $id;
 	private $title;
 	private $description;
@@ -58,6 +58,38 @@ class Slideshow extends SlideShareModel implements IXMLParser
 	 */
 	private $external_app_user_id; // ExternalAppUserID if uploaded using an external app
 	private $external_app_id; // ExternalAppID for the external app
+	
+	/**
+	 * Constructor
+ 	 *
+ 	 * @since    1.0.0
+	 */
+	public function __construct()
+	{
+		parent::__construct('slideshare_');
+	}
+	
+	/**
+	 * Return all available metadata keys for WordPress posts.
+	 *
+	 * @static
+	 * @return array The array of available metadata keys.
+ 	 *
+ 	 * @since    1.0.0
+	 */
+	public function getAvailableMetadata()
+	{
+		$metadata = array();
+		
+		$reflect = new ReflectionClass(__CLASS__);
+		$properties = $reflect->getProperties(ReflectionProperty::IS_PRIVATE);
+		
+		foreach($properties as $property) {
+		    $property->setAccessible(true);
+		    $metadata[] = $this->generateMetadataKey($property->getName());
+		}
+		return $metadata;
+	}
 	
 	/**
 	 * Load object data from XML

@@ -17,6 +17,37 @@ class User extends SlideShareModel implements IXMLParser
 	private $slideshows = array();
 	
 	/**
+	 * Constructor
+ 	 *
+ 	 * @since    1.0.0
+	 */
+	public function __construct()
+	{
+		parent::__construct('slideshare_');
+	}
+	
+	/**
+	 * Return all available metadata keys for WordPress posts.
+	 *
+	 * @return array The array of available metadata keys.
+ 	 *
+ 	 * @since    1.0.0
+	 */
+	public function getAvailableMetadata()
+	{
+		$metadata = array();
+		
+		$reflect = new ReflectionClass(__CLASS__);
+		$properties = $reflect->getProperties(ReflectionProperty::IS_PRIVATE);
+		
+		foreach($properties as $property) {
+		    $property->setAccessible(true);
+		    $metadata[] = $this->generateMetadataKey($property->getName());
+		}
+		return $metadata;
+	}
+	
+	/**
 	 * Load object data from XML
 	 *
 	 * @param SimpleXMLElement The XML representation of the user
