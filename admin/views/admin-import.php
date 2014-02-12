@@ -39,17 +39,17 @@
 	}
 	?>
 	
-	<?php include('notice-container.php');?>
-	
 	<p><?php _e('You will be notified when your import has finished. DO NOT LEAVE THIS PAGE UNTIL YOU HAVE RECEIVED NOTIFICATION.')?></p>
-	
-	<?php include('activity-indicator.php');?>
 	
 	<p class="submit">
 		<input type="submit" id="slideshare-import" name="submit" class="button-primary" value="<?php _e('Import shares')?>" />
 		<input type="hidden" id="_wpnonce" name="_wpnonce" value="<?php echo wp_create_nonce('_wp_slideshare_import_nonce');?>" />
 	</p>
-
+	
+	<?php include('notice-container.php');?>
+	
+	<?php include('activity-indicator.php');?>
+	
 <?php /*	
 	<div id="slideshare-list">
 		<?php include('slideshow-list.php');?>
