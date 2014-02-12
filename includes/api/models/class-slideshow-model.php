@@ -81,7 +81,7 @@ class Slideshow extends SlideShareModel implements IXMLParser
 	{
 		$metadata = array();
 		
-		$reflect = new ReflectionClass(__CLASS__);
+		$reflect = new ReflectionClass(get_class($this));
 		$properties = $reflect->getProperties(ReflectionProperty::IS_PRIVATE);
 		
 		foreach($properties as $property) {

@@ -12,24 +12,36 @@ class SlideShareImporter
 {
 	private $posts = array();
 	private $errors = null;
+	private $errorsCode;
 	private $slideshows;
 	
 	public function __construct($slideshows)
 	{
 		$this->slideshows = $slideshows;
+		$this->errorsCode = __('Import error');
 	}
 	
 	public function import()
 	{
 		foreach($this->slideshows as $slideshow) {
-			$post_id = $this->createPost($slideshow);
+			try {
+				$post_id = $this->createPost($slideshow);
 			
-			if($post_id) {
-				$this->createMetadata($post_id, $slideshow);
-				$this->addThumbnail($post_id, $slideshow->getThumbnailUrl(), $slideshow->getThumbnailSize());
-				$this->posts[] = get_post($post_id);
-			} else {
-				error_log('error creating post from slideshow '.$slideshow->getId());
+				if(!$post_id instanceof WP_Error) {
+					$this->createMetadata($post_id, $slideshow);
+					$this->addThumbnail($post_id, $slideshow->getThumbnailUrl(), $slideshow->getThumbnailSize());
+				
+					foreach($slideshow->getTags() as $tag) {
+						$this->addTag($tag);
+					}
+				
+					$this->posts[] = get_post($post_id);
+				} else {
+					$error = $post_id;
+					throw new SlideShareException($this->errorsCode, $error->get_error_message());
+				}
+			} catch(SlideShareException $exception) {
+				$this->setError($exception->getMessage());
 			}
 		}
 	}
@@ -37,6 +49,19 @@ class SlideShareImporter
 	public function getPosts()
 	{
 		return $this->posts;
+	}
+	
+	private function setError($error)
+	{
+		if(!$this->errors) {
+			$this->errors = new WP_Error($this->errorsCode);
+		}
+		$this->errors->add($this->errorsCode, $error);
+	}
+	
+	public function hasErrors()
+	{
+		return $this->errors && count($this->errors->get_error_messages()) > 0;
 	}
 	
 	public function getErrors()
@@ -64,7 +89,7 @@ class SlideShareImporter
 //		  'post_excerpt'   =>  // For all your post excerpt needs.
 		  'post_date'      => $this->getFormattedDate($item->getCreatedDate()), // [ Y-m-d H:i:s ] // The time post was made.
 		  'post_date_gmt'  => $this->getFormattedGMTDate($item->getCreatedDate()), // [ Y-m-d H:i:s ] // The time post was made, in GMT.
-//		  'comment_status' => [ 'closed' | 'open' ] // Default is the option 'default_comment_status', or 'closed'.
+		  'comment_status' => 'open', // [ 'closed' | 'open' ] Default is the option 'default_comment_status', or 'closed'.
 //		  'post_category'  => [ array(<category id>, ...) ] // Default empty.
 //		  'tags_input'     => [ '<tag>, <tag>, ...' | array ] // Default empty.
 //		  'tax_input'      => [ array( <taxonomy> => <array | string> ) ] // For custom taxonomies. Default empty.
@@ -78,24 +103,27 @@ class SlideShareImporter
 		foreach($item->getAvailableMetadata() as $key) {
 			
 			$method = join('', array_map('ucfirst', array_slice(explode('_', $key), 1)));
-			$getter = 'get'.$method;
 			
-			if(method_exists($item, $getter)) {
-				$value = call_user_func(array($item, $getter));
-				delete_post_meta($post_id, $key);			
-			} else {
+			if(method_exists($item, 'get'.$method)) {
+				$getter = 'get'.$method;
+			}else if(method_exists($item, 'is'.$method)) {
 				$getter = 'is'.$method;
+			} else {
+				$getter = null;
 			}
 			
-			if(method_exists($item, $getter)) {
+			if($getter) {
 				$value = call_user_func(array($item, $getter));
 				delete_post_meta($post_id, $key);			
 			}
-			
-			error_log("======= $post_id : $key => $getter - $value =======");
-			
+
+			$result = null;
 			if($value && !empty($value)) {
-				update_post_meta($post_id, $key, $value);
+				$result = update_post_meta($post_id, $key, $value);
+			}
+			
+			if($result instanceof WP_Error) {
+				throw new SlideShareException($this->errorsCode, $result->get_error_message());
 			}
 		}
 	}
@@ -103,12 +131,19 @@ class SlideShareImporter
 	private function addThumbnail($post_id, $url, $size)
 	{
 		$meta = get_post_meta($post_id, '_thumbnail_id', true);
-		
-		if(!wp_is_post_revision($post_id) and (!$meta or empty($meta) or (is_string($meta) and strlen($meta) < 1))) {
+
+		if(!wp_is_post_revision($post_id) and (!$meta or empty($meta) or (is_string($meta) and strlen($meta)))) {
 			$attachment_id = $this->uploadThumbnail($post_id, $url);
 			
-			if($attachment_id !== false && !$attachment_id instanceof WP_Error) {
-				update_post_meta($post_id, '_thumbnail_id', $attachment_id);
+			$result = null;
+			if($attachment_id instanceof WP_Error) {
+				$result = $attachment_id;
+			} else if($attachment_id !== false) {
+				$result = update_post_meta($post_id, '_thumbnail_id', $attachment_id);
+			}
+			
+			if($result instanceof WP_Error) {
+				throw new SlideShareException($this->errorsCode, $result->get_error_message());
 			}
 		}
 		unset($meta);
@@ -117,7 +152,14 @@ class SlideShareImporter
 	private function uploadThumbnail($post_id, $url)
 	{
 		if ( ! empty($url) ) {
+			
 			// Download file to temp location
+			$scheme = parse_url( $url, PHP_URL_SCHEME );
+			if(empty($scheme)) {
+				$url = 'http:'.$url;
+			}
+			
+			add_filter( 'http_request_args', array($this, 'allowUnsafeUrlsCallback'));
 			$tmp = download_url( $url );
 		
 			// Set variables for storage
@@ -130,6 +172,7 @@ class SlideShareImporter
 			if ( is_wp_error( $tmp ) ) {
 				@unlink($file_array['tmp_name']);
 				$file_array['tmp_name'] = '';
+				error_log($tmp->get_error_message());
 			}
 		
 			// do the validation and storage stuff
@@ -145,7 +188,13 @@ class SlideShareImporter
 		return false;	
 	}
 	
-	private function addTag()
+	public function allowUnsafeUrlsCallback($args)
+	{
+	   $args['reject_unsafe_urls'] = false;
+	   return $args;
+	}
+	
+	private function addTag($tag)
 	{
 		
 	}
