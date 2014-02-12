@@ -40,7 +40,7 @@ String.prototype.nl2br = function()
 					}
 					
 			        if(response.success) {
-						fillSlideshowsTable(response.data.slideshows);
+						fillSlideshowsTable(response.data);
 						$('#slideshare-list').show();
 			        } else {
 						for(var code in response.data.errors) {

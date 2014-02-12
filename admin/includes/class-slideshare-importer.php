@@ -13,11 +13,6 @@ class SlideShareImporter
 	private $posts = array();
 	private $slideshows;
 	
-	private $metadata = array(
-		'slideshare_id',
-		
-	);
-	
 	public function __construct($slideshows)
 	{
 		$this->slideshows = $slideshows;
@@ -31,6 +26,7 @@ class SlideShareImporter
 			if($post_id) {
 				$this->createMetadata($post_id, $slideshow);
 				$this->addThumbnail($post_id, $slideshow->getThumbnailUrl(), $slideshow->getThumbnailSize());
+				$this->posts[] = get_post($post_id);
 			} else {
 				error_log('error creating post from slideshow '.$slideshow->getId());
 			}
@@ -73,16 +69,29 @@ class SlideShareImporter
 	
 	private function createMetadata($post_id, Slideshow $item)
 	{
-		$parser = new JSONParser();
-		
-		foreach($parser->toArray() as $property => $value) {
-//			delete_post_meta($i,$v);
-			if(!empty($value)) {
-				$meta = $value;
-				update_post_meta($post_id, $property, $meta);
+		foreach($item->getAvailableMetadata() as $key) {
+			
+			$method = join('', array_map('ucfirst', array_slice(explode('_', $key), 1)));
+			$getter = 'get'.$method;
+			
+			if(method_exists($item, $getter)) {
+				$value = call_user_func(array($item, $getter));
+				delete_post_meta($post_id, $key);			
+			} else {
+				$getter = 'is'.$method;
+			}
+			
+			if(method_exists($item, $getter)) {
+				$value = call_user_func(array($item, $getter));
+				delete_post_meta($post_id, $key);			
+			}
+			
+			error_log("======= $post_id : $key => $getter - $value =======");
+			
+			if($value && !empty($value)) {
+				update_post_meta($post_id, $key, $value);
 			}
 		}
-		unset($meta);
 	}
 	
 	private function addThumbnail($post_id, $url, $size)
@@ -90,7 +99,7 @@ class SlideShareImporter
 		$meta = get_post_meta($post_id, '_thumbnail_id', true);
 		
 		if(!wp_is_post_revision($post_id) and (!$meta or empty($meta) or (is_string($meta) and strlen($meta) < 1))) {
-			$attachment_id = $this->createAttachment($post_id, $url);
+			$attachment_id = $this->uploadThumbnail($post_id, $url);
 			
 			if($attachment_id !== false && !$attachment_id instanceof WP_Error) {
 				update_post_meta($post_id, '_thumbnail_id', $attachment_id);
@@ -99,7 +108,7 @@ class SlideShareImporter
 		unset($meta);
 	}
 	
-	private function createAttachment($post_id, $url)
+	private function uploadThumbnail($post_id, $url)
 	{
 		if ( ! empty($url) ) {
 			// Download file to temp location

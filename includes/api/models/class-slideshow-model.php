@@ -295,8 +295,12 @@ class Slideshow extends SlideShareModel implements IXMLParser
 	public function loadRelatedSlideshows(SlideShareSlideshowService $service)
 	{
 		foreach($this->related_slideshows_ids as $id) {
-			$slideshow = $service->getById($id, $service->getUsername(), $service->getPassword());
-			$this->related_slideshows[] = $slideshow;
+			try {
+				$slideshow = $service->getById($id, $service->getUsername(), $service->getPassword());
+				$this->related_slideshows[] = $slideshow;
+			} catch(Exception $exception) {
+				error_log($exception);
+			}
 		}
 	}
 	
