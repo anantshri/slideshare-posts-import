@@ -22,8 +22,8 @@ class Slideshow extends SlideShareModel implements IXMLParser
 	private $thumbnail_size;
 	private $smaller_thumbnail_url;
 	private $embed_code;
-	private $date_created;
-	private $date_last_update;
+	private $created_date;
+	private $last_update_date;
 	private $language; // language, as specified by two-letter code
 	private $format; // ppt or pdf, pps, odp, doc, pot, txt, rdf
 	private $available_for_download; // 1 if available to download, else 0
@@ -35,7 +35,7 @@ class Slideshow extends SlideShareModel implements IXMLParser
 	private $ppt_location;
 	private $stripped_title;
 	private $tags = array();
-	private $is_audio;
+	private $audio;
 	
 	private $downloads_count;
 	private $views_count;
@@ -81,8 +81,8 @@ class Slideshow extends SlideShareModel implements IXMLParser
 				case 'ThumbnailSize':     $this->thumbnail_size = (string) $child; break;
 				case 'ThumbnailSmallURL': $this->thumbnail_smaller_url = (string) $child; break;
 				case 'Embed':             $this->embed_code = (string) $child; break;
-				case 'Created':           $this->date_created = new DateTime((string) $child); break;
-				case 'Updated':           $this->date_last_update = new DateTime((string) $child); break;
+				case 'Created':           $this->created_date = new DateTime((string) $child); break;
+				case 'Updated':           $this->last_update_date = new DateTime((string) $child); break;
 				case 'Language':          $this->language = (string) $child; break;
 				case 'Format':            $this->format = (string) $child; break;
 				case 'Download':          $this->available_for_download = (bool) $child; break;
@@ -98,7 +98,7 @@ class Slideshow extends SlideShareModel implements IXMLParser
 						$this->tags[] = $tag->loadFromXML($node);
 					}
 					break;
-				case 'Audio':             $this->is_audio = (bool) $child; break;
+				case 'Audio':             $this->audio = (bool) $child; break;
 				case 'NumDownloads':      $this->downloads_count = (int) $child; break;
 				case 'NumViews':          $this->views_count = (int) $child; break;
 				case 'NumComments':       $this->comments_count = (int) $child; break;
@@ -143,7 +143,7 @@ class Slideshow extends SlideShareModel implements IXMLParser
 		return $this->web_permalink;
 	}
 	
-	public function getThumbnailURL()
+	public function getThumbnailUrl()
 	{
 		return $this->thumbnail_url;
 	}
@@ -153,7 +153,7 @@ class Slideshow extends SlideShareModel implements IXMLParser
 		return $this->thumbnail_size;
 	}
 	
-	public function getSmallerThumbnailURL()
+	public function getSmallerThumbnailUrl()
 	{
 		return $this->smaller_thumbnail_url;
 	}
@@ -165,12 +165,12 @@ class Slideshow extends SlideShareModel implements IXMLParser
 	
 	public function getCreatedDate()
 	{
-		return $this->date_created;
+		return $this->created_date;
 	}
 	
 	public function getLastUpdateDate()
 	{
-		return $this->date_last_update;
+		return $this->last_update_date;
 	}
 	
 	public function getLanguage()
@@ -188,7 +188,7 @@ class Slideshow extends SlideShareModel implements IXMLParser
 		return $this->available_for_download;
 	}
 	
-	public function getDownloadURL()
+	public function getDownloadUrl()
 	{
 		return $this->download_url;
 	}
@@ -212,7 +212,7 @@ class Slideshow extends SlideShareModel implements IXMLParser
 		return $this->user_id;
 	}
 	
-	public function getPPTLocation()
+	public function getPptLocation()
 	{
 		return $this->ppt_location;
 	}
@@ -238,22 +238,22 @@ class Slideshow extends SlideShareModel implements IXMLParser
 	
 	public function getViewsCount()
 	{
-		return $this->views_code;
+		return $this->views_count;
 	}
 	
 	public function getCommentsCount()
 	{
-		return $this->comments_code;
+		return $this->comments_count;
 	}
 	
 	public function getFavoritesCount()
 	{
-		return $this->favorites_code;
+		return $this->favorites_count;
 	}
 	
 	public function getSlidesCount()
 	{
-		return $this->slides_code;
+		return $this->slides_count;
 	}
 
 	/*
@@ -279,7 +279,7 @@ class Slideshow extends SlideShareModel implements IXMLParser
 	
 	public function isAudio()
 	{
-		return $this->is_audio;
+		return $this->audio;
 	}
 	
 	public function isPrivate()
@@ -297,7 +297,7 @@ class Slideshow extends SlideShareModel implements IXMLParser
 		return $this->show_on_slideshare;
 	}
 	
-	public function isSecretURLEnabled()
+	public function isSecretUrlEnabled()
 	{
 		return $this->secret_url_enabled;
 	}

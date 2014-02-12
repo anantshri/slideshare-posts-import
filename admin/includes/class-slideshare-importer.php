@@ -30,7 +30,7 @@ class SlideShareImporter
 			
 			if($post_id) {
 				$this->createMetadata($post_id, $slideshow);
-				$this->addThumbnail($post_id, $slideshow->getThumbnailURL(), $slideshow->getThumbnailSize());
+				$this->addThumbnail($post_id, $slideshow->getThumbnailUrl(), $slideshow->getThumbnailSize());
 			} else {
 				error_log('error creating post from slideshow '.$slideshow->getId());
 			}
