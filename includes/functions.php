@@ -24,13 +24,20 @@ function get_user_slideshares($user, $optional = array(), $username = null, $pas
 	$apiKey = get_option('SLIDESHARE_API_KEY');
 	$apiSecret = get_option('SLIDESHARE_API_SECRET_KEY');
 	
+	if(!$username) {
+		$username = get_option('SLIDESHARE_USERNAME', null);
+	}
+	if(!$password) {
+		$password = get_option('SLIDESHARE_PASSWORD', null);
+	}
+	
 	if(!$apiKey) {
 		return new WP_Error(__('Bad API key'), __('You should set an API key in the settings'));
 	} elseif(!$apiSecret) {
 		return new WP_Error(__('Bad API shared secret'), __('You should set an API shared secret key in the settings'));
 	} else {
 		try {
-			$service = new SlideShareUserService($apiKey, $apiSecret);
+			$service = new SlideShareUserService($apiKey, $apiSecret, $username, $password);
 			$response = $service->getSlideshows($user, $username, $password, $optional);
 			return $response->parse();
 		} catch(SlideShareServiceException $exception) {
