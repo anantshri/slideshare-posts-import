@@ -144,15 +144,15 @@ class SlideShare_Posts_Import_Admin
 
 		$screen = get_current_screen();
 		if ( in_array($screen->id, $this->plugin_screen_hook_suffix) ) {
-			wp_register_script($this->plugin_slug . '-admin-script', plugins_url('assets/js/admin.js', __FILE__), array('jquery'), SlideShare_Posts_Import::VERSION);
-			wp_localize_script($this->plugin_slug . '-admin-script', 'AjaxParams', array( 
-	    		'ajaxurl'                => admin_url( 'admin-ajax.php' ),
-				'import_nonce'           => wp_create_nonce('_wp_slideshare_import_nonce'),
-	    		'default_error_label'    => __( 'Error !' ),
-	    		'import_success_label'   => __( 'Import succeed !' ),
-	    		'import_success_message' => __( '<strong>{0}</strong> slideshows was found for user <strong>{1}</strong> and <strong>{2}</strong> posts was created.' ),
-	    	));
-			wp_enqueue_script( $this->plugin_slug . '-admin-script' );
+            wp_register_script($this->plugin_slug . '-admin-script', plugins_url('assets/js/admin.js', __FILE__), array('jquery'), SlideShare_Posts_Import::VERSION);
+            wp_localize_script($this->plugin_slug . '-admin-script', 'AjaxParams', array( 
+                'ajaxurl'                => admin_url( 'admin-ajax.php' ),
+                'import_nonce'           => wp_create_nonce('_wp_slideshare_import_nonce'),
+                'default_error_label'    => __( 'Error !' ),
+                'import_success_label'   => __( 'Import succeed !' ),
+                'import_success_message' => __( '<strong>{0}</strong> slideshows was found for user <strong>{1}</strong> and <strong>{2}</strong> posts was created.' ),
+            ));
+            wp_enqueue_script( $this->plugin_slug . '-admin-script' );
 		}
 	}
 

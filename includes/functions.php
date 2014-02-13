@@ -14,7 +14,7 @@ function get_user_slideshares($user, $optional = array(), $username = null, $pas
 	if(!$apiKey) {
 		return new WP_Error(__('Bad API key'), __('You should set an API key in the settings'));
 	} elseif(!$apiSecret) {
-		return new WP_Error(__('Bad API shered secret'), __('You should set an API shared secret key in the settings'));
+		return new WP_Error(__('Bad API shared secret'), __('You should set an API shared secret key in the settings'));
 	} else {
 		try {
 			$service = new SlideShareUserService($apiKey, $apiSecret);
