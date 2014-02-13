@@ -10,7 +10,7 @@
  *
  * @since    1.0.0
  */	
-class User extends SlideShareModel implements IXMLParser
+class User extends SlideShareModel
 {
 	private $name;
 	private $count;

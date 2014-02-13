@@ -10,7 +10,7 @@
  *
  * @since    1.0.0
  */	
-class Slideshow extends SlideShareModel implements IXMLParser
+class Slideshow extends SlideShareModel
 {	
 	private $id;
 	private $title;

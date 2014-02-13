@@ -46,10 +46,22 @@ abstract class SlideShareModel
 	/**
 	 * Return all available metadata keys for WordPress posts.
 	 *
-	 * @abstract
 	 * @return array The array of available metadata keys.
  	 *
+	 * @abstract
+	 *
  	 * @since    1.0.0
 	 */
 	abstract public function getAvailableMetadata();
+	/**
+	 * Load object data from XML
+	 *
+	 * @param SimpleXMLElement The XML representation of the tag
+	 * @return object The filled object
+ 	 *
+	 * @abstract
+	 *
+ 	 * @since    1.0.0
+	 */
+	abstract public function loadFromXML(SimpleXMLElement $xml);
 }

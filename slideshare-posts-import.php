@@ -45,7 +45,6 @@ require_once( plugin_dir_path( __FILE__ ) . 'includes/api/exceptions/class-slide
 require_once( plugin_dir_path( __FILE__ ) . 'includes/api/exceptions/class-slideshare-parser-exception.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/api/exceptions/class-slideshare-service-exception.php' );
 
-require_once( plugin_dir_path( __FILE__ ) . 'includes/api/interface-xml-parser.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/api/class-slideshare-xml-parser.php' );
 
 require_once( plugin_dir_path( __FILE__ ) . 'includes/api/models/class-slideshare-model.php' );

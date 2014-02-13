@@ -10,7 +10,7 @@
  *
  * @since    1.0.0
  */	
-class Tag extends SlideShareModel implements IXMLParser
+class Tag extends SlideShareModel
 {
 	private $value;
 	private $owner;
