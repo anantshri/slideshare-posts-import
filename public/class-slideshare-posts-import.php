@@ -77,6 +77,9 @@ class SlideShare_Posts_Import {
 		add_action( '@TODO', array( $this, 'action_method_name' ) );
 		add_filter( '@TODO', array( $this, 'filter_method_name' ) );
 
+		// Initialize schedule tasks
+		$cron = new SlideShareCron();
+		$cron->init();
 	}
 
 	/**
@@ -230,7 +233,21 @@ class SlideShare_Posts_Import {
 	 * @since    1.0.0
 	 */
 	private static function single_activate() {
-		// @TODO: Define activation functionality here
+		/*
+		 * Scheduling of import
+		 * plugin activation => if does not exists, add "every day" event.
+		 */
+	    $exists = false;
+		
+		foreach(_get_cron_array() as $hooks) {
+		    if(isset($hooks[SlideShareCron::EVENT_NAME])) {
+		        $exists = true;
+		    }
+		}
+		
+		if(!$exists){
+		    wp_schedule_event(time(), '10second'/*SlideShareCron::schedule_name()*/, SlideShareCron::EVENT_NAME);
+		}
 	}
 
 	/**
