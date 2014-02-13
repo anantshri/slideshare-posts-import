@@ -105,4 +105,16 @@ class Tag extends SlideShareModel implements IXMLParser
 	{
 		return $this->value;
 	}
+	
+	/**
+	 * Magic method __toString
+	 *
+	 * @return string The string representation of the tag
+ 	 *
+ 	 * @since    1.0.0
+	 */
+	public function __toString()
+	{
+		return $this->value;
+	}
 }

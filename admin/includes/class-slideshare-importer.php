@@ -30,11 +30,7 @@ class SlideShareImporter
 				if(!$post_id instanceof WP_Error) {
 					$this->createMetadata($post_id, $slideshow);
 					$this->addThumbnail($post_id, $slideshow->getThumbnailUrl(), $slideshow->getThumbnailSize());
-				
-					foreach($slideshow->getTags() as $tag) {
-						$this->addTag($tag);
-					}
-				
+					$this->addTags($post_id, $slideshow->getTags());
 					$this->posts[] = get_post($post_id);
 				} else {
 					$error = $post_id;
@@ -194,9 +190,10 @@ class SlideShareImporter
 	   return $args;
 	}
 	
-	private function addTag($tag)
+	private function addTags($post_id, $list)
 	{
-		
+		$tags = $list ? join(',', $list) : '';
+		return wp_set_post_tags($post_id, $tags, false);
 	}
 	
 	private function getFormattedDate($date)

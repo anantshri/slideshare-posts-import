@@ -125,7 +125,7 @@ class Slideshow extends SlideShareModel implements IXMLParser
 				case 'PPTLocation':       $this->ppt_location = (string) $child; break;
 				case 'StrippedTitle':     $this->stripped_title = (string) $child; break;
 				case 'Tags': 
-					foreach($child->Tags->tag as $node) {
+					foreach($child->Tag as $node) {
 						$tag = new Tag();
 						$this->tags[] = $tag->loadFromXML($node);
 					}
