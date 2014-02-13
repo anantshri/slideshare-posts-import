@@ -30,6 +30,30 @@ abstract class SlideShareService
 	}
 	
 	/**
+	 * Set API authentication username
+     *
+	 * @param string $username The SlideShare API authentication username
+ 	 *
+ 	 * @since    1.0.0
+	 */
+	public function setUsername($username) 
+	{
+		$this->credentials->setUsername($username);
+	}
+	
+	/**
+	 * Set API authentication password
+     *
+	 * @param string $password The SlideShare API authentication password
+ 	 *
+ 	 * @since    1.0.0
+	 */
+	public function setPassword($password) 
+	{
+		$this->credentials->setPassword($password);
+	}
+	
+	/**
 	 * Get the API authentication username
      *
 	 * @return string The SlideShare API authentication username
