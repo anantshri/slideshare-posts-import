@@ -70,28 +70,6 @@ class Slideshow extends SlideShareModel
 	}
 	
 	/**
-	 * Return all available metadata keys for WordPress posts.
-	 *
-	 * @static
-	 * @return array The array of available metadata keys.
- 	 *
- 	 * @since    1.0.0
-	 */
-	public function getAvailableMetadata()
-	{
-		$metadata = array();
-		
-		$reflect = new ReflectionClass(get_class($this));
-		$properties = $reflect->getProperties(ReflectionProperty::IS_PRIVATE);
-		
-		foreach($properties as $property) {
-		    $property->setAccessible(true);
-		    $metadata[] = $this->generateMetadataKey($property->getName());
-		}
-		return $metadata;
-	}
-	
-	/**
 	 * Load object data from XML
 	 *
 	 * @param SimpleXMLElement $xml The XML representation of the slideshow
@@ -293,8 +271,14 @@ class Slideshow extends SlideShareModel
 		return $this->slides_count;
 	}
 
-	/*
+	/**
 	 * Load related slideshows with API calls
+	 *
+	 * @param SlideShareSlideshowService $service The slideshows service instance for API calls.
+ 	 *
+ 	 * @since    1.0.0
+	 *
+	 * TODO: have to be tested !
 	 */
 	
 	public function loadRelatedSlideshows(SlideShareSlideshowService $service)
