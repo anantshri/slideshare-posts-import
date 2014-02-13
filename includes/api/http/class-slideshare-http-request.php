@@ -2,11 +2,11 @@
 /**
  * Request for REST API calls.
  *
- * @package   api/http
+ * @package   SlideShareHttpRequest
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
- * @link      https://github.com/Spoon4/slideshare-api-import
- * @link      http://fr.slideshare.net/developers/documentation
+ * @link      https://github.com/Spoon4/slideshare-api-import/includes/api/http/class-slideshare-http-request.php
+ * @see       http://fr.slideshare.net/developers/documentation
  * @copyright 2014 Spoon
  *
  * @since    1.0.0
@@ -38,7 +38,7 @@ class SlideShareHttpRequest
 	 * @param mixed $data Optional request parameters (used for POST method only).
 	 * @param array $headers HTTP request headers.
 	 *
-	 *@throws SlideShareHttpException
+	 * @throws SlideShareHttpException
  	 *
  	 * @since    1.0.0
 	 */

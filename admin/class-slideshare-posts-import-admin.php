@@ -5,7 +5,7 @@
  * @package   SlideShare_Posts_Import_Admin
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
- * @link      https://github.com/Spoon4/slideshare-posts-import
+ * @link      https://github.com/Spoon4/slideshare-posts-import/admin/class-slideshare-posts-import-admin.php
  * @copyright 2014 Spoon
  */
 

@@ -2,10 +2,10 @@
 /**
  * Abstract base model class.
  *
- * @package   api/model
+ * @package   SlideShareModel
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
- * @link      https://github.com/Spoon4/slideshare-api-import
+ * @link      https://github.com/Spoon4/slideshare-api-import/includes/api/model/class-slideshare-model.php
  * @copyright 2014 Spoon
  *
  * @since    1.0.0

@@ -2,15 +2,15 @@
 /**
  * Slideshow REST API calls.
  *
- * @package   api/services
+ * @package   SlideShareSlideshowService
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
- * @link      https://github.com/Spoon4/slideshare-api-import
- * @link      http://fr.slideshare.net/developers/documentation#get_slideshow
- * @link      http://fr.slideshare.net/developers/documentation#edit_slideshow
- * @link      http://fr.slideshare.net/developers/documentation#delete_slideshow
- * @link      http://fr.slideshare.net/developers/documentation#upload_slideshow
- * @link      http://fr.slideshare.net/developers/documentation#search_slideshows
+ * @link      https://github.com/Spoon4/slideshare-api-import/includes/api/services/class-slideshare-slideshow-service.php
+ * @see       http://fr.slideshare.net/developers/documentation#get_slideshow
+ * @see       http://fr.slideshare.net/developers/documentation#edit_slideshow
+ * @see       http://fr.slideshare.net/developers/documentation#delete_slideshow
+ * @see       http://fr.slideshare.net/developers/documentation#upload_slideshow
+ * @see       http://fr.slideshare.net/developers/documentation#search_slideshows
  * @copyright 2014 Spoon
  *
  * @since    1.0.0

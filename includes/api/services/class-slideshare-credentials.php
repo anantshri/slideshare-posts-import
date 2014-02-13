@@ -2,11 +2,11 @@
 /**
  * Credentials for REST API calls.
  *
- * @package   api/services
+ * @package   SlideShareCredentials
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
- * @link      https://github.com/Spoon4/slideshare-api-import
- * @link      http://fr.slideshare.net/developers/documentation
+ * @link      https://github.com/Spoon4/slideshare-api-import/includes/api/services/class-slideshare-credentials.php
+ * @see       http://fr.slideshare.net/developers/documentation
  * @copyright 2014 Spoon
  *
  * @since    1.0.0
@@ -18,6 +18,16 @@ class SlideShareCredentials
 	private $username;
 	private $password;
 	
+	/**
+	 * Constructor
+     *
+	 * @param string $apiKey The SlideShare API key
+	 * @param string $sharedSecret The SlideShare API shared secret
+	 * @param string $username The SlideShare API authentication username
+	 * @param string $password The SlideShare API authentication password
+ 	 *
+ 	 * @since    1.0.0
+	 */
 	public function __construct($apiKey, $sharedSecret, $username = null, $password = null) 
 	{
 		$this->api_key = $apiKey;
@@ -26,6 +36,15 @@ class SlideShareCredentials
 		$this->password = $password;
 	}
 	
+	/**
+	 * Generate the base query string for API calls, 
+	 * with API key, shared secret and, eventually,
+	 * username and password if set.
+     *
+	 * @return string The query string part of API credentials.
+ 	 *
+ 	 * @since    1.0.0
+	 */
 	public function getQueryString() 
 	{
 		$timestamp = time();
@@ -38,22 +57,52 @@ class SlideShareCredentials
 		return $query;
 	}
 	
+	/**
+	 * Set API authentication username
+     *
+	 * @param string $username The SlideShare API authentication username
+ 	 *
+ 	 * @since    1.0.0
+	 */
 	public function setUsername($username) 
 	{
 		$this->username = $username;
 	}
 	
+	/**
+	 * Set API authentication password
+     *
+	 * @param string $password The SlideShare API authentication password
+ 	 *
+ 	 * @since    1.0.0
+	 */
 	public function setPassword($password) 
 	{
 		$this->password = $password;
 	}
 	
+	/**
+	 * Set API authentication username and password
+     *
+	 * @param string $username The SlideShare API authentication username
+	 * @param string $password The SlideShare API authentication password
+ 	 *
+ 	 * @since    1.0.0
+	 */
 	public function setUserCredentials($username, $password) 
 	{
 		$this->setUsername($username);
 		$this->setPassword($password);
 	}
 	
+	/**
+	 * Get hash for API calls
+     *
+	 * @param integer $timestamp The timestamp parameter of the request
+	 * @return string The SHA1 encoded hash.
+ 	 *
+ 	 * @since    1.0.0
+	 */
 	private function hash($timestamp)
 	{
 		return sha1($this->shared_secret.$timestamp);

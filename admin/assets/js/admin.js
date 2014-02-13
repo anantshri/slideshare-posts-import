@@ -1,4 +1,8 @@
-
+/**
+ * Add a 'nl2br' PHP like function to String object prototype.
+ *
+ * @return {string} The new string.
+ */
 String.prototype.nl2br = function()
 {
     return this.replace(/\n/g, "<br />");
@@ -6,13 +10,22 @@ String.prototype.nl2br = function()
 
 (function($) {
 	"use strict";
-
+	
+	/**
+	 * Reset admin import page
+	 */
 	function resetImportInputs() {
 		displayActivityIndicator('#slideshare-import-container', false);
 		displayNoticeContainer(false);
 		setNoticeMessage('', '');
 	};
 	
+	/**
+	 * Disable import submit button on admin import page on ajax request.
+	 * This disallow user to launch another import when one is already in progress
+	 *
+	 * @param {boolean} disabled If the button must be disabled or not.
+	 */
 	function disableImportButton(disabled)
 	{
 		if(disabled)

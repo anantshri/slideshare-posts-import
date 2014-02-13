@@ -3,10 +3,23 @@
  * @package   SlideShare_Posts_Import
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
- * @link      https://github.com/Spoon4/slideshare-posts-import
+ * @link      https://github.com/Spoon4/slideshare-posts-import/includes/functions.php
  * @copyright 2014 Spoon
  */
 
+/**
+ * Send an API request to recover slideshows of a SlideShare user.
+ *
+ * @param string $slideshare_user The SlideShare user for who retrieve slideshows
+ * @param string $username The SlideShare username account for service authentication
+ * @param string $password The SlideShare password account for service authentication
+ * @param string $optional The service optional parameters
+ * @return User|WP_Error The SlideShare user object with slideshows.
+ *
+ * @since    1.0.0
+ *
+ * @see http://fr.slideshare.net/developers/documentation#get_slideshows_by_user 
+ */
 function get_user_slideshares($user, $optional = array(), $username = null, $password = null) {
 	$apiKey = get_option('SLIDESHARE_API_KEY');
 	$apiSecret = get_option('SLIDESHARE_API_SECRET_KEY');

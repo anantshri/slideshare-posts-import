@@ -2,10 +2,10 @@
 /**
  * Slideshow object model.
  *
- * @package   api/model
+ * @package   Slideshow
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
- * @link      https://github.com/Spoon4/slideshare-api-import
+ * @link      https://github.com/Spoon4/slideshare-api-import/includes/api/model/class-slideshow-model.php
  * @copyright 2014 Spoon
  *
  * @since    1.0.0
@@ -15,7 +15,7 @@ class Slideshow extends SlideShareModel implements IXMLParser
 	private $id;
 	private $title;
 	private $description;
-	private $conversion_state; // 0 if queued for conversion, 1 if converting, 2 if converted, 3 if conversion failed
+	private $conversion_state;       // 0 if queued for conversion, 1 if converting, 2 if converted, 3 if conversion failed
 	private $username;
 	private $web_permalink;
 	private $thumbnail_url;
@@ -24,12 +24,12 @@ class Slideshow extends SlideShareModel implements IXMLParser
 	private $embed_code;
 	private $created_date;
 	private $last_update_date;
-	private $language; // language, as specified by two-letter code
-	private $format; // ppt or pdf, pps, odp, doc, pot, txt, rdf
+	private $language;               // language, as specified by two-letter code
+	private $format;                 // ppt or pdf, pps, odp, doc, pot, txt, rdf
 	private $available_for_download; // 1 if available to download, else 0
 	private $download_url;
-	private $type; // 0 if presentation, 1 if document, 2 if a portfolio, 3 if video
-	private $in_contest; // 1 if part of a contest, 0 if not
+	private $type;                   // 0 if presentation, 1 if document, 2 if a portfolio, 3 if video
+	private $in_contest;             // 1 if part of a contest, 0 if not
 	
 	private $user_id;
 	private $ppt_location;
@@ -56,8 +56,8 @@ class Slideshow extends SlideShareModel implements IXMLParser
 	/*
 	 * TODO: don't know if it's really used...
 	 */
-	private $external_app_user_id; // ExternalAppUserID if uploaded using an external app
-	private $external_app_id; // ExternalAppID for the external app
+	private $external_app_user_id;   // ExternalAppUserID if uploaded using an external app
+	private $external_app_id;        // ExternalAppID for the external app
 	
 	/**
 	 * Constructor
@@ -94,7 +94,7 @@ class Slideshow extends SlideShareModel implements IXMLParser
 	/**
 	 * Load object data from XML
 	 *
-	 * @param SimpleXMLElement The XML representation of the slideshow
+	 * @param SimpleXMLElement $xml The XML representation of the slideshow
 	 * @return Slideshow The filled Slideshow object
  	 *
  	 * @since    1.0.0
@@ -294,7 +294,7 @@ class Slideshow extends SlideShareModel implements IXMLParser
 	}
 
 	/*
-	 * Related
+	 * Load related slideshows with API calls
 	 */
 	
 	public function loadRelatedSlideshows(SlideShareSlideshowService $service)
