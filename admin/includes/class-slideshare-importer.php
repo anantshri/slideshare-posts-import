@@ -207,7 +207,7 @@ class SlideShareImporter
 	{
 		if(!$date)
 			$date = new DateTime("now");
-		return gmdate('Y-m-d H:i:s', $date->getTimestamp());
+		return gmdate('Y-m-d H:i:s', $date->format('U'));
 	}
 }
 
