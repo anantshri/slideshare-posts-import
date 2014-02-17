@@ -77,7 +77,8 @@ String.prototype.nl2br = function()
 			    },
 			    error: function(response, textStatus, errorThrown) {
 					displayActivityIndicator('#slideshare-import-container', false);
-					setNoticeMessage(textStatus, errorThrown.stack.nl2br(), true);
+					var message = typeof errorThrown == 'object' ? errorThrown.stack : errorThrown;
+					setNoticeMessage(textStatus, message.nl2br(), true);
 					displayNoticeContainer(true, true);
 					disableImportButton(false);
 			    }
