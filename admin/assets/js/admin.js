@@ -46,10 +46,11 @@ String.prototype.nl2br = function()
 			
 			$.ajax({
  				type : "get",
-			    url : AjaxParams.ajaxurl,
+			    url : SlideShareAjaxParams.ajaxurl,
 			    data : {
 					action: 'import_slideshows',
-					nonce: AjaxParams.import_nonce
+					nonce: $('#_wpnonce').val(),
+					memory: $('#memory').val() 
 				},
 			    dataType : "json",
 			    success: function(response) {
@@ -59,17 +60,17 @@ String.prototype.nl2br = function()
 					if(!response) {
 						setNoticeMessage('Error', 'Unknown error', true);
 					} else if(response.success) {
-						var message = AjaxParams.import_success_message
+						var message = SlideShareAjaxParams.import_success_message
 							.replace("{0}", response.data.slideshows_count)
 							.replace("{1}", response.data.slideshare_user)
 							.replace("{2}", response.data.posts_count);
-						setNoticeMessage(AjaxParams.import_success_label, message);
+						setNoticeMessage(SlideShareAjaxParams.import_success_label, message);
 						// fillSlideshowsTable(response.data);
 						// $('#slideshare-list').show();
 			        } else {
 						for(var code in response.data.errors) {
 							var message = code + ' : ' + response.data.errors[code].join("<br/>");
-							setNoticeMessage(AjaxParams.default_error_label, message, true);
+							setNoticeMessage(SlideShareAjaxParams.default_error_label, message, true);
 						}
 			        }
 					displayNoticeContainer(true, true);
