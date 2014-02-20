@@ -16,9 +16,6 @@
 <div id="slideshare-import-container" class="wrap">
 
 	<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
-	<p>Below you can delete, publish or draft your video posts.</p>
-	
-	<p>Let's talk about this video list a little. This list displays all the videos that have been found in your YouTube channels and playlists. For each of these videos a WordPress post has been created. From this list you can manipulate the WordPress post by publishing, drafting or deleting it. When deleting a post you are simply moving it to the trash. Any of these actions taken does not affect the list of videos below PROVIDED THAT YOU NEVER PERMANENTLY DELETE THE POST CREATED. You cannot delete a video from the list below unless you reset the list below or manually delete a post from the trash. Publishing, deleting or drafting only affects the post associated with the YouTube video. Remember this list is simply a reference to the videos that this plugin has found in your YouTube channels and playlists. However, upon the permanent deletion of a post the import may republish the deleted video post automatically. If you wish to hide a video post from your blog, set the post to draft or move it to the trash.</p>
 	
 	<?php
 	if ( !current_user_can( 'manage_options' ) )  {
@@ -39,7 +36,6 @@
 	}
 	?>
 	
-	<p><?php _e('You will be notified when your import has finished. DO NOT LEAVE THIS PAGE UNTIL YOU HAVE RECEIVED NOTIFICATION.')?></p>
 	
 	<p class="submit">
 		<input type="submit" id="slideshare-import" name="submit" class="button-primary" value="<?php _e('Import shares')?>" />
