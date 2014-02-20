@@ -95,6 +95,7 @@ if ( is_admin() ) {
 	if( ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
 		add_action( 'plugins_loaded', array( 'SlideShare_Posts_Import_Admin', 'get_instance' ) );
 	} else {
+		require_once( plugin_dir_path( __FILE__ ) . 'admin/includes/class-slideshare-ajax-response.php' );
 		add_action( 'plugins_loaded', array( 'SlideShare_Posts_Import_Admin', 'add_ajax_actions' ) );
 	}
 }
