@@ -26,7 +26,7 @@ function action_ajax_import()
 	if(is_wp_error($result))
 		send_ajax_response(false, $result);
 	else {
-		$importer = new SlideShareImporter($result->getSlideshows());
+		$importer = new SlideShareImporter($result->getSlideshows(), $_GET['memory']);
 		$importer->import();
 	
 		if($importer->hasErrors()) {

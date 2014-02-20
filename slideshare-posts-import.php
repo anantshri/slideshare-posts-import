@@ -31,6 +31,10 @@ if ( ! defined( 'SLIDESHARE_API_URL' ) ) {
 	define('SLIDESHARE_API_URL', 'https://www.slideshare.net/api/2/');
 }
 
+if ( ! defined( 'IMPORT_DEFAULT_MEMORY_MAX' ) ) {
+	define('IMPORT_DEFAULT_MEMORY_MAX', 32);
+}
+
 /*----------------------------------------------------------------------------*
  * Public-Facing Functionality
  *----------------------------------------------------------------------------*/

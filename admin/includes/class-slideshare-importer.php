@@ -14,32 +14,40 @@ class SlideShareImporter
 	private $errors = null;
 	private $errorsCode;
 	private $slideshows;
+	private $memory = null;
+	private $memory_max;
 	
-	public function __construct($slideshows)
+	public function __construct($slideshows, $memory_max)
 	{
 		$this->slideshows = $slideshows;
+		$this->memory_max = $memory_max ? (int)$memory_max : IMPORT_DEFAULT_MEMORY_MAX;
 		$this->errorsCode = __('Import error');
 	}
 	
 	public function import()
 	{
 		foreach($this->slideshows as $slideshow) {
-			try {
-				$post_id = $this->createPost($slideshow);
+				try {
+					if($this->checkMemory()) {
+						$post_id = $this->createPost($slideshow);
 			
-				if(!$post_id instanceof WP_Error) {
-					$this->createMetadata($post_id, $slideshow);
-					$this->addThumbnail($post_id, $slideshow->getThumbnailUrl(), $slideshow->getThumbnailSize());
-					$this->addTags($post_id, $slideshow->getTags());
-					$this->posts[] = get_post($post_id);
-				} else {
-					$error = $post_id;
-					throw new SlideShareException($this->errorsCode, $error->get_error_message());
+						if(!$post_id instanceof WP_Error) {
+							$this->createMetadata($post_id, $slideshow);
+							$this->addThumbnail($post_id, $slideshow->getThumbnailUrl(), $slideshow->getThumbnailSize());
+							$this->addTags($post_id, $slideshow->getTags());
+							$this->posts[] = get_post($post_id);
+						} else {
+							$error = $post_id;
+							throw new SlideShareException($this->errorsCode, $error->get_error_message());
+						}
+					} else {
+						throw new SlideShareException($this->errorsCode, __('Memory limit reach !'));
+					}
+				} catch(SlideShareException $exception) {
+					$this->setError($exception->getMessage());
 				}
-			} catch(SlideShareException $exception) {
-				$this->setError($exception->getMessage());
-			}
 		}
+		$this->memory = null;
 	}
 	
 	public function getPosts()
@@ -63,6 +71,26 @@ class SlideShareImporter
 	public function getErrors()
 	{
 		return $this->errors;
+	}
+	
+	private function checkMemory()
+	{
+		$ini_limit = ini_get('memory_limit');
+		preg_match("/[0-9]+/", $ini_limit, $match);
+		$this->memory = (int)$match[0];
+		$limit = (int)$match[0] * 1048576;
+
+		if(memory_get_usage() > ($limit - 5242880)) {
+			$this->memory += 5;
+			if($this->memory <= $this->memory_max) {
+				ini_set('memory_limit', $this->memory.'M');
+				$limit = $this->memory * 1048576;
+				return true;
+			}
+			return false;
+		}
+
+		return true;
 	}
 	
 	private function createPost(Slideshow $item)
