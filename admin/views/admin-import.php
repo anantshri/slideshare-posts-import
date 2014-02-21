@@ -67,9 +67,8 @@
 	
 	<?php include('activity-indicator.php');?>
 	
-<?php /*	
-	<div id="slideshare-list">
-		<?php include('slideshow-list.php');?>
+	<div id="slideshare-skiped-list" class="warning">
+		<p><span><?php _e('Skiped posts')?></span></p>
+		<ul></ul>
 	</div>
-*/?>
 </div>

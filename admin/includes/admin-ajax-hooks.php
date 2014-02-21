@@ -35,7 +35,8 @@ function action_ajax_import()
 			SlideShareAjaxResponse::success(array(
 				'slideshows_count' => $result->getCount(),
 				'slideshare_user' => $result->getName(),
-				'posts_count' => count($importer->getPosts()),
+				'new_posts' => $importer->getPosts(),
+				'skiped_posts' => $importer->getSkiped()
 			));
 		}
 	}

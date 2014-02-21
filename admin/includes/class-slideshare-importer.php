@@ -10,7 +10,7 @@
  */
 class SlideShareImporter
 {
-	private $posts = array();
+	private $posts = array('new' => array(), 'skiped' => array());
 	private $errors = null;
 	private $errorsCode;
 	private $slideshows;
@@ -27,6 +27,9 @@ class SlideShareImporter
 	public function import()
 	{
 		foreach($this->slideshows as $slideshow) {
+			if($post_id = $this->checkIfExists($slideshow->getId())) {
+				$this->posts['skiped'][] = get_post($post_id);
+			} else {
 				try {
 					if($this->checkMemory()) {
 						$post_id = $this->createPost($slideshow);
@@ -35,7 +38,7 @@ class SlideShareImporter
 							$this->createMetadata($post_id, $slideshow);
 							$this->addThumbnail($post_id, $slideshow->getThumbnailUrl(), $slideshow->getThumbnailSize());
 							$this->addTags($post_id, $slideshow->getTags());
-							$this->posts[] = get_post($post_id);
+							$this->posts['new'][] = get_post($post_id);
 						} else {
 							$error = $post_id;
 							throw new SlideShareException($this->errorsCode, $error->get_error_message());
@@ -46,13 +49,19 @@ class SlideShareImporter
 				} catch(SlideShareException $exception) {
 					$this->setError($exception->getMessage());
 				}
+			}
 		}
 		$this->memory = null;
 	}
 	
 	public function getPosts()
 	{
-		return $this->posts;
+		return $this->posts['new'];
+	}
+	
+	public function getSkiped()
+	{
+		return $this->posts['skiped'];
 	}
 	
 	private function setError($error)
@@ -91,6 +100,34 @@ class SlideShareImporter
 		}
 
 		return true;
+	}
+	
+	private function checkIfExists($slideshare_id)
+	{
+		$args = array(
+		  	'post_type' => 'post',
+		  	'meta_query' => array(
+		      	array(
+		          	'key' => 'slideshare_id',
+		          	'value' => $slideshare_id
+		      	)
+		  	),
+		  	'fields' => 'ids'
+		);
+		
+		// perform the query
+		$query = new WP_Query($args);
+
+		// you are getting back an array of ids if the key has the same value at another post
+		// otherwise it should be empty, but for failsafe reasons we're going to filter out
+		// all keys with null, false and empty values, with array_filter(), just to be thorough
+		$query = array_filter($query->posts);
+
+		// do something if the key-value-pair exists in another post
+		if(!empty($query)) {
+		    return $query[0];
+		}
+		return null;
 	}
 	
 	private function createPost(Slideshow $item)

@@ -151,6 +151,7 @@ class SlideShare_Posts_Import_Admin
                 'default_error_label'    => __( 'Error !' ),
                 'import_success_label'   => __( 'Import succeed !' ),
                 'import_success_message' => __( '<strong>{0}</strong> slideshows was found for user <strong>{1}</strong> and <strong>{2}</strong> posts was created.' ),
+                'import_skiped_message'  => __( '<strong>{0}</strong> was skiped because their SlideShare ID already exists in database.' ),
             ));
             wp_enqueue_script( $this->plugin_slug . '-admin-script' );
 		}
