@@ -26,18 +26,26 @@ function action_ajax_import()
 	if(is_wp_error($result))
 		SlideShareAjaxResponse::error($result);
 	else {
-		$importer = new SlideShareImporter($result->getSlideshows(), $_GET['memory']);
-		$importer->import();
+		$data = array(
+			'slideshows_count' => $result->getCount(),
+			'slideshare_user'  => $result->getName(),
+			'new_posts'        => array(),
+			'skiped_posts'     => array()
+		)
+		
+		if($result->getCount() > 0) {
+			$importer = new SlideShareImporter($result->getSlideshows(), $_GET['memory']);
+			$importer->import();
 	
-		if($importer->hasErrors()) {
-			SlideShareAjaxResponse::error($importer->getErrors());
-		} else {
-			SlideShareAjaxResponse::success(array(
-				'slideshows_count' => $result->getCount(),
-				'slideshare_user' => $result->getName(),
-				'new_posts' => $importer->getPosts(),
-				'skiped_posts' => $importer->getSkiped()
-			));
-		}
+			if($importer->hasErrors()) {
+				SlideShareAjaxResponse::error($importer->getErrors());
+			} else {
+				$data['new_posts'] = $importer->getPosts();
+				$data['skiped_posts'] => $importer->getSkiped();
+				SlideShareAjaxResponse::success($data);
+			}
+		}  else {
+				SlideShareAjaxResponse::success($data);
+		}	
 	}
 }
