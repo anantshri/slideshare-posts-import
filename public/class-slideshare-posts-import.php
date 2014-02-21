@@ -246,7 +246,7 @@ class SlideShare_Posts_Import {
 		}
 		
 		if(!$exists){
-		    wp_schedule_event(time(), '10second'/*SlideShareCron::schedule_name()*/, SlideShareCron::EVENT_NAME);
+		    wp_schedule_event(time(), '10seconds'/*SlideShareCron::schedule_name()*/, SlideShareCron::EVENT_NAME);
 		}
 	}
 

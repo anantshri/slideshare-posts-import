@@ -29,6 +29,7 @@
 		update_option( 'SLIDESHARE_USERNAME', $_POST['slideshare_username'] );
 		update_option( 'SLIDESHARE_PASSWORD', $_POST['slideshare_password'] );
 		update_option( 'SLIDESHARE_NAME', $_POST['slideshare_name'] );
+		update_option( 'SLIDESHARE_IMPORT_INTERVAL', $_POST['slideshare_import_interval'] );
 		
 		$notice = array(
 			'label'   => __('Update succeed'),
@@ -87,6 +88,17 @@
 					<input type="radio" name="publish" value="1" <?php if(get_option('SLIDESHARE_AUTOPUBLISH')):?> checked<?php endif;?> /> <?php _e('yes')?> 
 					<input type="radio" name="publish" value="0" <?php if(!get_option('SLIDESHARE_AUTOPUBLISH')):?> checked<?php endif;?> /> <?php _e('no')?><br />
 					<p><span class="setting-description"><?php _e('This option will make posts immediately viewable to the public.')?></span></p>
+				</td>
+			</tr>
+			<tr valign="row">
+				<th scope="row"><label for="slideshare_import_interval"><?php _e('Update frequency:')?> </label></th>
+				<td>
+					<select name="slideshare_import_interval" value="<?php echo get_option( 'SLIDESHARE_IMPORT_INTERVAL', 6 ); ?>" class="">
+						<?php foreach(array(6, 8, 12, 18, 24) as $schedule):?>
+							<?php $selected = get_option( 'SLIDESHARE_IMPORT_INTERVAL') == $schedule ? 'selected="selected"' : '';?>
+							<option value="<?php echo $schedule?>" <?php echo $selected?>><?php echo $schedule?> <?php _e('hours')?></option>
+						<?php endforeach;?>
+					</select>
 				</td>
 			</tr>
 		</table>

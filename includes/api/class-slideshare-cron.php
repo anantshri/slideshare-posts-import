@@ -39,13 +39,13 @@ class SlideShareCron
 	
     public function add_cron_schedule($schedules) 
     {
-		$import_interval = 6; //get_option('SLIDESHARE_IMPORT_INTERVAL');
+		$import_interval = (int) get_option('SLIDESHARE_IMPORT_INTERVAL');
 		
         $schedules[self::schedule_name()] = array(
             'interval' => $import_interval * 3600,
             'display' => sprintf(__('Each %s hours'), $import_interval),
         );
-        $schedules['10second'] = array(
+        $schedules['10seconds'] = array(
             'interval' => 10,
             'display' => __('Each 10s'),
         );
@@ -54,7 +54,6 @@ class SlideShareCron
 	
 	public static function schedule_name()
 	{
-		$import_interval = 6; //get_option('SLIDESHARE_IMPORT_INTERVAL');
-		return 'each'.$import_interval.'hours'; 
+		return 'each'.get_option('SLIDESHARE_IMPORT_INTERVAL').'hours'; 
 	}
 }
