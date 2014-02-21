@@ -31,7 +31,7 @@ function action_ajax_import()
 			'slideshare_user'  => $result->getName(),
 			'new_posts'        => array(),
 			'skiped_posts'     => array()
-		)
+		);
 		
 		if($result->getCount() > 0) {
 			$importer = new SlideShareImporter($result->getSlideshows(), $_GET['memory']);
@@ -41,7 +41,7 @@ function action_ajax_import()
 				SlideShareAjaxResponse::error($importer->getErrors());
 			} else {
 				$data['new_posts'] = $importer->getPosts();
-				$data['skiped_posts'] => $importer->getSkiped();
+				$data['skiped_posts'] = $importer->getSkiped();
 				SlideShareAjaxResponse::success($data);
 			}
 		}  else {
