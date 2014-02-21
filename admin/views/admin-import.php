@@ -23,13 +23,6 @@
 	}
 	
 	if(isset($_REQUEST['do-import-action'])) {
-		?>
-		
-		<script type="text/javascript" charset="utf-8">
-			jQuery('#slideshare-list').show();
-		</script>
-		
-		<?php
 		if(wp_verify_nonce($_REQUEST['_wpnonce'],'_wp_slideshare_import_nonce')) {
 			
 		}
