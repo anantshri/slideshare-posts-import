@@ -77,9 +77,6 @@ class SlideShare_Posts_Import {
 		add_action( '@TODO', array( $this, 'action_method_name' ) );
 		add_filter( '@TODO', array( $this, 'filter_method_name' ) );
 
-		// Initialize schedule tasks
-		$cron = new SlideShareCron();
-		$cron->init();
 	}
 
 	/**
