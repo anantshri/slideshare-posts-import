@@ -15,7 +15,7 @@
  * Version:           1.0.0
  * Author:            Spoon
  * Author URI:        https://github.com/Spoon4
- * Text Domain:       en_US
+ * Text Domain:       slideshare-posts-import
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path:       /languages
