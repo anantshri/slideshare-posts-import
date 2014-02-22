@@ -252,7 +252,7 @@ class SlideShare_Posts_Import {
 	 * @since    1.0.0
 	 */
 	private static function single_deactivate() {
-		// @TODO: Define deactivation functionality here
+		wp_clear_scheduled_hook(SlideShareCron::EVENT_NAME);
 	}
 
 	/**
