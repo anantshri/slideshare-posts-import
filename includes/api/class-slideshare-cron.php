@@ -12,6 +12,11 @@ class SlideShareCron
 {
 	const EVENT_NAME = 'slideshare_posts_import_cron_task';
 	
+	/**
+	 * Initilize the WordPress schedule.
+	 *
+	 * @since     1.0.0
+	 */
 	public function init()
 	{
 		add_action(SlideShareCron::EVENT_NAME, array(&$this, 'get_user_slideshares_task'));
@@ -22,9 +27,16 @@ class SlideShareCron
 	    add_filter('cron_schedules', array(&$this, 'add_cron_schedule'));
 	}
 	
+	/**
+	 * Task to be executed by the schedule
+	 *
+	 * @since     1.0.0
+	 */
 	public function get_user_slideshares_task()
 	{
+		
 		error_log("get_user_slideshares_task");
+		
 		$user = get_option('SLIDESHARE_NAME');
 
 		if($user) {
@@ -37,6 +49,14 @@ class SlideShareCron
 		}
 	}
 	
+	/**
+	 * Callback function of the 'cron_schedules' filter.
+	 *
+	 * @since     1.0.0
+	 *
+	 * @param     array    $schedules    The WordPress schedules array parameter.
+	 * @return    array    The WordPress schedules array parameter.
+	 */
     public function add_cron_schedule($schedules) 
     {
 		$import_interval = (int) get_option('SLIDESHARE_IMPORT_INTERVAL');
@@ -52,6 +72,14 @@ class SlideShareCron
         return $schedules;
     }
 	
+	/**
+	 * Return the name of the SlideShare import schedule
+	 * from the admin SlideShare import page setting.
+	 *
+	 * @since     1.0.0
+	 *
+	 * @return    string    The name of the SlideShare import schedule.
+	 */
 	public static function schedule_name()
 	{
 		return 'each'.get_option('SLIDESHARE_IMPORT_INTERVAL').'hours'; 
