@@ -5,7 +5,7 @@
  * @package   JSONEncoder
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
- * @link      https://github.com/Spoon4/slideshare-api-import/includes/class-json-encoder.php
+ * @link      https://github.com/Spoon4/slideshare-api-import
  * @link      http://stackoverflow.com/questions/6613792/how-do-i-json-encode-private-properties-in-php
  * @copyright 2014 Spoon
  *

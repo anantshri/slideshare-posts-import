@@ -5,7 +5,7 @@
  * @package   SlideShareUserService
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
- * @link      https://github.com/Spoon4/slideshare-api-import/includes/api/services/class-slideshare-user-service.php
+ * @link      https://github.com/Spoon4/slideshare-api-import
  * @see       http://fr.slideshare.net/developers/documentation#get_slideshows_by_user
  * @see       http://fr.slideshare.net/developers/documentation#get_user_groups
  * @see       http://fr.slideshare.net/developers/documentation#get_user_favorites

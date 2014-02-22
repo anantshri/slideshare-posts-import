@@ -5,7 +5,7 @@
  * @package   SlideShareSlideshowService
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
- * @link      https://github.com/Spoon4/slideshare-api-import/includes/api/services/class-slideshare-slideshow-service.php
+ * @link      https://github.com/Spoon4/slideshare-api-import
  * @see       http://fr.slideshare.net/developers/documentation#get_slideshow
  * @see       http://fr.slideshare.net/developers/documentation#edit_slideshow
  * @see       http://fr.slideshare.net/developers/documentation#delete_slideshow

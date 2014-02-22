@@ -5,7 +5,7 @@
  * @package   SlideShareHttpRequest
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
- * @link      https://github.com/Spoon4/slideshare-api-import/includes/api/http/class-slideshare-http-request.php
+ * @link      https://github.com/Spoon4/slideshare-api-import
  * @see       http://fr.slideshare.net/developers/documentation
  * @copyright 2014 Spoon
  *
