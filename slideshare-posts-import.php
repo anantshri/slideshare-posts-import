@@ -46,7 +46,6 @@ require_once( plugin_dir_path( __FILE__ ) . 'includes/api/exceptions/class-slide
 require_once( plugin_dir_path( __FILE__ ) . 'includes/api/exceptions/class-slideshare-service-exception.php' );
 
 require_once( plugin_dir_path( __FILE__ ) . 'includes/api/class-slideshare-xml-parser.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'includes/api/class-slideshare-cron.php' );
 
 require_once( plugin_dir_path( __FILE__ ) . 'includes/api/models/class-slideshare-model.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/api/models/class-user-model.php' );
@@ -74,21 +73,16 @@ add_action( 'plugins_loaded', array( 'SlideShare_Posts_Import', 'get_instance' )
  * Dashboard and Administrative Functionality
  *----------------------------------------------------------------------------*/
 
-/*
- * If you want to include Ajax within the dashboard, change the following
- * conditional to:
- *
- * if ( is_admin() ) {
- *   ...
- * }
- *
- * The code below is intended to to give the lightest footprint possible.
- */
 if ( is_admin() ) {
 
 	require_once( plugin_dir_path( __FILE__ ) . 'admin/class-slideshare-posts-import-admin.php' );
 	require_once( plugin_dir_path( __FILE__ ) . 'admin/includes/class-slideshare-importer.php' );
+	require_once( plugin_dir_path( __FILE__ ) . 'admin/includes/class-slideshare-cron.php' );
 	
+	// Initialize schedule tasks
+	$cron = new SlideShareCron();
+	$cron->init();
+		
 	if( ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
 		add_action( 'plugins_loaded', array( 'SlideShare_Posts_Import_Admin', 'get_instance' ) );
 	} else {

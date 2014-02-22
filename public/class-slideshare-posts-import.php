@@ -76,10 +76,6 @@ class SlideShare_Posts_Import {
 		 */
 		add_action( '@TODO', array( $this, 'action_method_name' ) );
 		add_filter( '@TODO', array( $this, 'filter_method_name' ) );
-
-		// Initialize schedule tasks
-		$cron = new SlideShareCron();
-		$cron->init();
 	}
 
 	/**
@@ -220,8 +216,8 @@ class SlideShare_Posts_Import {
 
 		// get an array of blog ids
 		$sql = "SELECT blog_id FROM $wpdb->blogs
-			WHERE archived = '0' AND spam = '0'
-			AND deleted = '0'";
+			    WHERE archived = '0' AND spam = '0'
+			    AND deleted = '0'";
 
 		return $wpdb->get_col( $sql );
 
