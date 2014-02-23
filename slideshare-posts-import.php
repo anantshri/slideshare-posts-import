@@ -60,11 +60,38 @@ require_once( plugin_dir_path( __FILE__ ) . 'includes/api/services/class-slidesh
 require_once( plugin_dir_path( __FILE__ ) . 'includes/api/services/class-slideshare-slideshow-service.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/api/services/class-slideshare-user-service.php' );
 
+// Initialize schedule tasks
+$cron = new SlideShareCron();
+$cron->init();
+
 /*
  * Register hooks that are fired when the plugin is activated or deactivated.
  * When the plugin is deleted, the uninstall.php file is loaded.
  */
-register_activation_hook( __FILE__, array( 'SlideShare_Posts_Import', 'activate' ) );
+function register_schedule()
+{
+	$exists = false;
+
+	foreach(_get_cron_array() as $hooks) {
+		if(isset($hooks[SlideShareCron::EVENT_NAME])) {
+			$exists = true;
+		}
+	}
+
+	error_log("task exists: ".((string) $exists));
+
+	if(!$exists){
+		error_log("wp_schedule_event");
+	
+		$r = wp_schedule_event(time(), '10second'/*SlideShareCron::schedule_name()*/, SlideShareCron::EVENT_NAME);
+//		var_dump($r);
+	}
+
+//	wp_clear_scheduled_hook( SlideShareCron::EVENT_NAME);
+}
+
+//register_activation_hook( __FILE__, array( 'SlideShare_Posts_Import', 'activate' ) );
+register_activation_hook( __FILE__, array( 'SlideShare_Posts_Import', 'register_schedule' ) );
 register_deactivation_hook( __FILE__, array( 'SlideShare_Posts_Import', 'deactivate' ) );
 
 add_action( 'plugins_loaded', array( 'SlideShare_Posts_Import', 'get_instance' ) );
