@@ -233,6 +233,7 @@ class SlideShare_Posts_Import {
 		 * Scheduling of import
 		 * plugin activation => if does not exists, add "every day" event.
 		 */
+		/*
 	    $exists = false;
 		
 		foreach(_get_cron_array() as $hooks) {
@@ -242,7 +243,9 @@ class SlideShare_Posts_Import {
 		}
 		
 		if(!$exists){
-		    wp_schedule_event(time(), '10seconds'/*SlideShareCron::schedule_name()*/, SlideShareCron::EVENT_NAME);
+		*/
+		if(!wp_next_scheduled(SlideShareCron::EVENT_NAME)) {
+		    wp_schedule_event(current_time('timestamp'), '10seconds'/*SlideShareCron::schedule_name()*/, SlideShareCron::EVENT_NAME);
 		}
 	}
 
