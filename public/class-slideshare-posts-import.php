@@ -229,23 +229,8 @@ class SlideShare_Posts_Import {
 	 * @since    1.0.0
 	 */
 	private static function single_activate() {
-		/*
-		 * Scheduling of import
-		 * plugin activation => if does not exists, add "every day" event.
-		 */
-		/*
-	    $exists = false;
-		
-		foreach(_get_cron_array() as $hooks) {
-		    if(isset($hooks[SlideShareCron::EVENT_NAME])) {
-		        $exists = true;
-		    }
-		}
-		
-		if(!$exists){
-		*/
 		if(!wp_next_scheduled(SlideShareCron::EVENT_NAME)) {
-		    wp_schedule_event(current_time('timestamp'), '10seconds'/*SlideShareCron::schedule_name()*/, SlideShareCron::EVENT_NAME);
+		    wp_schedule_event(time(), '3seconds'/*SlideShareCron::schedule_name()*/, SlideShareCron::EVENT_NAME);
 		}
 	}
 
