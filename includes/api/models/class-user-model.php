@@ -10,7 +10,7 @@
  *
  * @since    1.0.0
  */	
-class User extends SlideShareModel
+class User extends SlideshareModel
 {
 	private $name;
 	private $count;
@@ -45,7 +45,7 @@ class User extends SlideShareModel
 					$this->slideshows[] = $slideshow->loadFromXML($child);
 					break;
 				default:
-					throw new SlideShareParserException('Unknown node name', "SlideShare response XML parsing failed ! Unknown User's XML child '".$child->getName()."'");
+					throw new SlideshareParserException('Unknown node name', "Slideshare response XML parsing failed ! Unknown User's XML child '".$child->getName()."'");
 			}
 		}
 		return $this;

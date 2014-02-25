@@ -1,6 +1,6 @@
 <?php
 /**
- * @package   SlideShare_Posts_Import
+ * @package   Slideshare_Posts_Import
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
  * @link      https://github.com/Spoon4/slideshare-posts-import
@@ -8,13 +8,13 @@
  */
 
 /**
- * Send an API request to recover slideshows of a SlideShare user.
+ * Send an API request to recover slideshows of a Slideshare user.
  *
- * @param string $slideshare_user The SlideShare user for who retrieve slideshows
- * @param string $username The SlideShare username account for service authentication
- * @param string $password The SlideShare password account for service authentication
+ * @param string $slideshare_user The Slideshare user for who retrieve slideshows
+ * @param string $username The Slideshare username account for service authentication
+ * @param string $password The Slideshare password account for service authentication
  * @param string $optional The service optional parameters
- * @return User|WP_Error The SlideShare user object with slideshows.
+ * @return User|WP_Error The Slideshare user object with slideshows.
  *
  * @since    1.0.0
  *
@@ -37,12 +37,12 @@ function get_user_slideshares($user, $optional = array(), $username = null, $pas
 		return new WP_Error(__('Bad API shared secret'), __('You should set an API shared secret key in the settings'));
 	} else {
 		try {
-			$service = new SlideShareUserService($apiKey, $apiSecret, $username, $password);
+			$service = new SlideshareUserService($apiKey, $apiSecret, $username, $password);
 			$response = $service->getSlideshows($user, $username, $password, $optional);
 			return $response->parse();
-		} catch(SlideShareServiceException $exception) {
+		} catch(SlideshareServiceException $exception) {
 			return new WP_Error($exception->getCode(), $exception->getMessage());
-		} catch(SlideShareException $exception) {
+		} catch(SlideshareException $exception) {
 			return new WP_Error($exception->getLabel(), $exception->getMessage());
 		} catch(Exception $exception) {
 			return new WP_Error(__('Error'), $exception->getMessage());

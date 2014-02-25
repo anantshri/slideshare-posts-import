@@ -2,7 +2,7 @@
 /**
  * Abstract base model class.
  *
- * @package   SlideShareModel
+ * @package   SlideshareModel
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
  * @link      https://github.com/Spoon4/slideshare-api-import
@@ -12,7 +12,7 @@
  *
  * @abstract
  */	
-abstract class SlideShareModel
+abstract class SlideshareModel
 {
 	protected $metadata_prefix;
 	

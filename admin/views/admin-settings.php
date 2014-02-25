@@ -5,7 +5,7 @@
  * This includes the header, options, and other information that should provide
  * The User Interface to the end user.
  *
- * @package   SlideShare_Posts_Import
+ * @package   Slideshare_Posts_Import
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
  * @link      https://github.com/Spoon4/slideshare-posts-import
@@ -33,7 +33,7 @@
 		
 		$notice = array(
 			'label'   => __('Update succeed'),
-			'message' => __('SlideShare global settings was successfuly updated !'),
+			'message' => __('Slideshare global settings was successfuly updated !'),
 		);
 	}
 	?>

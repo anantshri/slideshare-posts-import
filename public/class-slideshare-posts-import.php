@@ -1,8 +1,8 @@
 <?php
 /**
- * SlideShare Posts Import.
+ * Slideshare Posts Import.
  *
- * @package   SlideShare_Posts_Import
+ * @package   Slideshare_Posts_Import
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
  * @link      https://github.com/Spoon4/slideshare-posts-import
@@ -16,10 +16,10 @@
  * If you're interested in introducing administrative or dashboard
  * functionality, then refer to `class-slideshare-posts-import-admin.php`
  *
- * @package SlideShare_Posts_Import
+ * @package Slideshare_Posts_Import
  * @author  Spoon <spoon4@gmail.com>
  */
-class SlideShare_Posts_Import {
+class Slideshare_Posts_Import {
 
 	/**
 	 * Plugin version, used for cache-busting of style and script file references.
@@ -229,8 +229,8 @@ class SlideShare_Posts_Import {
 	 * @since    1.0.0
 	 */
 	private static function single_activate() {
-		if(!wp_next_scheduled(SlideShareCron::EVENT_NAME)) {
-		    wp_schedule_event(time(), '3seconds'/*SlideShareCron::schedule_name()*/, SlideShareCron::EVENT_NAME);
+		if(!wp_next_scheduled(SlideshareCron::EVENT_NAME)) {
+		    wp_schedule_event(time(), '3seconds'/*SlideshareCron::schedule_name()*/, SlideshareCron::EVENT_NAME);
 		}
 	}
 
@@ -240,7 +240,7 @@ class SlideShare_Posts_Import {
 	 * @since    1.0.0
 	 */
 	private static function single_deactivate() {
-		wp_clear_scheduled_hook(SlideShareCron::EVENT_NAME);
+		wp_clear_scheduled_hook(SlideshareCron::EVENT_NAME);
 	}
 
 	/**

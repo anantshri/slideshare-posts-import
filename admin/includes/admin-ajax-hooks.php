@@ -2,7 +2,7 @@
 /**
  * AJAX hooks declaration
  *
- * @package   SlideShare_Posts_Import
+ * @package   Slideshare_Posts_Import
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
  * @link      https://github.com/Spoon4/slideshare-posts-import
@@ -19,14 +19,14 @@ function action_ajax_import()
 	$user = get_option('SLIDESHARE_NAME');
 
 	if(!$user)
-		$result = new WP_Error(__('Bad user'), __('You should set a SlideShare user in the settings'));
+		$result = new WP_Error(__('Bad user'), __('You should set a Slideshare user in the settings'));
 	else
 		$result = get_user_slideshares($user, array('detailed' => 1, 'limit' => 5));
 
 	if(is_wp_error($result))
 		send_ajax_response(false, $result);
 	else {
-		$importer = new SlideShareImporter($result->getSlideshows());
+		$importer = new SlideshareImporter($result->getSlideshows());
 		$importer->import();
 	
 		if($importer->hasErrors()) {

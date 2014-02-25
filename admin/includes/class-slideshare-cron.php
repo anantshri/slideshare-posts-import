@@ -1,14 +1,14 @@
 <?php
 /**
- * Discribe and initialize SlideShare cron tasks
+ * Discribe and initialize Slideshare cron tasks
  *
- * @package   SlideShareCron
+ * @package   SlideshareCron
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
  * @link      https://github.com/Spoon4/slideshare-posts-import
  * @copyright 2014 Spoon
  */
-class SlideShareCron
+class SlideshareCron
 {
 	const EVENT_NAME = 'slideshare_posts_import_cron_task';
 	
@@ -19,7 +19,7 @@ class SlideShareCron
 	 */
 	public function init()
 	{
-		add_action(SlideShareCron::EVENT_NAME, array($this, 'get_user_slideshares_task'));
+		add_action(SlideshareCron::EVENT_NAME, array($this, 'get_user_slideshares_task'));
 	    /*
 		 * NOTE: even if ask every 5s, be careful of WordPress timestamps check
 		 *       by getting the first element of _get_cron_array()
@@ -43,7 +43,7 @@ class SlideShareCron
 			$result = get_user_slideshares($user, array('detailed' => 1, 'limit' => 5));
 
 			if(!is_wp_error($result)) {
-				$importer = new SlideShareImporter($result->getSlideshows());
+				$importer = new SlideshareImporter($result->getSlideshows());
 				$importer->import();
 			}
 		}
@@ -73,12 +73,12 @@ class SlideShareCron
     }
 	
 	/**
-	 * Return the name of the SlideShare import schedule
-	 * from the admin SlideShare import page setting.
+	 * Return the name of the Slideshare import schedule
+	 * from the admin Slideshare import page setting.
 	 *
 	 * @since     1.0.0
 	 *
-	 * @return    string    The name of the SlideShare import schedule.
+	 * @return    string    The name of the Slideshare import schedule.
 	 */
 	public static function schedule_name()
 	{

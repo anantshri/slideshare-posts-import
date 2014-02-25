@@ -5,7 +5,7 @@
  * This includes the header, options, and other information that should provide
  * The User Interface to the end user.
  *
- * @package   SlideShare_Posts_Import
+ * @package   Slideshare_Posts_Import
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
  * @link      https://github.com/Spoon4/slideshare-posts-import
@@ -107,7 +107,7 @@
 				<th scope="col" id="post-id" class="manage-column column-post-id"><?php _e('Post ID')?></th>
 				<th scope="col" id="title" class="manage-column column-title" style="width:20%;"><?php _e('Title')?></th>
 				<th scope="col" id="url" class="manage-column column-url"><?php _e('URL')?></th>
-				<th scope="col" id="video-id" class="manage-column column-id" style="width:20%;"><?php _e('SlideShare ID')?></th>
+				<th scope="col" id="video-id" class="manage-column column-id" style="width:20%;"><?php _e('Slideshare ID')?></th>
 			</tr>
 			</thead>
 			<tfoot>
@@ -117,7 +117,7 @@
 				<th scope="col" class="manage-column column-post-id"><?php _e('Post ID')?></th>
 				<th scope="col" class="manage-column column-title"><?php _e('Title')?></th>
 				<th scope="col" class="manage-column column-url"><?php _e('URL')?></th>
-				<th scope="col" class="manage-column column-id"><?php _e('SlideShare ID')?></th>
+				<th scope="col" class="manage-column column-id"><?php _e('Slideshare ID')?></th>
 			</tr>
 			</tfoot>
 			<tbody id="fields" class="list:fields field-list">

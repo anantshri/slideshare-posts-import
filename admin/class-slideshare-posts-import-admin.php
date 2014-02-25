@@ -1,8 +1,8 @@
 <?php
 /**
- * SlideShare Posts Import.
+ * Slideshare Posts Import.
  *
- * @package   SlideShare_Posts_Import_Admin
+ * @package   Slideshare_Posts_Import_Admin
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
  * @link      https://github.com/Spoon4/slideshare-posts-import
@@ -16,10 +16,10 @@
  * If you're interested in introducing public-facing
  * functionality, then refer to `class-slideshare-posts-import.php`
  *
- * @package SlideShare_Posts_Import_Admin
+ * @package Slideshare_Posts_Import_Admin
  * @author  Spoon <spoon4@gmail.com>
  */
-class SlideShare_Posts_Import_Admin 
+class Slideshare_Posts_Import_Admin 
 {
 	/**
 	 * Instance of this class.
@@ -50,7 +50,7 @@ class SlideShare_Posts_Import_Admin
 		/*
 		 * Call $plugin_slug from public plugin class.
 		 */
-		$plugin = SlideShare_Posts_Import::get_instance();
+		$plugin = Slideshare_Posts_Import::get_instance();
 		$this->plugin_slug = $plugin->get_plugin_slug();
 
 		// Load admin style sheet and JavaScript.
@@ -97,7 +97,7 @@ class SlideShare_Posts_Import_Admin
 
 		$screen = get_current_screen();
 		if ( in_array($screen->id, $this->plugin_screen_hook_suffix) ) {
-			wp_enqueue_style( $this->plugin_slug .'-admin-styles', plugins_url( 'assets/css/admin.css', __FILE__ ), array(), SlideShare_Posts_Import::VERSION );
+			wp_enqueue_style( $this->plugin_slug .'-admin-styles', plugins_url( 'assets/css/admin.css', __FILE__ ), array(), Slideshare_Posts_Import::VERSION );
 		}
 
 	}
@@ -117,7 +117,7 @@ class SlideShare_Posts_Import_Admin
 
 		$screen = get_current_screen();
 		if ( in_array($screen->id, $this->plugin_screen_hook_suffix) ) {
-            wp_register_script($this->plugin_slug . '-admin-script', plugins_url('assets/js/admin.js', __FILE__), array('jquery'), SlideShare_Posts_Import::VERSION);
+            wp_register_script($this->plugin_slug . '-admin-script', plugins_url('assets/js/admin.js', __FILE__), array('jquery'), Slideshare_Posts_Import::VERSION);
             wp_localize_script($this->plugin_slug . '-admin-script', 'AjaxParams', array( 
                 'ajaxurl'                => admin_url( 'admin-ajax.php' ),
                 'import_nonce'           => wp_create_nonce('_wp_slideshare_import_nonce'),
@@ -152,8 +152,8 @@ class SlideShare_Posts_Import_Admin
 			$settings_slug = $this->plugin_slug.'-settings';
 			
 			$this->plugin_screen_hook_suffix[] = add_menu_page(
-				__( 'SlideShare Posts Import Settings', $this->plugin_slug ), 
-				__( 'SlideShare Posts', $this->plugin_slug ), 
+				__( 'Slideshare Posts Import Settings', $this->plugin_slug ), 
+				__( 'Slideshare Posts', $this->plugin_slug ), 
 				10, $settings_slug, 
 				array( $this, 'display_plugin_admin_page' ),
 				plugins_url( 'assets/images/icon-slideshare.png', __FILE__ )

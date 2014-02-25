@@ -1,17 +1,17 @@
 <?php
 /**
- * The WordPress SlideShare Posts Import plugin.
+ * The WordPress Slideshare Posts Import plugin.
  *
- * @package   SlideShare_Posts_Import
+ * @package   Slideshare_Posts_Import
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
  * @link      https://github.com/Spoon4/slideshare-posts-import
  * @copyright 2014 Spoon
  *
  * @wordpress-plugin
- * Plugin Name:       SlideShare Posts Import
+ * Plugin Name:       Slideshare Posts Import
  * Plugin URI:        https://github.com/Spoon4/slideshare-posts-import
- * Description:       SlideShare API import in WordPress posts
+ * Description:       Slideshare API import in WordPress posts
  * Version:           1.0.0
  * Author:            Spoon
  * Author URI:        https://github.com/Spoon4
@@ -64,7 +64,7 @@ require_once( plugin_dir_path( __FILE__ ) . 'admin/includes/class-slideshare-cro
 require_once( plugin_dir_path( __FILE__ ) . 'admin/includes/class-slideshare-importer.php' );
 	
 // // Initialize schedule tasks
-// $cron = new SlideShareCron();
+// $cron = new SlideshareCron();
 // $cron->init();
 		
 /*
@@ -73,16 +73,16 @@ require_once( plugin_dir_path( __FILE__ ) . 'admin/includes/class-slideshare-imp
  */
 
 function register_schedule() {
-	if(!wp_next_scheduled(SlideShareCron::EVENT_NAME)) {
+	if(!wp_next_scheduled(SlideshareCron::EVENT_NAME)) {
 		error_log("register schedule");
-	    wp_schedule_event(current_time('timestamp'), '3seconds', SlideShareCron::EVENT_NAME);
+	    wp_schedule_event(current_time('timestamp'), '3seconds', SlideshareCron::EVENT_NAME);
 	}
 }
 register_activation_hook( __FILE__, 'register_schedule' );
 
 function unregister_schedule() {
 	error_log("unregister schedule");
-	wp_clear_scheduled_hook(SlideShareCron::EVENT_NAME);
+	wp_clear_scheduled_hook(SlideshareCron::EVENT_NAME);
 }
 register_deactivation_hook( __FILE__, 'unregister_schedule' );
 
@@ -96,14 +96,14 @@ function get_user_slideshares_task() {
 		$result = get_user_slideshares($user, array('detailed' => 1, 'limit' => 5));
 
 		if(!is_wp_error($result)) {
-			$importer = new SlideShareImporter($result->getSlideshows());
+			$importer = new SlideshareImporter($result->getSlideshows());
 			$importer->import();
 		} else {
 			error_log("cron task error: ".$result->get_error_message());
 		}
 	}
 }
-add_action(SlideShareCron::EVENT_NAME, 'get_user_slideshares_task');
+add_action(SlideshareCron::EVENT_NAME, 'get_user_slideshares_task');
 
 function add_cron_schedule($schedules) {
     $schedules['3seconds'] = array(
@@ -114,10 +114,10 @@ function add_cron_schedule($schedules) {
 }
 add_filter('cron_schedules', 'add_cron_schedule');
 
-// register_activation_hook( __FILE__, array( 'SlideShare_Posts_Import', 'activate' ) );
-// register_deactivation_hook( __FILE__, array( 'SlideShare_Posts_Import', 'deactivate' ) );
+// register_activation_hook( __FILE__, array( 'Slideshare_Posts_Import', 'activate' ) );
+// register_deactivation_hook( __FILE__, array( 'Slideshare_Posts_Import', 'deactivate' ) );
 
-add_action( 'plugins_loaded', array( 'SlideShare_Posts_Import', 'get_instance' ) );
+add_action( 'plugins_loaded', array( 'Slideshare_Posts_Import', 'get_instance' ) );
 	
 /*----------------------------------------------------------------------------*
  * Dashboard and Administrative Functionality
@@ -128,8 +128,8 @@ if ( is_admin() ) {
 	require_once( plugin_dir_path( __FILE__ ) . 'admin/class-slideshare-posts-import-admin.php' );
 	
 	if( ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
-		add_action( 'plugins_loaded', array( 'SlideShare_Posts_Import_Admin', 'get_instance' ) );
+		add_action( 'plugins_loaded', array( 'Slideshare_Posts_Import_Admin', 'get_instance' ) );
 	} else {
-		add_action( 'plugins_loaded', array( 'SlideShare_Posts_Import_Admin', 'add_ajax_actions' ) );
+		add_action( 'plugins_loaded', array( 'Slideshare_Posts_Import_Admin', 'add_ajax_actions' ) );
 	}
 }
