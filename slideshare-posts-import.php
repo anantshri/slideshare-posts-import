@@ -64,58 +64,11 @@ require_once( plugin_dir_path( __FILE__ ) . 'admin/includes/class-slideshare-cro
 require_once( plugin_dir_path( __FILE__ ) . 'admin/includes/class-slideshare-importer.php' );
 	
 // // Initialize schedule tasks
-// $cron = new SlideshareCron();
-// $cron->init();
-		
-/*
- * Register hooks that are fired when the plugin is activated or deactivated.
- * When the plugin is deleted, the uninstall.php file is loaded.
- */
+$cron = new SlideshareCron();
+$cron->init();
 
-function register_schedule() {
-	if(!wp_next_scheduled(SlideshareCron::EVENT_NAME)) {
-		error_log("register schedule");
-	    wp_schedule_event(current_time('timestamp'), '3seconds', SlideshareCron::EVENT_NAME);
-	}
-}
-register_activation_hook( __FILE__, 'register_schedule' );
-
-function unregister_schedule() {
-	error_log("unregister schedule");
-	wp_clear_scheduled_hook(SlideshareCron::EVENT_NAME);
-}
-register_deactivation_hook( __FILE__, 'unregister_schedule' );
-
-function get_user_slideshares_task() {
-	
-	error_log("get_user_slideshares_task");
-	
-	$user = get_option('SLIDESHARE_NAME');
-
-	if($user) {
-		$result = get_user_slideshares($user, array('detailed' => 1, 'limit' => 5));
-
-		if(!is_wp_error($result)) {
-			$importer = new SlideshareImporter($result->getSlideshows());
-			$importer->import();
-		} else {
-			error_log("cron task error: ".$result->get_error_message());
-		}
-	}
-}
-add_action(SlideshareCron::EVENT_NAME, 'get_user_slideshares_task');
-
-function add_cron_schedule($schedules) {
-    $schedules['3seconds'] = array(
-        'interval' => 3,
-        'display' => __('Each 3s'),
-    );
-    return $schedules;
-}
-add_filter('cron_schedules', 'add_cron_schedule');
-
-// register_activation_hook( __FILE__, array( 'Slideshare_Posts_Import', 'activate' ) );
-// register_deactivation_hook( __FILE__, array( 'Slideshare_Posts_Import', 'deactivate' ) );
+register_activation_hook( __FILE__, array( 'Slideshare_Posts_Import', 'activate' ) );
+register_deactivation_hook( __FILE__, array( 'Slideshare_Posts_Import', 'deactivate' ) );
 
 add_action( 'plugins_loaded', array( 'Slideshare_Posts_Import', 'get_instance' ) );
 	

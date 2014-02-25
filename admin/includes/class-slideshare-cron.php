@@ -20,10 +20,6 @@ class SlideshareCron
 	public function init()
 	{
 		add_action(SlideshareCron::EVENT_NAME, array($this, 'get_user_slideshares_task'));
-	    /*
-		 * NOTE: even if ask every 5s, be careful of WordPress timestamps check
-		 *       by getting the first element of _get_cron_array()
-		 */
 	    add_filter('cron_schedules', array($this, 'add_cron_schedule'));
 	}
 	
@@ -34,9 +30,6 @@ class SlideshareCron
 	 */
 	public function get_user_slideshares_task()
 	{
-		
-		error_log("get_user_slideshares_task");
-		
 		$user = get_option('SLIDESHARE_NAME');
 
 		if($user) {
@@ -45,6 +38,8 @@ class SlideshareCron
 			if(!is_wp_error($result)) {
 				$importer = new SlideshareImporter($result->getSlideshows());
 				$importer->import();
+			} else {
+				error_log("cron task error: ".$result->get_error_message());
 			}
 		}
 	}
@@ -65,10 +60,6 @@ class SlideshareCron
             'interval' => $import_interval * 3600,
             'display' => sprintf(__('Each %s hours'), $import_interval),
         );
-		$schedules['3seconds'] = array(
-	        'interval' => 3,
-	        'display' => __('Each 3s'),
-	    );
         return $schedules;
     }
 	
