@@ -5,12 +5,12 @@
  * @package   User
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
- * @link      https://github.com/Spoon4/slideshare-api-import/includes/api/model/class-slideshare-user-model.php
+ * @link      https://github.com/Spoon4/slideshare-api-import
  * @copyright 2014 Spoon
  *
  * @since    1.0.0
  */	
-class User extends SlideShareModel
+class User extends SlideshareModel
 {
 	private $name;
 	private $count;
@@ -45,7 +45,7 @@ class User extends SlideShareModel
 					$this->slideshows[] = $slideshow->loadFromXML($child);
 					break;
 				default:
-					throw new SlideShareParserException('Unknown node name', "SlideShare response XML parsing failed ! Unknown User's XML child '".$child->getName()."'");
+					throw new SlideshareParserException('Unknown node name', "Slideshare response XML parsing failed ! Unknown User's XML child '".$child->getName()."'");
 			}
 		}
 		return $this;

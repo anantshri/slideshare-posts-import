@@ -2,16 +2,16 @@
 /**
  * Credentials for REST API calls.
  *
- * @package   SlideShareCredentials
+ * @package   SlideshareCredentials
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
- * @link      https://github.com/Spoon4/slideshare-api-import/includes/api/services/class-slideshare-credentials.php
+ * @link      https://github.com/Spoon4/slideshare-api-import
  * @see       http://fr.slideshare.net/developers/documentation
  * @copyright 2014 Spoon
  *
  * @since    1.0.0
  */
-class SlideShareCredentials 
+class SlideshareCredentials 
 {	
 	private $api_key;
 	private $shared_secret;
@@ -21,10 +21,10 @@ class SlideShareCredentials
 	/**
 	 * Constructor
      *
-	 * @param string $apiKey The SlideShare API key
-	 * @param string $sharedSecret The SlideShare API shared secret
-	 * @param string $username The SlideShare API authentication username
-	 * @param string $password The SlideShare API authentication password
+	 * @param string $apiKey The Slideshare API key
+	 * @param string $sharedSecret The Slideshare API shared secret
+	 * @param string $username The Slideshare API authentication username
+	 * @param string $password The Slideshare API authentication password
  	 *
  	 * @since    1.0.0
 	 */
@@ -60,7 +60,7 @@ class SlideShareCredentials
 	/**
 	 * Set API authentication username
      *
-	 * @param string $username The SlideShare API authentication username
+	 * @param string $username The Slideshare API authentication username
  	 *
  	 * @since    1.0.0
 	 */
@@ -72,7 +72,7 @@ class SlideShareCredentials
 	/**
 	 * Set API authentication password
      *
-	 * @param string $password The SlideShare API authentication password
+	 * @param string $password The Slideshare API authentication password
  	 *
  	 * @since    1.0.0
 	 */
@@ -84,8 +84,8 @@ class SlideShareCredentials
 	/**
 	 * Set API authentication username and password
      *
-	 * @param string $username The SlideShare API authentication username
-	 * @param string $password The SlideShare API authentication password
+	 * @param string $username The Slideshare API authentication username
+	 * @param string $password The Slideshare API authentication password
  	 *
  	 * @since    1.0.0
 	 */

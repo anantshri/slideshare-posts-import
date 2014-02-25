@@ -2,10 +2,10 @@
 /**
  * Error service response exception.
  *
- * @package   SlideShareServiceException
+ * @package   SlideshareServiceException
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
- * @link      https://github.com/Spoon4/slideshare-api-import/includes/api/exceptions/class-slideshare-service-exception.php
+ * @link      https://github.com/Spoon4/slideshare-api-import
  * @copyright 2014 Spoon
  *
  * @since    1.0.0
@@ -14,10 +14,10 @@
 /**
  * Example:
  *
- * <SlideShareServiceError>
+ * <SlideshareServiceError>
  *   <Message ID="10">User Not Found</Message>
- * </SlideShareServiceError>
+ * </SlideshareServiceError>
  */
-class SlideShareServiceException extends ErrorException
+class SlideshareServiceException extends ErrorException
 {
 }

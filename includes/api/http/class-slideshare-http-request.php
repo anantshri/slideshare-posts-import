@@ -2,16 +2,16 @@
 /**
  * Request for REST API calls.
  *
- * @package   SlideShareHttpRequest
+ * @package   SlideshareHttpRequest
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
- * @link      https://github.com/Spoon4/slideshare-api-import/includes/api/http/class-slideshare-http-request.php
+ * @link      https://github.com/Spoon4/slideshare-api-import
  * @see       http://fr.slideshare.net/developers/documentation
  * @copyright 2014 Spoon
  *
  * @since    1.0.0
  */
-class SlideShareHttpRequest 
+class SlideshareHttpRequest 
 {	
 	private $credentials;
 	private $service;
@@ -21,24 +21,24 @@ class SlideShareHttpRequest
 	 * Constructor
 	 *
 	 * @param string $service The service REST parameter to call
-	 * @param SlideShareCredentials $credentials Credential object for API validation
+	 * @param SlideshareCredentials $credentials Credential object for API validation
  	 *
  	 * @since    1.0.0
 	 */
-	public function __construct($service, SlideShareCredentials $credentials) 
+	public function __construct($service, SlideshareCredentials $credentials) 
 	{
 		$this->service = $service;
 		$this->credentials = $credentials;
 	}
 	
 	/**
-	 * Execute a SlideShare API call from service URL.
+	 * Execute a Slideshare API call from service URL.
 	 *
 	 * @param string $method The request method GET|POST.
 	 * @param mixed $data Optional request parameters (used for POST method only).
 	 * @param array $headers HTTP request headers.
 	 *
-	 * @throws SlideShareHttpException
+	 * @throws SlideshareHttpException
  	 *
  	 * @since    1.0.0
 	 */
@@ -59,19 +59,19 @@ class SlideShareHttpRequest
 					'headers'     => $headers,
 				);
 			} else {
-				throw new SlideShareHttpException(__('HTTP error'), __("The HTTP method '$method' is not allowed"));
+				throw new SlideshareHttpException(__('HTTP error'), __("The HTTP method '$method' is not allowed"));
 			}
 		
 			$context = stream_context_create(array('http' => $http));
 			$response = file_get_contents($this->getServiceURL(), false, $context);
 			
 			if(is_wp_error($response)) {
-				throw new SlideShareHttpException($response->get_error_code(), $response->get_error_message());
+				throw new SlideshareHttpException($response->get_error_code(), $response->get_error_message());
 			}
 			
-			return new SlideShareHttpResponse($response);
+			return new SlideshareHttpResponse($response);
 		} catch (Exception $exception) {
-			return new SlideShareHttpResponse($exception);
+			return new SlideshareHttpResponse($exception);
 		}
 	}
 	

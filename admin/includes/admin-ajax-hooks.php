@@ -2,10 +2,10 @@
 /**
  * AJAX hooks declaration
  *
- * @package   SlideShare_Posts_Import
+ * @package   Slideshare_Posts_Import
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
- * @link      https://github.com/Spoon4/slideshare-posts-import/admin/includes/admin-ajax-hooks.php
+ * @link      https://github.com/Spoon4/slideshare-posts-import
  * @copyright 2014 Spoon
  */
 
@@ -19,12 +19,12 @@ function action_ajax_import()
 	$user = get_option('SLIDESHARE_NAME');
 
 	if(!$user)
-		$result = new WP_Error(__('Bad user'), __('You should set a SlideShare user in the settings'));
+		$result = new WP_Error(__('Bad user'), __('You should set a Slideshare user in the settings'));
 	else
-		$result = get_user_slideshares($user, array('detailed' => 1, 'limit' => 5));
+		$result = get_user_slideshares($user, array('detailed' => 1));
 
 	if(is_wp_error($result))
-		SlideShareAjaxResponse::error($result);
+		SlideshareAjaxResponse::error($result);
 	else {
 		$data = array(
 			'slideshows_count' => $result->getCount(),
@@ -34,18 +34,18 @@ function action_ajax_import()
 		);
 		
 		if($result->getCount() > 0) {
-			$importer = new SlideShareImporter($result->getSlideshows(), $_GET['memory']);
+			$importer = new SlideshareImporter($result->getSlideshows(), $_GET['memory']);
 			$importer->import();
 	
 			if($importer->hasErrors()) {
-				SlideShareAjaxResponse::error($importer->getErrors());
+				SlideshareAjaxResponse::error($importer->getErrors());
 			} else {
 				$data['new_posts'] = $importer->getPosts();
 				$data['skiped_posts'] = $importer->getSkiped();
-				SlideShareAjaxResponse::success($data);
+				SlideshareAjaxResponse::success($data);
 			}
 		}  else {
-				SlideShareAjaxResponse::success($data);
+				SlideshareAjaxResponse::success($data);
 		}	
 	}
 }

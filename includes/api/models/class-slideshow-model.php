@@ -5,12 +5,12 @@
  * @package   Slideshow
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
- * @link      https://github.com/Spoon4/slideshare-api-import/includes/api/model/class-slideshow-model.php
+ * @link      https://github.com/Spoon4/slideshare-api-import
  * @copyright 2014 Spoon
  *
  * @since    1.0.0
  */	
-class Slideshow extends SlideShareModel
+class Slideshow extends SlideshareModel
 {	
 	private $id;
 	private $title;
@@ -122,7 +122,7 @@ class Slideshow extends SlideShareModel
 				case 'AllowEmbed':        $this->embeds_allowed = (bool) $child; break;
 				case 'ShareWithContacts': $this->contacts_allowed = (bool) $child; break;
 				default:
-					throw new SlideShareParserException('Unknown node name', "SlideShare response XML parsing failed ! Unknown Slideshow's XML child '".$child->getName()."'");
+					throw new SlideshareParserException('Unknown node name', "Slideshare response XML parsing failed ! Unknown Slideshow's XML child '".$child->getName()."'");
 			}
 		}
 		return $this;
@@ -292,14 +292,14 @@ class Slideshow extends SlideShareModel
 	/**
 	 * Load related slideshows with API calls
 	 *
-	 * @param SlideShareSlideshowService $service The slideshows service instance for API calls.
+	 * @param SlideshareSlideshowService $service The slideshows service instance for API calls.
  	 *
  	 * @since    1.0.0
 	 *
 	 * TODO: have to be tested !
 	 */
 	
-	public function loadRelatedSlideshows(SlideShareSlideshowService $service)
+	public function loadRelatedSlideshows(SlideshareSlideshowService $service)
 	{
 		foreach($this->related_slideshows_ids as $id) {
 			try {
@@ -335,7 +335,7 @@ class Slideshow extends SlideShareModel
 		return $this->flagged;
 	}
 	
-	public function isShowOnSlideShare()
+	public function isShowOnSlideshare()
 	{
 		return $this->show_on_slideshare;
 	}

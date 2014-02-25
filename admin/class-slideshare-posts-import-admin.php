@@ -1,11 +1,11 @@
 <?php
 /**
- * SlideShare Posts Import.
+ * Slideshare Posts Import.
  *
- * @package   SlideShare_Posts_Import_Admin
+ * @package   Slideshare_Posts_Import_Admin
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
- * @link      https://github.com/Spoon4/slideshare-posts-import/admin/class-slideshare-posts-import-admin.php
+ * @link      https://github.com/Spoon4/slideshare-posts-import
  * @copyright 2014 Spoon
  */
 
@@ -16,10 +16,10 @@
  * If you're interested in introducing public-facing
  * functionality, then refer to `class-slideshare-posts-import.php`
  *
- * @package SlideShare_Posts_Import_Admin
+ * @package Slideshare_Posts_Import_Admin
  * @author  Spoon <spoon4@gmail.com>
  */
-class SlideShare_Posts_Import_Admin 
+class Slideshare_Posts_Import_Admin 
 {
 	/**
 	 * Instance of this class.
@@ -48,18 +48,9 @@ class SlideShare_Posts_Import_Admin
 	private function __construct() 
 	{
 		/*
-		 * @TODO :
-		 *
-		 * - Uncomment following lines if the admin class should only be available for super admins
-		 */
-		/* if( ! is_super_admin() ) {
-			return;
-		} */
-
-		/*
 		 * Call $plugin_slug from public plugin class.
 		 */
-		$plugin = SlideShare_Posts_Import::get_instance();
+		$plugin = Slideshare_Posts_Import::get_instance();
 		$this->plugin_slug = $plugin->get_plugin_slug();
 
 		// Load admin style sheet and JavaScript.
@@ -72,15 +63,6 @@ class SlideShare_Posts_Import_Admin
 		// Add an action link pointing to the options page.
 		$plugin_basename = plugin_basename( plugin_dir_path( __DIR__ ) . $this->plugin_slug . '.php' );
 		add_filter( 'plugin_action_links_' . $plugin_basename, array( $this, 'add_action_links' ) );
-
-		/*
-		 * Define custom functionality.
-		 *
-		 * Read more about actions and filters:
-		 * http://codex.wordpress.org/Plugin_API#Hooks.2C_Actions_and_Filters
-		 */
-		// add_action( '@TODO', array( $this, 'action_method_name' ) );
-		// add_filter( '@TODO', array( $this, 'filter_method_name' ) );
 	}
 
 	/**
@@ -92,15 +74,6 @@ class SlideShare_Posts_Import_Admin
 	 */
 	public static function get_instance() 
 	{
-		/*
-		 * @TODO :
-		 *
-		 * - Uncomment following lines if the admin class should only be available for super admins
-		 */
-		/* if( ! is_super_admin() ) {
-			return;
-		} */
-
 		// If the single instance hasn't been set, set it now.
 		if ( null == self::$instance ) {
 			self::$instance = new self;
@@ -124,7 +97,7 @@ class SlideShare_Posts_Import_Admin
 
 		$screen = get_current_screen();
 		if ( in_array($screen->id, $this->plugin_screen_hook_suffix) ) {
-			wp_enqueue_style( $this->plugin_slug .'-admin-styles', plugins_url( 'assets/css/admin.css', __FILE__ ), array(), SlideShare_Posts_Import::VERSION );
+			wp_enqueue_style( $this->plugin_slug .'-admin-styles', plugins_url( 'assets/css/admin.css', __FILE__ ), array(), Slideshare_Posts_Import::VERSION );
 		}
 
 	}
@@ -144,14 +117,14 @@ class SlideShare_Posts_Import_Admin
 
 		$screen = get_current_screen();
 		if ( in_array($screen->id, $this->plugin_screen_hook_suffix) ) {
-            wp_register_script($this->plugin_slug . '-admin-script', plugins_url('assets/js/admin.js', __FILE__), array('jquery'), SlideShare_Posts_Import::VERSION);
-            wp_localize_script($this->plugin_slug . '-admin-script', 'SlideShareAjaxParams', array( 
+            wp_register_script($this->plugin_slug . '-admin-script', plugins_url('assets/js/admin.js', __FILE__), array('jquery'), Slideshare_Posts_Import::VERSION);
+            wp_localize_script($this->plugin_slug . '-admin-script', 'SlideshareAjaxParams', array( 
                 'ajaxurl'                => admin_url( 'admin-ajax.php' ),
                 'import_nonce'           => wp_create_nonce('_wp_slideshare_import_nonce'),
                 'default_error_label'    => __( 'Error !' ),
                 'import_success_label'   => __( 'Import succeed !' ),
                 'import_success_message' => __( '<strong>{0}</strong> slideshows was found for user <strong>{1}</strong> and <strong>{2}</strong> posts was created.' ),
-                'import_skiped_message'  => __( '<strong>{0}</strong> was skiped because their SlideShare ID already exists in database.' ),
+                'import_skiped_message'  => __( '<strong>{0}</strong> was skiped because their Slideshare ID already exists in database.' ),
             ));
             wp_enqueue_script( $this->plugin_slug . '-admin-script' );
 		}
@@ -180,8 +153,8 @@ class SlideShare_Posts_Import_Admin
 			$settings_slug = $this->plugin_slug.'-settings';
 			
 			$this->plugin_screen_hook_suffix[] = add_menu_page(
-				__( 'SlideShare Posts Import Settings', $this->plugin_slug ), 
-				__( 'SlideShare Posts', $this->plugin_slug ), 
+				__( 'Slideshare Posts Import Settings', $this->plugin_slug ), 
+				__( 'Slideshare Posts', $this->plugin_slug ), 
 				10, $settings_slug, 
 				array( $this, 'display_plugin_admin_page' ),
 				plugins_url( 'assets/images/icon-slideshare.png', __FILE__ )
@@ -275,19 +248,4 @@ class SlideShare_Posts_Import_Admin
 			add_action("wp_ajax_nopriv_" . $action, $function);
 		}
 	}
-
-	/**
-	 * NOTE:     Filters are points of execution in which WordPress modifies data
-	 *           before saving it or sending it to the browser.
-	 *
-	 *           Filters: http://codex.wordpress.org/Plugin_API#Filters
-	 *           Reference:  http://codex.wordpress.org/Plugin_API/Filter_Reference
-	 *
-	 * @since    1.0.0
-	 */
-	// public function filter_method_name() 
-	// {
-	// 	// @TODO: Define your filter hook callback here
-	// }
-
 }

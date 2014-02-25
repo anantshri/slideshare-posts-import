@@ -1,14 +1,14 @@
 <?php
 /**
- * Represents the view for the administration SlideShare import page.
+ * Represents the view for the administration Slideshare import page.
  *
  * This includes the header, options, and other information that should provide
  * The User Interface to the end user.
  *
- * @package   SlideShare_Posts_Import
+ * @package   Slideshare_Posts_Import
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
- * @link      https://github.com/Spoon4/slideshare-posts-import/admin/views/admin-import.php
+ * @link      https://github.com/Spoon4/slideshare-posts-import
  * @copyright 2014 Spoon
  */
 ?>

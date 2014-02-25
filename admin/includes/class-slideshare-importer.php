@@ -1,14 +1,14 @@
 <?php
 /**
- * Create WordPress posts from SlideShare slideshows
+ * Create WordPress posts from Slideshare slideshows
  *
- * @package   SlideShareImporter
+ * @package   SlideshareImporter
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
- * @link      https://github.com/Spoon4/slideshare-posts-import/admin/includes/class-slideshare-importer.php
+ * @link      https://github.com/Spoon4/slideshare-posts-import
  * @copyright 2014 Spoon
  */
-class SlideShareImporter
+class SlideshareImporter
 {
 	private $posts = array('new' => array(), 'skiped' => array());
 	private $errors = null;
@@ -41,12 +41,12 @@ class SlideShareImporter
 							$this->posts['new'][] = get_post($post_id);
 						} else {
 							$error = $post_id;
-							throw new SlideShareException($this->errorsCode, $error->get_error_message());
+							throw new SlideshareException($this->errorsCode, $error->get_error_message());
 						}
 					} else {
-						throw new SlideShareException($this->errorsCode, __('Memory limit reach !'));
+						throw new SlideshareException($this->errorsCode, __('Memory limit reach !'));
 					}
-				} catch(SlideShareException $exception) {
+				} catch(SlideshareException $exception) {
 					$this->setError($exception->getMessage());
 				}
 			}
@@ -184,7 +184,7 @@ class SlideShareImporter
 			}
 			
 			if($result instanceof WP_Error) {
-				throw new SlideShareException($this->errorsCode, $result->get_error_message());
+				throw new SlideshareException($this->errorsCode, $result->get_error_message());
 			}
 		}
 	}
@@ -204,7 +204,7 @@ class SlideShareImporter
 			}
 			
 			if($result instanceof WP_Error) {
-				throw new SlideShareException($this->errorsCode, $result->get_error_message());
+				throw new SlideshareException($this->errorsCode, $result->get_error_message());
 			}
 		}
 		unset($meta);

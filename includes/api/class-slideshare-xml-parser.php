@@ -2,15 +2,15 @@
 /**
  * API response XML parser.
  *
- * @package   SlideShareXMLParser
+ * @package   SlideshareXMLParser
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
- * @link      https://github.com/Spoon4/slideshare-api-import/includes/api/class-slideshare-xml-parser.php
+ * @link      https://github.com/Spoon4/slideshare-api-import
  * @copyright 2014 Spoon
  *
  * @since    1.0.0
  */
-class SlideShareXMLParser
+class SlideshareXMLParser
 {	
 	/**
 	 * @var SimpleXMLElement
@@ -28,10 +28,10 @@ class SlideShareXMLParser
 	}
 	
 	/**
-	 * Parse data to instanciate the appropriate SlideShareModel class
+	 * Parse data to instanciate the appropriate SlideshareModel class
 	 *
 	 * @return SlideshareModel|null
-	 * @throws SlideShareException, SlideShareServiceException
+	 * @throws SlideshareException, SlideshareServiceException
 	 */
 	public function parse()
 	{
@@ -42,11 +42,11 @@ class SlideShareXMLParser
 			case 'Slideshow':
 				$object = new Slideshow();
 				return $object->loadFromXML($this->xml);
-			case 'SlideShareServiceError':
+			case 'SlideshareServiceError':
 				$error = $this->xml->Message;
-				throw new SlideShareServiceException((string) $error, (int) $error['ID']);
+				throw new SlideshareServiceException((string) $error, (int) $error['ID']);
 			default:
-				throw new SlideShareParserException('Unknown node name', 'SlideShare response XML parsing failed ! This node name is unknown.');
+				throw new SlideshareParserException('Unknown node name', 'Slideshare response XML parsing failed ! This node name is unknown.');
 		}
 	}
 }

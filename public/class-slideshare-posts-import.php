@@ -1,11 +1,11 @@
 <?php
 /**
- * SlideShare Posts Import.
+ * Slideshare Posts Import.
  *
- * @package   SlideShare_Posts_Import
+ * @package   Slideshare_Posts_Import
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
- * @link      https://github.com/Spoon4/slideshare-posts-import/public/class-slideshare-posts-import.php
+ * @link      https://github.com/Spoon4/slideshare-posts-import
  * @copyright 2014 Spoon
  */
 
@@ -16,10 +16,10 @@
  * If you're interested in introducing administrative or dashboard
  * functionality, then refer to `class-slideshare-posts-import-admin.php`
  *
- * @package SlideShare_Posts_Import
+ * @package Slideshare_Posts_Import
  * @author  Spoon <spoon4@gmail.com>
  */
-class SlideShare_Posts_Import {
+class Slideshare_Posts_Import {
 
 	/**
 	 * Plugin version, used for cache-busting of style and script file references.
@@ -76,7 +76,6 @@ class SlideShare_Posts_Import {
 		 */
 		add_action( '@TODO', array( $this, 'action_method_name' ) );
 		add_filter( '@TODO', array( $this, 'filter_method_name' ) );
-
 	}
 
 	/**
@@ -217,8 +216,8 @@ class SlideShare_Posts_Import {
 
 		// get an array of blog ids
 		$sql = "SELECT blog_id FROM $wpdb->blogs
-			WHERE archived = '0' AND spam = '0'
-			AND deleted = '0'";
+			    WHERE archived = '0' AND spam = '0'
+			    AND deleted = '0'";
 
 		return $wpdb->get_col( $sql );
 
@@ -230,7 +229,9 @@ class SlideShare_Posts_Import {
 	 * @since    1.0.0
 	 */
 	private static function single_activate() {
-		// @TODO: Define activation functionality here
+		if(!wp_next_scheduled(SlideshareCron::EVENT_NAME)) {
+		    wp_schedule_event(time(), SlideshareCron::schedule_name(), SlideshareCron::EVENT_NAME);
+		}
 	}
 
 	/**
@@ -239,7 +240,7 @@ class SlideShare_Posts_Import {
 	 * @since    1.0.0
 	 */
 	private static function single_deactivate() {
-		// @TODO: Define deactivation functionality here
+		wp_clear_scheduled_hook(SlideshareCron::EVENT_NAME);
 	}
 
 	/**

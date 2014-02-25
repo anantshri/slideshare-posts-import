@@ -1,5 +1,5 @@
 <?php
-class SlideShareAjaxResponse
+class SlideshareAjaxResponse
 {
 	/**
 	 * Display a JSON encoded structure on standard input for AJAX responses.

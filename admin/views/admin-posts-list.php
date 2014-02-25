@@ -5,10 +5,10 @@
  * This includes the header, options, and other information that should provide
  * The User Interface to the end user.
  *
- * @package   SlideShare_Posts_Import
+ * @package   Slideshare_Posts_Import
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
- * @link      https://github.com/Spoon4/slideshare-posts-import/admin/views/admin-posts-list.php
+ * @link      https://github.com/Spoon4/slideshare-posts-import
  * @copyright 2014 Spoon
  */
 ?>
@@ -62,14 +62,14 @@
 		}
 	}
 	?>
-	<?php _e('<p>This list displays all the slideshows that have been found in your SlideShare account.<br />
+	<?php _e('<p>This list displays all the slideshows that have been found in your Slideshare account.<br />
 		For each of these slideshow a WordPress post has been created.</p>
 	<p>From this list you can manipulate the WordPress post by <strong>publishing</strong>, <strong>drafting</strong> or <strong>deleting</strong> it.<br />
 		When deleting a post you are simply moving it to the trash.<br />
 		You cannot delete a slideshow from the list below unless you manually delete a post from the <strong>trash</strong>.</p>
 		<p>Any of these actions taken does not affect the list of slideshows below <strong>provided that you never permanently delete the post created</strong>.</p>
-		<p>Publishing, deleting or drafting only affects the post associated with the SlideShare slideshow.</p>
-		<p>Remember this list is simply a <strong>reference</strong> to the slideshows that this plugin has found in your SlideShare account.<br />
+		<p>Publishing, deleting or drafting only affects the post associated with the Slideshare slideshow.</p>
+		<p>Remember this list is simply a <strong>reference</strong> to the slideshows that this plugin has found in your Slideshare account.<br />
 			However, upon the permanent deletion of a post the import may <strong>republish the deleted slideshow post automatically</strong>. If you wish to hide a slideshow post from your blog, set the post to draft or move it to the trash.</p>')?>
 
 	<form id="wp_slideshow_list_fm" method="post" action="">
@@ -113,7 +113,7 @@
 				<th scope="col" id="post-id" class="manage-column column-post-id"><?php _e('Post ID')?></th>
 				<th scope="col" id="title" class="manage-column column-title" style="width:20%;"><?php _e('Title')?></th>
 				<th scope="col" id="url" class="manage-column column-url"><?php _e('URL')?></th>
-				<th scope="col" id="video-id" class="manage-column column-id" style="width:20%;"><?php _e('SlideShare ID')?></th>
+				<th scope="col" id="video-id" class="manage-column column-id" style="width:20%;"><?php _e('Slideshare ID')?></th>
 			</tr>
 			</thead>
 			<tfoot>
@@ -123,7 +123,7 @@
 				<th scope="col" class="manage-column column-post-id"><?php _e('Post ID')?></th>
 				<th scope="col" class="manage-column column-title"><?php _e('Title')?></th>
 				<th scope="col" class="manage-column column-url"><?php _e('URL')?></th>
-				<th scope="col" class="manage-column column-id"><?php _e('SlideShare ID')?></th>
+				<th scope="col" class="manage-column column-id"><?php _e('Slideshare ID')?></th>
 			</tr>
 			</tfoot>
 			<tbody id="fields" class="list:fields field-list">

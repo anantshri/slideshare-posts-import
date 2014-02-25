@@ -2,10 +2,10 @@
 /**
  * Slideshow REST API calls.
  *
- * @package   SlideShareSlideshowService
+ * @package   SlideshareSlideshowService
  * @author    Spoon <spoon4@gmail.com>
  * @license   GPL-2.0+
- * @link      https://github.com/Spoon4/slideshare-api-import/includes/api/services/class-slideshare-slideshow-service.php
+ * @link      https://github.com/Spoon4/slideshare-api-import
  * @see       http://fr.slideshare.net/developers/documentation#get_slideshow
  * @see       http://fr.slideshare.net/developers/documentation#edit_slideshow
  * @see       http://fr.slideshare.net/developers/documentation#delete_slideshow
@@ -15,7 +15,7 @@
  *
  * @since    1.0.0
  */
-class SlideShareSlideshowService extends SlideShareService
+class SlideshareSlideshowService extends SlideshareService
 {
 	/**
 	 * TODO: to be tested
@@ -24,7 +24,7 @@ class SlideShareSlideshowService extends SlideShareService
 	{
 		$this->credentials->setUserCredentials($username, $password);
 		
-		$request = new SlideShareHttpRequest($service, $this->credentials);
+		$request = new SlideshareHttpRequest($service, $this->credentials);
 		
 		foreach($parameters as $key => $value) {
 			$request->addParameter($key, $value);
@@ -108,7 +108,7 @@ class SlideShareSlideshowService extends SlideShareService
 	 * TODO: to be tested
 	 *
 	 * Note: This method requires extra permissions. 
-	 *       If you want to upload a file using SlideShare API, 
+	 *       If you want to upload a file using Slideshare API, 
 	 *       please send an email to api@slideshare.com with 
 	 *       your developer account username describing the use case.
 	 */

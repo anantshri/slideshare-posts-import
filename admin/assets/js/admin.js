@@ -47,7 +47,7 @@ String.prototype.nl2br = function()
 			
 			$.ajax({
  				type : "get",
-			    url : SlideShareAjaxParams.ajaxurl,
+			    url : SlideshareAjaxParams.ajaxurl,
 			    data : {
 					action: 'import_slideshows',
 					nonce: $('#_wpnonce').val(),
@@ -61,14 +61,14 @@ String.prototype.nl2br = function()
 					if(!response) {
 						setNoticeMessage('Error', 'Unknown error', true);
 					} else if(response.success) {
-						var message = SlideShareAjaxParams.import_success_message
+						var message = SlideshareAjaxParams.import_success_message
 							.replace("{0}", response.data.slideshows_count)
 							.replace("{1}", response.data.slideshare_user)
 							.replace("{2}", response.data.new_posts.length);
-						setNoticeMessage(SlideShareAjaxParams.import_success_label, message);
+						setNoticeMessage(SlideshareAjaxParams.import_success_label, message);
 						
 						if(response.data.skiped_posts.length > 0) {
-							$('#slideshare-skiped-list span').html(SlideShareAjaxParams.import_skiped_message
+							$('#slideshare-skiped-list span').html(SlideshareAjaxParams.import_skiped_message
 							.replace("{0}", response.data.skiped_posts.length));
 							
 							for(var index in response.data.skiped_posts) {
@@ -84,7 +84,7 @@ String.prototype.nl2br = function()
 			        } else {
 						for(var code in response.data.errors) {
 							var message = code + ' : ' + response.data.errors[code].join("<br/>");
-							setNoticeMessage(SlideShareAjaxParams.default_error_label, message, true);
+							setNoticeMessage(SlideshareAjaxParams.default_error_label, message, true);
 						}
 			        }
 					displayNoticeContainer(true, true);

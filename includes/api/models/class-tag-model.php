@@ -10,7 +10,7 @@
  *
  * @since    1.0.0
  */	
-class Tag extends SlideShareModel
+class Tag extends SlideshareModel
 {
 	private $value;
 	private $owner;
@@ -43,7 +43,7 @@ class Tag extends SlideShareModel
 				case 'Count': $this->count = (int) $value; break;
 				case 'Owner': $this->owner = (string) $value; break;
 				default:
-					throw new SlideShareParserException('Unknown node name', "SlideShare response XML parsing failed ! Unknown Tag's XML child '".$child->getName()."'");
+					throw new SlideshareParserException('Unknown node name', "Slideshare response XML parsing failed ! Unknown Tag's XML child '".$child->getName()."'");
 			}
 		}
 		return $this;
