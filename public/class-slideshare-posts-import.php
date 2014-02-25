@@ -230,7 +230,7 @@ class Slideshare_Posts_Import {
 	 */
 	private static function single_activate() {
 		if(!wp_next_scheduled(SlideshareCron::EVENT_NAME)) {
-		    wp_schedule_event(time(), '3seconds'/*SlideshareCron::schedule_name()*/, SlideshareCron::EVENT_NAME);
+		    wp_schedule_event(time(), SlideshareCron::schedule_name(), SlideshareCron::EVENT_NAME);
 		}
 	}
 
