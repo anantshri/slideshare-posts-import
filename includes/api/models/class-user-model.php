@@ -52,6 +52,24 @@ class User extends SlideshareModel
 	}
 	
 	/**
+	 * Return all available metadata keys for WordPress posts.
+	 *
+	 * @return array The array of available metadata keys.
+ 	 *
+ 	 * @since    1.0.0
+	 */
+	public function getAvailableMetadata()
+	{
+		$metadata = array();
+		$properties = array_keys(get_object_vars($this));
+
+		foreach($properties as $property) {
+		    $metadata[] = $this->generateMetadataKey($property);
+		}
+		return $metadata;
+	}
+	
+	/**
 	 * Get name
 	 *
 	 * @return string The name

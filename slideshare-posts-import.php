@@ -31,6 +31,10 @@ if ( ! defined( 'SLIDESHARE_API_URL' ) ) {
 	define('SLIDESHARE_API_URL', 'https://www.slideshare.net/api/2/');
 }
 
+if ( ! defined( 'IMPORT_DEFAULT_MEMORY_MAX' ) ) {
+	define('IMPORT_DEFAULT_MEMORY_MAX', 32);
+}
+
 /*----------------------------------------------------------------------------*
  * Public-Facing Functionality
  *----------------------------------------------------------------------------*/
@@ -83,6 +87,7 @@ if ( is_admin() ) {
 	if( ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
 		add_action( 'plugins_loaded', array( 'Slideshare_Posts_Import_Admin', 'get_instance' ) );
 	} else {
+		require_once( plugin_dir_path( __FILE__ ) . 'admin/includes/class-slideshare-ajax-response.php' );
 		add_action( 'plugins_loaded', array( 'Slideshare_Posts_Import_Admin', 'add_ajax_actions' ) );
 	}
 }

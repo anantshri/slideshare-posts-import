@@ -62,9 +62,15 @@
 		}
 	}
 	?>
-	<p>Below you can delete, publish or draft your video posts.</p>
-	
-	<p>Let's talk about this video list a little. This list displays all the videos that have been found in your YouTube channels and playlists. For each of these videos a WordPress post has been created. From this list you can manipulate the WordPress post by publishing, drafting or deleting it. When deleting a post you are simply moving it to the trash. Any of these actions taken does not affect the list of videos below PROVIDED THAT YOU NEVER PERMANENTLY DELETE THE POST CREATED. You cannot delete a video from the list below unless you reset the list below or manually delete a post from the trash. Publishing, deleting or drafting only affects the post associated with the YouTube video. Remember this list is simply a reference to the videos that this plugin has found in your YouTube channels and playlists. However, upon the permanent deletion of a post the import may republish the deleted video post automatically. If you wish to hide a video post from your blog, set the post to draft or move it to the trash.</p>
+	<?php _e('<p>This list displays all the slideshows that have been found in your Slideshare account.<br />
+		For each of these slideshow a WordPress post has been created.</p>
+	<p>From this list you can manipulate the WordPress post by <strong>publishing</strong>, <strong>drafting</strong> or <strong>deleting</strong> it.<br />
+		When deleting a post you are simply moving it to the trash.<br />
+		You cannot delete a slideshow from the list below unless you manually delete a post from the <strong>trash</strong>.</p>
+		<p>Any of these actions taken does not affect the list of slideshows below <strong>provided that you never permanently delete the post created</strong>.</p>
+		<p>Publishing, deleting or drafting only affects the post associated with the Slideshare slideshow.</p>
+		<p>Remember this list is simply a <strong>reference</strong> to the slideshows that this plugin has found in your Slideshare account.<br />
+			However, upon the permanent deletion of a post the import may <strong>republish the deleted slideshow post automatically</strong>. If you wish to hide a slideshow post from your blog, set the post to draft or move it to the trash.</p>')?>
 
 	<form id="wp_slideshow_list_fm" method="post" action="">
 		<div class="tablenav">

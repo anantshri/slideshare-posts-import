@@ -24,35 +24,28 @@ function action_ajax_import()
 		$result = get_user_slideshares($user, array('detailed' => 1));
 
 	if(is_wp_error($result))
-		send_ajax_response(false, $result);
+		SlideshareAjaxResponse::error($result);
 	else {
-		$importer = new SlideshareImporter($result->getSlideshows());
-		$importer->import();
+		$data = array(
+			'slideshows_count' => $result->getCount(),
+			'slideshare_user'  => $result->getName(),
+			'new_posts'        => array(),
+			'skiped_posts'     => array()
+		);
+		
+		if($result->getCount() > 0) {
+			$importer = new SlideshareImporter($result->getSlideshows(), $_GET['memory']);
+			$importer->import();
 	
-		if($importer->hasErrors()) {
-			send_ajax_response(false, $importer->getErrors());
-		} else {
-			send_ajax_response(true, array(
-				'slideshows_count' => $result->getCount(),
-				'slideshare_user' => $result->getName(),
-				'posts_count' => count($importer->getPosts()),
-			));
-		}
+			if($importer->hasErrors()) {
+				SlideshareAjaxResponse::error($importer->getErrors());
+			} else {
+				$data['new_posts'] = $importer->getPosts();
+				$data['skiped_posts'] = $importer->getSkiped();
+				SlideshareAjaxResponse::success($data);
+			}
+		}  else {
+				SlideshareAjaxResponse::success($data);
+		}	
 	}
-}
-
-/**
- * Display a JSON encoded structure on standard input for AJAX responses.
- *
- * @param boolean $success The status of the response.
- * @param object $data The data of the response.
- *
- * @since    1.0.0
- */
-function send_ajax_response($success, $data)
-{
-	header('Content-Type: application/json');
-	$encoder = new JSONEncoder();
-	echo $encoder->json_encode(array('success' => $success, 'data' => $data));
-	exit;
 }

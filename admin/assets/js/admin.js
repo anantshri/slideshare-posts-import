@@ -18,6 +18,7 @@ String.prototype.nl2br = function()
 		displayActivityIndicator('#slideshare-import-container', false);
 		displayNoticeContainer(false);
 		setNoticeMessage('', '');
+		$('#slideshare-skiped-list').hide().find('ul:first').html('');
 	};
 	
 	/**
@@ -46,10 +47,11 @@ String.prototype.nl2br = function()
 			
 			$.ajax({
  				type : "get",
-			    url : AjaxParams.ajaxurl,
+			    url : SlideshareAjaxParams.ajaxurl,
 			    data : {
 					action: 'import_slideshows',
-					nonce: AjaxParams.import_nonce
+					nonce: $('#_wpnonce').val(),
+					memory: $('#memory').val() 
 				},
 			    dataType : "json",
 			    success: function(response) {
@@ -59,17 +61,30 @@ String.prototype.nl2br = function()
 					if(!response) {
 						setNoticeMessage('Error', 'Unknown error', true);
 					} else if(response.success) {
-						var message = AjaxParams.import_success_message
+						var message = SlideshareAjaxParams.import_success_message
 							.replace("{0}", response.data.slideshows_count)
 							.replace("{1}", response.data.slideshare_user)
-							.replace("{2}", response.data.posts_count);
-						setNoticeMessage(AjaxParams.import_success_label, message);
+							.replace("{2}", response.data.new_posts.length);
+						setNoticeMessage(SlideshareAjaxParams.import_success_label, message);
+						
+						if(response.data.skiped_posts.length > 0) {
+							$('#slideshare-skiped-list span').html(SlideshareAjaxParams.import_skiped_message
+							.replace("{0}", response.data.skiped_posts.length));
+							
+							for(var index in response.data.skiped_posts) {
+								var post = response.data.skiped_posts[index];
+								var $post = $('<li/>').html('<strong>'+post.ID+'</strong> : '+post.post_title);
+								$('#slideshare-skiped-list ul').append($post);
+							}
+						
+							$('#slideshare-skiped-list').fadeIn();
+						}
 						// fillSlideshowsTable(response.data);
 						// $('#slideshare-list').show();
 			        } else {
 						for(var code in response.data.errors) {
 							var message = code + ' : ' + response.data.errors[code].join("<br/>");
-							setNoticeMessage(AjaxParams.default_error_label, message, true);
+							setNoticeMessage(SlideshareAjaxParams.default_error_label, message, true);
 						}
 			        }
 					displayNoticeContainer(true, true);
@@ -77,7 +92,8 @@ String.prototype.nl2br = function()
 			    },
 			    error: function(response, textStatus, errorThrown) {
 					displayActivityIndicator('#slideshare-import-container', false);
-					setNoticeMessage(textStatus, errorThrown.stack.nl2br(), true);
+					var message = typeof errorThrown == 'object' ? errorThrown.stack : errorThrown;
+					setNoticeMessage(textStatus, message.nl2br(), true);
 					displayNoticeContainer(true, true);
 					disableImportButton(false);
 			    }

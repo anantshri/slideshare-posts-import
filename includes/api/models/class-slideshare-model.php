@@ -50,19 +50,20 @@ abstract class SlideshareModel
  	 *
  	 * @since    1.0.0
 	 */
-	public function getAvailableMetadata()
-	{
-		$metadata = array();
-		
-		$reflect = new ReflectionClass(get_class($this));
-		$properties = $reflect->getProperties(ReflectionProperty::IS_PRIVATE);
-		
-		foreach($properties as $property) {
-		    $property->setAccessible(true);
-		    $metadata[] = $this->generateMetadataKey($property->getName());
-		}
-		return $metadata;
-	}
+	abstract public function getAvailableMetadata();
+	// public function getAvailableMetadata()
+	// {
+	// 	$metadata = array();
+	// 	
+	// 	$reflect = new ReflectionClass(get_class($this));
+	// 	$properties = $reflect->getProperties(ReflectionProperty::IS_PRIVATE);
+	// 	
+	// 	foreach($properties as $property) {
+	// 	    $property->setAccessible(true);
+	// 	    $metadata[] = $this->generateMetadataKey($property->getName());
+	// 	}
+	// 	return $metadata;
+	// }
 	
 	/**
 	 * Load object data from XML
