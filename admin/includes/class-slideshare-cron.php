@@ -33,7 +33,7 @@ class SlideshareCron
 		$user = get_option('SLIDESHARE_NAME');
 
 		if($user) {
-			$result = get_user_slideshares($user, array('detailed' => 1, 'limit' => 5));
+			$result = get_user_slideshares($user, array('detailed' => 1));
 
 			if(!is_wp_error($result)) {
 				$importer = new SlideshareImporter($result->getSlideshows());
