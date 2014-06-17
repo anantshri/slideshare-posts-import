@@ -42,7 +42,7 @@ class SlideshareXMLParser
 			case 'Slideshow':
 				$object = new Slideshow();
 				return $object->loadFromXML($this->xml);
-			case 'SlideshareServiceError':
+			case 'SlideShareServiceError':
 				$error = $this->xml->Message;
 				throw new SlideshareServiceException((string) $error, (int) $error['ID']);
 			default:
