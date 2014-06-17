@@ -46,18 +46,17 @@ class SlideshareHttpRequest
 	{
 		try {
 			add_filter('https_ssl_verify', '__return_false');
-		
-			if('post' == strtolower($method)) {
+
+            $method = strtolower($method);
+			if(in_array($method, array('get', 'post'))) {
 				$http = array(
-					'method'      => 'POST',
-					'headers'     => $headers,
-					'content'     => $data
-				);
-			} elseif('get' == strtolower($method)) {		
-				$http = array(
-					'method'      => 'GET',
+					'method'      => strtoupper($method),
 					'headers'     => $headers,
 				);
+                
+                if('post' == $method) {
+                    $http['content'] = $data;
+                }
 			} else {
 				throw new SlideshareHttpException(__('HTTP error'), __("The HTTP method '$method' is not allowed"));
 			}
@@ -122,7 +121,7 @@ class SlideshareHttpRequest
 	 */
 	protected function getServiceURL() 
 	{
-		return SLIDESHARE_API_URL.$this->service.'?'.$this->getQueryString().'&'.$this->credentials->getQueryString();
+		return SLIDESHARE_API_URL.$this->service.'?'.$this->getQueryString();
 	}
 	
 	/**
@@ -134,6 +133,6 @@ class SlideshareHttpRequest
 	 */
 	protected function getQueryString() 
 	{
-		return http_build_query($this->parameters);
+		return http_build_query($this->parameters).'&'.$this->credentials->getQueryString();
 	}
 }

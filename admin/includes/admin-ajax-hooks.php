@@ -23,9 +23,9 @@ function action_ajax_import()
 	else
 		$result = get_user_slideshares($user, array('detailed' => 1));
 
-	if(is_wp_error($result))
-		SlideshareAjaxResponse::error($result);
-	else {
+	if(is_wp_error($result)) {
+        SlideshareAjaxResponse::error($result);
+	} else {
 		$data = array(
 			'slideshows_count' => $result->getCount(),
 			'slideshare_user'  => $result->getName(),

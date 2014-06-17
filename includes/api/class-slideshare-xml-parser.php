@@ -33,14 +33,16 @@ class SlideshareXMLParser
 	 * @return SlideshareModel|null
 	 * @throws SlideshareException, SlideshareServiceException
 	 */
-	public function parse()
+	public function parse($object = null)
 	{
 		switch($this->xml->getName()) {
 			case 'User':
-				$object = new User();
+                if(null === $object)
+                    $object = new User();
 				return $object->loadFromXML($this->xml);
 			case 'Slideshow':
-				$object = new Slideshow();
+                if(null === $object)
+                    $object = new Slideshow();
 				return $object->loadFromXML($this->xml);
 			case 'SlideShareServiceError':
 				$error = $this->xml->Message;

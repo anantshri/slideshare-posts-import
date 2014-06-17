@@ -38,8 +38,22 @@ function get_user_slideshares($user, $optional = array(), $username = null, $pas
 	} else {
 		try {
 			$service = new SlideshareUserService($apiKey, $apiSecret, $username, $password);
-			$response = $service->getSlideshows($user, $username, $password, $optional);
-			return $response->parse();
+            $offset = 0;
+            $limit = 20;
+            $optional = array_merge($optional, array('limit' => $limit, 'offset' => $offset));
+            $model = new User();
+            
+            while($offset <= $model->getCount()) {
+                error_log('offset: '.$optional['offset'].', count: '.$model->getCount());
+                
+                $response = $service->getSlideshows($user, $username, $password, $optional);
+                $model = $response->parse($model);
+                $offset = $offset + $limit;
+                $optional['offset'] = $offset;
+            }
+			return $model;
+            // $response = $service->getSlideshows($user, $username, $password, $optional);
+            // return $response->parse();
 		} catch(SlideshareServiceException $exception) {
 			return new WP_Error($exception->getCode(), $exception->getMessage());
 		} catch(SlideshareException $exception) {

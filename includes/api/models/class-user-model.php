@@ -12,8 +12,8 @@
  */	
 class User extends SlideshareModel
 {
-	private $name;
-	private $count;
+	private $name = null;
+	private $count = 0;
 	private $slideshows = array();
 	
 	/**

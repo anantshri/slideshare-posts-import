@@ -39,7 +39,7 @@ class SlideshareHttpResponse
  	 *
  	 * @since    1.0.0
 	 */
-	public function parse()
+	public function parse($object = null)
 	{
 		if(!$this->data) {
 			throw new SlideshareHttpException(__("HTTP error"), __("Slideshare HTTP error on received data"));
@@ -53,7 +53,7 @@ class SlideshareHttpResponse
 				$parser = new SlideshareXMLParser(utf8_encode($this->data));
 				
 				try {
-					$result = $parser->parse();
+					$result = $parser->parse($object);
 					
 					if($result instanceof SlideshareModel) {
 						return $result;

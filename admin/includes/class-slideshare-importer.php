@@ -27,7 +27,8 @@ class SlideshareImporter
 	public function import()
 	{
 		foreach($this->slideshows as $slideshow) {
-			if($post_id = $this->checkIfExists($slideshow->getId())) {
+            $post_id = $this->checkIfExists($slideshow->getId());
+			if($post_id) {
 				$this->posts['skiped'][] = get_post($post_id);
 			} else {
 				try {
@@ -112,7 +113,8 @@ class SlideshareImporter
 		          	'value' => $slideshare_id
 		      	)
 		  	),
-		  	'fields' => 'ids'
+		  	'fields' => 'ids',
+            'post_status' => 'any'
 		);
 		
 		// perform the query
