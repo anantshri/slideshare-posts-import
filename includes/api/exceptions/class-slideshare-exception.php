@@ -12,13 +12,16 @@
  */
 class SlideshareException extends Exception
 {
+    const SLIDESHARE_ERROR_PAGE = 100;
+    
 	private $label;
 	
 	/**
 	 * Constructor
 	 *
-	 * @param string $label The error label
+	 * @param string|int $label The error label or code
 	 * @param string $message The error message
+	 * @param int $code The optional error code
 	 *
 	 * @since    1.0.0
 	 */
@@ -31,7 +34,7 @@ class SlideshareException extends Exception
 	/**
 	 * Get label
 	 *
-	 * @return string The error label
+	 * @return string|int The error label or code
 	 *
 	 * @since    1.0.0
 	 */

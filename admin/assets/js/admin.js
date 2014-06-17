@@ -8,7 +8,7 @@ String.prototype.nl2br = function()
     return this.replace(/\n/g, "<br />");
 };
 
-(function($) {
+(function(window, $) {
 	"use strict";
 	
 	/**
@@ -35,7 +35,12 @@ String.prototype.nl2br = function()
 			$('#slideshare-import').removeAttr('disabled');
 	};
 
-	$(function() {
+    function openErrorPopup(body) {
+        var popup = window.open('', '_self');
+        popup.document.write(body);
+    }
+
+	$(function(window) {
 		/*
 		 * Import submission handler
 		 */
@@ -53,7 +58,7 @@ String.prototype.nl2br = function()
 					nonce: $('#_wpnonce').val(),
 					memory: $('#memory').val() 
 				},
-			    dataType : "json",
+                dataType : "json",
 			    success: function(response) {
 					
 					displayActivityIndicator('#slideshare-import-container', false);
@@ -82,15 +87,24 @@ String.prototype.nl2br = function()
 						// fillSlideshowsTable(response.data);
 						// $('#slideshare-list').show();
 			        } else {
+                        // console.log(response);
 						for(var code in response.data.errors) {
-							var message = code + ' : ' + response.data.errors[code].join("<br/>");
-							setNoticeMessage(SlideshareAjaxParams.default_error_label, message, true);
+                            var label = '';
+                            var message = '';
+                            
+                            if(code == 100) { // SlideshareException::SLIDESHARE_ERROR_PAGE
+                                openErrorPopup(response.data.errors[code][0]);
+                            } else {
+                                message = code + ' : ' + response.data.errors[code].join("<br/>");
+                                setNoticeMessage('Error', message, true);
+                            }
 						}
 			        }
 					displayNoticeContainer(true, true);
 					disableImportButton(false);
 			    },
 			    error: function(response, textStatus, errorThrown) {
+                        // console.log(response);
 					displayActivityIndicator('#slideshare-import-container', false);
 					var message = typeof errorThrown == 'object' ? errorThrown.stack : errorThrown;
 					setNoticeMessage(textStatus, message.nl2br(), true);
@@ -102,4 +116,4 @@ String.prototype.nl2br = function()
 
 	});
 
-})(jQuery);
+})(window, jQuery);
