@@ -43,9 +43,7 @@ function get_user_slideshares($user, $optional = array(), $username = null, $pas
             $optional = array_merge($optional, array('limit' => $limit, 'offset' => $offset));
             $model = new User();
             
-            while($offset <= $model->getCount()) {
-                error_log('offset: '.$optional['offset'].', count: '.$model->getCount());
-                
+            while($offset <= $model->getCount()) {                
                 $response = $service->getSlideshows($user, $username, $password, $optional);
                 $model = $response->parse($model);
                 $offset = $offset + $limit;
